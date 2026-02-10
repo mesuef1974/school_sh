@@ -1,0 +1,18 @@
+{
+  "name": "school-sh",
+  "version": "1.0.0",
+  "description": "AI-Powered Data Management & Analysis Platform",
+  "scripts": {
+    "build": "echo 'No build script needed for Django project'"
+  },
+  "keywords": [
+    "django",
+    "analytics",
+    "vercel"
+  ],
+  "author": "Mesuef",
+  "license": "MIT",
+  "dependencies": {
+    "@vercel/analytics": "^1.4.1"
+  }
+}

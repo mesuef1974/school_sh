@@ -38,6 +38,9 @@ venv/
 ENV/
 .venv/
 
+# Node
+node_modules/
+
 # Large Data Files
 *.accdb
 *.mdb
