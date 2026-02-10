@@ -1,0 +1,172 @@
+{% extends "admin/base_site.html" %}
+{% load i18n %}
+
+{% block extrastyle %}
+{{ block.super }}
+<style>
+    .activity-wrap { padding: 16px; }
+    .activity-filters {
+        display: grid;
+        grid-template-columns: repeat(6, minmax(0, 1fr));
+        gap: 8px;
+        background: #fff;
+        border: 1px solid #e5e7eb;
+        border-radius: 10px;
+        padding: 12px;
+        margin-bottom: 12px;
+    }
+    .activity-filters label { font-size: 0.75rem; color: #6b7280; display: block; margin-bottom: 4px; }
+    .activity-filters select,
+    .activity-filters input {
+        width: 100%;
+        padding: 6px 8px;
+        border: 1px solid #d1d5db;
+        border-radius: 8px;
+        font-size: 0.8rem;
+    }
+    .activity-actions { display: flex; align-items: end; gap: 8px; }
+    .btn-filter {
+        background: #3b82f6;
+        color: #fff;
+        border: none;
+        padding: 8px 12px;
+        border-radius: 8px;
+        font-weight: 700;
+        cursor: pointer;
+    }
+    .btn-reset {
+        background: #f3f4f6;
+        color: #111827;
+        border: 1px solid #e5e7eb;
+        padding: 8px 12px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: 700;
+    }
+    .activity-table {
+        width: 100%;
+        border-collapse: collapse;
+        background: #fff;
+        border: 1px solid #e5e7eb;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+    .activity-table th, .activity-table td {
+        padding: 8px 10px;
+        border-bottom: 1px solid #f1f5f9;
+        text-align: right;
+        font-size: 0.8rem;
+    }
+    .activity-table th { background: #f8fafc; font-weight: 800; }
+    .activity-table tr:hover { background: #f9fafb; }
+    .badge {
+        display: inline-block;
+        padding: 2px 8px;
+        border-radius: 999px;
+        font-size: 0.7rem;
+        font-weight: 800;
+        color: #fff;
+    }
+    .badge.add { background: #10b981; }
+    .badge.change { background: #3b82f6; }
+    .badge.delete { background: #ef4444; }
+    @media (max-width: 1200px) {
+        .activity-filters { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="activity-wrap">
+    <h1>{{ title }}</h1>
+
+    <form method="get" class="activity-filters">
+        <div>
+            <label>المستخدم</label>
+            <select name="user">
+                <option value="">الكل</option>
+                {% for u in users %}
+                <option value="{{ u.id }}" {% if filters.user == u.id|stringformat:"s" %}selected{% endif %}>
+                    {{ u.get_full_name|default:u.username }}
+                </option>
+                {% endfor %}
+            </select>
+        </div>
+        <div>
+            <label>نوع العملية</label>
+            <select name="action">
+                <option value="">الكل</option>
+                {% for key, label in action_choices %}
+                <option value="{{ key }}" {% if filters.action == key|stringformat:"s" %}selected{% endif %}>{{ label }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div>
+            <label>النموذج</label>
+            <select name="content_type">
+                <option value="">الكل</option>
+                {% for ct in content_types %}
+                <option value="{{ ct.id }}" {% if filters.content_type == ct.id|stringformat:"s" %}selected{% endif %}>
+                    {{ ct.app_label }}.{{ ct.model }}
+                </option>
+                {% endfor %}
+            </select>
+        </div>
+        <div>
+            <label>من تاريخ</label>
+            <input type="date" name="date_from" value="{{ filters.date_from }}">
+        </div>
+        <div>
+            <label>إلى تاريخ</label>
+            <input type="date" name="date_to" value="{{ filters.date_to }}">
+        </div>
+        <div>
+            <label>بحث</label>
+            <input type="text" name="q" value="{{ filters.q }}" placeholder="اسم الكائن أو الرسالة">
+        </div>
+        <div class="activity-actions">
+            <button class="btn-filter" type="submit">تصفية</button>
+            <a class="btn-reset" href="{% url 'admin:activity_report' %}">إعادة تعيين</a>
+        </div>
+    </form>
+
+    <table class="activity-table">
+        <thead>
+            <tr>
+                <th>التوقيت</th>
+                <th>المستخدم</th>
+                <th>العملية</th>
+                <th>النموذج</th>
+                <th>العنصر</th>
+                <th>التفاصيل</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for entry in entries %}
+            <tr>
+                <td>{{ entry.action_time|date:"Y-m-d H:i" }}</td>
+                <td>{{ entry.user }}</td>
+                <td>
+                    {% if entry.action_flag == 1 %}
+                        <span class="badge add">إضافة</span>
+                    {% elif entry.action_flag == 2 %}
+                        <span class="badge change">تعديل</span>
+                    {% elif entry.action_flag == 3 %}
+                        <span class="badge delete">حذف</span>
+                    {% else %}
+                        <span class="badge change">تحديث</span>
+                    {% endif %}
+                </td>
+                <td>{{ entry.content_type.app_label }}.{{ entry.content_type.model }}</td>
+                <td>{{ entry.object_repr }}</td>
+                <td>{{ entry.change_message|default:"-" }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="6">لا توجد نتائج مطابقة.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

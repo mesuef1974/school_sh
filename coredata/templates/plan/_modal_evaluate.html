@@ -1,0 +1,272 @@
+{% load static %}
+<div class="modal-backdrop" onclick="closeModalInModal()">
+    <div class="modal-content" onclick="event.stopPropagation()">
+
+        <!-- 1. Compact Header (Branded) -->
+        <div class="modal-header branded-header">
+            <div class="header-brand">
+                <div class="header-icon-box">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                </div>
+                <div class="header-titles">
+                    <h3>تقييم الأداء والمراجعة</h3>
+                </div>
+            </div>
+            <button type="button" class="close-btn" onclick="closeModalInModal()" title="إغلاق">✕</button>
+        </div>
+
+        <form id="plan-form-evaluate-{{ item.id }}"
+              class="modal-form"
+              hx-post="{% url 'plan_evaluate_save' item.id %}"
+              hx-target="#row-{{ item.id }}"
+              hx-swap="outerHTML"
+              hx-indicator="#save-btn-spinner">
+            {% csrf_token %}
+
+            {% if form.errors %}
+            <div class="error-banner">
+                <strong>يرجى مراجعة البيانات:</strong>
+                <ul>{% for field, errors in form.errors.items %}<li>{{ field }}: {{ errors.0 }}</li>{% endfor %}</ul>
+            </div>
+            {% endif %}
+
+            <!-- 2. Compact Body -->
+            <div class="modal-body">
+
+                <!-- A. Context Cards (Read Only) - New Layout -->
+                <div class="info-grid">
+                    <!-- Row 1 -->
+                    <div class="info-card col-4">
+                        <div class="card-label">السنة الدراسية</div>
+                        <div class="card-value center">{{ item.academic_year.name|default:item.year|default:"-" }}</div>
+                    </div>
+                    <div class="info-card col-4">
+                        <div class="card-label">المجال</div>
+                        <div class="card-value center">{{ item.rank_name|default:"-" }}</div>
+                    </div>
+                    <div class="info-card col-4">
+                        <div class="card-label">مقيّم المجال</div>
+                        <div class="card-value center">{{ evaluator_name|default:"-" }}</div>
+                    </div>
+
+                    <!-- Row 2 -->
+                    <div class="info-card col-2">
+                        <div class="card-label"># الهدف</div>
+                        <div class="card-value number center">{{ item.target_no|default:"-" }}</div>
+                    </div>
+                    <div class="info-card col-10">
+                        <div class="card-label">الهدف الاستراتيجي</div>
+                        <div class="card-value text-content">{{ item.target|default:"-" }}</div>
+                    </div>
+
+                    <!-- Row 3 -->
+                    <div class="info-card col-2">
+                        <div class="card-label"># الإجراء</div>
+                        <div class="card-value number center">{{ item.procedure_no|default:"-" }}</div>
+                    </div>
+                    <div class="info-card col-10">
+                        <div class="card-label">الإجراء التنفيذي</div>
+                        <div class="card-value text-content highlight">{{ item.procedure|default:"-" }}</div>
+                    </div>
+
+                    <!-- Row 4 -->
+                    <div class="info-card col-2">
+                        <div class="card-label"># المؤشر</div>
+                        <div class="card-value number center">{{ item.indicator_no|default:"-" }}</div>
+                    </div>
+                    <div class="info-card col-10">
+                        <div class="card-label">مؤشر الأداء</div>
+                        <div class="card-value text-content">{{ item.indicator|default:"-" }}</div>
+                    </div>
+                </div>
+
+                <!-- Separator -->
+                <div class="separator-bar">
+                    <span class="separator-text">زمن التنفيذ: {{ item.date_range|default:"-" }}</span>
+                </div>
+
+                <!-- B. Evidence Review Section -->
+                <div class="evidence-review-section">
+                    <h4 class="section-title"><i class="fa-solid fa-paperclip"></i> الأدلة المرفقة</h4>
+                    {% if item.evidence_document %}
+                        <div class="evidence-card">
+                            <div class="evidence-icon"><i class="fa-solid fa-file-pdf"></i></div>
+                            <div class="evidence-info">
+                                <span class="evidence-title">{{ item.evidence_document.title }}</span>
+                                <span class="evidence-meta">{{ item.evidence_document.created_at|date:"Y-m-d" }} | {{ item.evidence_document.file.size|filesizeformat }}</span>
+                            </div>
+                            <a href="{{ item.evidence_document.file.url }}" target="_blank" class="btn-view-evidence"><i class="fa-solid fa-eye"></i> معاينة</a>
+                        </div>
+                    {% elif item.evidence_source_file %}
+                        <div class="evidence-card legacy">
+                            <div class="evidence-icon"><i class="fa-solid fa-file"></i></div>
+                            <div class="evidence-info">
+                                <span class="evidence-title">دليل (مسار يدوي)</span>
+                                <span class="evidence-meta">{{ item.evidence_source_file }}</span>
+                            </div>
+                        </div>
+                    {% else %}
+                        <div class="no-evidence"><i class="fa-solid fa-circle-exclamation"></i> لم يتم إرفاق دليل رقمي بعد.</div>
+                    {% endif %}
+                </div>
+
+                <!-- C. Decision Section (Gold Theme) -->
+                <div class="action-section gold-border">
+                    <div class="input-grid">
+                        <div class="input-group">
+                            <label for="id_status">قرار اللجنة</label>
+                            <select name="status" id="id_status" class="form-control gold-focus" data-selected="{{ item.status }}" required>
+                                <option value="In Progress" {% if item.status == "In Progress" %}selected{% endif %}>جاري التنفيذ</option>
+                                <option value="Pending Review" {% if item.status == "Pending Review" %}selected{% endif %}>بانتظار المراجعة</option>
+                                <option value="Completed" {% if item.status == "Completed" %}selected{% endif %}>مكتمل</option>
+                                <option value="Returned" {% if item.status == "Returned" %}selected{% endif %}>اعادة للمنفذ (مرفوض)</option>
+                            </select>
+                        </div>
+
+                        <div class="input-group">
+                            <label for="id_evaluation">التقييم النهائي</label>
+                            <select name="evaluation" id="id_evaluation" class="form-control gold-focus" data-selected="{{ item.evaluation }}">
+                                <option value="">--- اختر التقييم ---</option>
+                                <option value="متحقق" {% if item.evaluation == "متحقق" %}selected{% endif %}>متحقق</option>
+                                <option value="متحقق جزئيا" {% if item.evaluation == "متحقق جزئيا" %}selected{% endif %}>متحقق جزئياً</option>
+                                <option value="غير متحقق" {% if item.evaluation == "غير متحقق" %}selected{% endif %}>غير متحقق</option>
+                            </select>
+                        </div>
+
+                        <div class="input-group">
+                            <label for="id_evidence_source_employee">المقيّم (المسمى الوظيفي)</label>
+                            <input type="text" value="{{ evaluator_name }}" class="form-control gold-focus" readonly style="background-color: #f1f5f9; cursor: not-allowed;">
+                            <input type="hidden" name="evidence_source_employee" value="{{ evaluator_name }}">
+                        </div>
+
+                        <div class="input-group span-full">
+                            <label for="id_evaluation_notes">ملاحظات وتوصيات اللجنة</label>
+                            <textarea name="evaluation_notes" id="id_evaluation_notes" class="form-control textarea gold-focus" placeholder="اكتب توصيات اللجنة هنا...">{{ item.evaluation_notes|default:"" }}</textarea>
+                        </div>
+
+                        <div class="input-group span-full evidence-request-box gold-border">
+                            <div class="checkbox-wrapper">
+                                <button type="button" id="modal-req-btn" class="req-btn-modal {% if item.evidence_requested %}active{% endif %}" onclick="toggleEvidenceRequest(this)">
+                                    <i class="fa-solid fa-hand-holding-medical"></i>
+                                    <span class="btn-text">{% if item.evidence_requested %}تم طلب الدليل{% else %}طلب دليل من المنفذ{% endif %}</span>
+                                </button>
+                                <input type="checkbox" name="evidence_requested" id="id_evidence_requested" class="hidden" {% if item.evidence_requested %}checked{% endif %}>
+                            </div>
+                            <div class="note-wrapper {% if item.evidence_requested %}is-visible{% else %}is-hidden{% endif %}" id="note-wrapper-div">
+                                <label for="id_evidence_request_note">ملاحظة طلب الدليل (ما هو الدليل المطلوب؟)</label>
+                                <textarea name="evidence_request_note" id="id_evidence_request_note" class="form-control textarea gold-focus" placeholder="حدد الدليل المطلوب بوضوح...">{{ item.evidence_request_note|default:"" }}</textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3. Footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" onclick="closeModalInModal()">إلغاء</button>
+                <button type="submit" class="btn btn-primary gold-btn" id="save-btn">
+                    <span class="btn-text">اعتماد التقييم</span>
+                    <span id="save-btn-spinner" class="htmx-indicator spinner-border spinner-border-sm" role="status" aria-hidden="true" style="margin-right: 8px;"></span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<style>
+    :root {
+        --maroon-deep: #5b0e2d;
+        --gold-accent: #c7a43c;
+        --gold-light: #fefce8;
+        --gold-border: #fde047;
+        --gray-bg: #f8fafc;
+        --gray-border: #e2e8f0;
+        --text-dark: #0f172a;
+        --text-muted: #64748b;
+    }
+    .modal-backdrop { position: fixed; inset: 0; z-index: 1100; background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(4px); display: flex; align-items: center; justify-content: center; animation: fadeIn 0.2s ease-out; }
+    .modal-content { background: #fff; width: 95vw; max-width: 980px; height: auto; max-height: 95vh; border-radius: 12px; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); display: flex; flex-direction: column; overflow: hidden; animation: slideUp 0.3s ease-out; }
+    .modal-header.branded-header { padding: 0.8rem 1.5rem; display: flex; justify-content: space-between; align-items: center; flex-shrink: 0; }
+    .header-brand { display: flex; align-items: center; gap: 0.8rem; }
+    .header-icon-box { color: var(--gold-accent); }
+    .header-titles h3 { margin: 0; font-family: 'Tajawal', sans-serif; font-weight: 700; font-size: 1.1rem; }
+    .close-btn { background: none; border: none; color: white; font-size: 1.5rem; cursor: pointer; opacity: 0.8; line-height: 1; padding: 0 0.5rem; display: flex; align-items: center; }
+    .close-btn:hover { opacity: 1; }
+    .modal-form { display: flex; flex-direction: column; flex: 1; overflow: hidden; }
+    .modal-body { flex: 1; padding: 1.5rem; background: var(--gray-bg); display: flex; flex-direction: column; gap: 1.5rem; overflow-y: auto; }
+    .info-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 0.8rem; }
+    .info-card { background: white; border: 1px solid var(--gray-border); border-radius: 6px; padding: 0.6rem 0.8rem; display: flex; flex-direction: column; justify-content: center; min-height: 60px; }
+    .card-label { font-size: 0.7rem; font-weight: 700; color: var(--text-muted); margin-bottom: 0.2rem; font-family: 'Tajawal', sans-serif; }
+    .card-value { font-size: 0.95rem; font-weight: 600; color: var(--text-dark); font-family: 'Amiri', serif; line-height: 1.3; }
+    .card-value.center { text-align: center; }
+    .card-value.text-content { white-space: normal; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+    .card-value.highlight { color: var(--maroon-deep); }
+    .col-2 { grid-column: span 2; }
+    .col-4 { grid-column: span 4; }
+    .col-10 { grid-column: span 10; }
+    .separator-bar { text-align: center; padding: 0.8rem; margin: 0.5rem 0; background: #f1f5f9; border-radius: 6px; border-top: 2px solid var(--gray-border); border-bottom: 2px solid var(--gray-border); }
+    .separator-text { font-size: 1.2rem; font-weight: 800; color: var(--maroon-deep); font-family: 'Tajawal', sans-serif; }
+    .evidence-review-section { background: white; border: 1px solid var(--gray-border); border-radius: 8px; padding: 1rem; }
+    .section-title { font-size: 0.85rem; font-weight: 700; color: var(--text-muted); margin: 0 0 0.8rem 0; display: flex; align-items: center; gap: 0.5rem; }
+    .evidence-card { display: flex; align-items: center; gap: 1rem; background: #f0f9ff; border: 1px solid #bae6fd; padding: 0.8rem; border-radius: 6px; }
+    .evidence-card.legacy { background: #f8fafc; border-color: #e2e8f0; }
+    .evidence-icon { font-size: 1.5rem; color: #0284c7; }
+    .evidence-info { flex: 1; display: flex; flex-direction: column; }
+    .evidence-title { font-weight: 700; font-size: 0.9rem; color: #0f172a; }
+    .evidence-meta { font-size: 0.75rem; color: #64748b; }
+    .btn-view-evidence { background: #0284c7; color: white; padding: 0.4rem 0.8rem; border-radius: 4px; font-size: 0.8rem; font-weight: 700; text-decoration: none; display: flex; align-items: center; gap: 0.4rem; transition: background 0.2s; }
+    .btn-view-evidence:hover { background: #0369a1; }
+    .no-evidence { text-align: center; padding: 1rem; color: #94a3b8; font-size: 0.9rem; background: #f8fafc; border-radius: 6px; border: 1px dashed #cbd5e1; }
+    .action-section.gold-border { background: #fffdf5; border: 1px solid #fef08a; border-radius: 8px; padding: 1.2rem; border-top: 3px solid var(--gold-accent); }
+    .input-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+    .input-group { display: flex; flex-direction: column; gap: 0.4rem; }
+    .input-group.span-full { grid-column: 1 / -1; }
+    .input-group label { font-weight: 700; font-size: 0.85rem; color: #854d0e; font-family: 'Tajawal', sans-serif; }
+    .form-control { width: 100%; padding: 0.5rem 0.8rem; border: 1px solid #e2e8f0; border-radius: 6px; font-family: 'Amiri', serif; font-size: 0.95rem; background: #fff; }
+    .form-control.gold-focus:focus { border-color: var(--gold-accent); box-shadow: 0 0 0 3px rgba(199, 164, 60, 0.15); outline: none; }
+    .evidence-request-box { background: #fffdf0; padding: 1rem; border-radius: 8px; border: 1px solid var(--gold-border) !important; display: flex; flex-direction: column; gap: 1rem; }
+    .req-btn-modal { display: flex; align-items: center; gap: 8px; padding: 10px 20px; border-radius: 8px; font-weight: 700; font-family: 'Tajawal', sans-serif; cursor: pointer; transition: all 0.3s; border: 2px solid #e2e8f0; background: white; color: #64748b; }
+    .req-btn-modal:hover { background: #f8fafc; border-color: #cbd5e1; }
+    .req-btn-modal.active { background: #fee2e2; color: #dc2626; border-color: #ef4444; box-shadow: 0 0 15px rgba(239, 68, 68, 0.2); }
+    .hidden { display: none; }
+    .is-visible { display: block; }
+    .is-hidden { display: none; }
+    .checkbox-wrapper { display: flex; align-items: center; gap: 0.75rem; }
+    .note-wrapper { padding-top: 0.5rem; border-top: 1px dashed var(--gold-border); }
+    .form-control.textarea { min-height: 60px; resize: none; text-align: right; }
+    .modal-footer { padding: 0.8rem 1.5rem; background: white; border-top: 1px solid var(--gray-border); display: flex; justify-content: flex-end; gap: 0.8rem; flex-shrink: 0; }
+    .btn { padding: 0.5rem 1.2rem; border-radius: 6px; font-weight: 700; font-family: 'Tajawal', sans-serif; cursor: pointer; border: none; font-size: 0.9rem; }
+    .btn-secondary { background: #f1f5f9; color: var(--text-dark); }
+    .btn-primary.gold-btn { background: var(--gold-accent); color: white; }
+    .btn-primary.gold-btn:hover { background: #a18225; }
+    .error-banner { margin: 0.5rem 1.5rem 0; padding: 0.5rem; background: #fef2f2; border: 1px solid #fee2e2; color: #991b1b; border-radius: 6px; font-size: 0.85rem; }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+</style>
+
+<script>
+    function closeModalInModal() {
+        const modal = document.querySelector('.modal-backdrop');
+        if (modal) {
+            modal.style.opacity = '0';
+            setTimeout(() => modal.remove(), 200);
+        }
+    }
+    function toggleEvidenceRequest(btn) {
+        const chk = document.getElementById('id_evidence_requested');
+        const noteWrapper = document.getElementById('note-wrapper-div');
+        const btnText = btn.querySelector('.btn-text');
+        chk.checked = !chk.checked;
+        btn.classList.toggle('active');
+        if (chk.checked) {
+            noteWrapper.classList.remove('is-hidden');
+            noteWrapper.classList.add('is-visible');
+            btnText.innerText = 'تم طلب الدليل';
+        } else {
+            noteWrapper.classList.remove('is-visible');
+            noteWrapper.classList.add('is-hidden');
+            btnText.innerText = 'طلب دليل من المنفذ';
+        }
+    }
+    document.addEventListener('keydown', function(event) { if (event.key === 'Escape') closeModalInModal(); });
+</script>

@@ -1,0 +1,392 @@
+{% load static %}
+<div class="modal-backdrop" onclick="closeModal()">
+    <div class="modal-content" onclick="event.stopPropagation()">
+        <!-- Header -->
+        <div class="modal-header branded-header">
+            <div class="header-title-group">
+                <div class="icon-circle">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#c7a43c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="2"/><path d="M9 14h6"/><path d="M9 18h6"/><path d="M9 10h2"/></svg>
+                </div>
+                <!-- Increased font size for title -->
+                <h3 class="modal-title" style="font-size: 24px;">بطاقة مؤشر الأداء <span class="badge" style="font-size: 18px;">#{{ item.id }}</span></h3>
+            </div>
+            <button type="button" class="close-btn" onclick="closeModal()" style="font-size: 16px; padding: 8px 16px;">إغلاق (ESC)</button>
+        </div>
+
+        <form id="plan-form-{{ item.id }}"
+              class="modal-form"
+              onsubmit="submitForm(event, '{% url 'plan_update' item.id %}')">
+            {% csrf_token %}
+
+            <!-- Error Message Container -->
+            {% if form.errors %}
+            <div class="error-banner">
+                <p>يرجى تصحيح الأخطاء التالية:</p>
+                <ul>
+                {% for field, errors in form.errors.items %}
+                    <li>{{ field }}: {{ errors.0 }}</li>
+                {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+
+            <!-- SECTION 0: READ ONLY CONTEXT -->
+            <div class="context-section">
+                <h4 class="section-label" style="font-size: 16px;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#c7a43c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+                    بيانات تنفيذ الإجراء (للقراءة فقط)
+                </h4>
+                <div class="context-grid">
+                    <!-- Row 1 -->
+                    <div class="context-item col-span-1">
+                        <label style="font-size: 14px;">السنة</label>
+                        <div class="value-box center" style="font-size: 18px;">{{ item.year|default:"-" }}</div>
+                    </div>
+                    <div class="context-item col-span-2">
+                        <label style="font-size: 14px;">المجال</label>
+                        <div class="value-box" title="{{ item.rank_name }}" style="font-size: 18px;">{{ item.rank_name|default:"-"|truncatechars:25 }}</div>
+                    </div>
+                    <div class="context-item col-span-3">
+                        <label style="font-size: 14px;">منفذ الاجراء</label>
+                        <div class="value-box" title="{{ item.executor }}" style="font-size: 18px;">{{ item.executor|default:"-"|truncatechars:35 }}</div>
+                    </div>
+                    <div class="context-item col-span-4">
+                        <label style="font-size: 14px;">الملف (المخطط)</label>
+                        <div class="value-box" title="{{ item.evidence_source_file }}" style="font-size: 18px;">{{ item.evidence_source_file|default:"-"|truncatechars:45 }}</div>
+                    </div>
+                    <div class="context-item col-span-2">
+                        <label style="font-size: 14px;">زمن التنفيذ</label>
+                        <div class="value-box center" style="font-size: 18px;">{{ item.date_range|default:"-" }}</div>
+                    </div>
+
+                    <!-- Row 2 -->
+                    <div class="context-item col-span-6">
+                        <label style="font-size: 14px;">الهدف</label>
+                        <div class="value-box" title="{{ item.target }}" style="font-size: 18px;">{{ item.target|default:"-"|truncatechars:60 }}</div>
+                    </div>
+                    <div class="context-item col-span-6">
+                        <label style="font-size: 14px;">الاجراء ({{ item.indicator_no|default:item.indicator_item_no|default:"-" }})</label>
+                        <div class="value-box" title="{{ item.indicator }}" style="font-size: 18px;">{{ item.indicator|default:"-"|truncatechars:60 }}</div>
+                    </div>
+
+                    <!-- Row 3 -->
+                    <div class="context-item col-span-12">
+                        <label style="font-size: 14px;">الإجراء التنفيذي</label>
+                        <div class="value-box highlight" title="{{ item.procedure }}" style="font-size: 20px; line-height: 1.6;">{{ item.procedure|default:"-" }}</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SPLIT SECTIONS CONTAINER -->
+            <div class="split-container">
+                <!-- SECTION 1: EXECUTOR INPUTS (Left Side) -->
+                <div class="split-section executor-section">
+                    <div class="section-header">
+                        <span class="step-number">1</span>
+                        <h4 style="font-size: 20px;">تحديث بيانات الإجراء</h4>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group half">
+                            <label for="id_follow_up" style="font-size: 16px;">المتابعة</label>
+                            <select name="follow_up" id="id_follow_up" class="form-control" style="font-size: 18px; padding: 10px;">
+                                <option value="">اختر الحالة...</option>
+                                {% for option in follow_up_options %}
+                                <option value="{{ option }}" {% if item.follow_up == option %}selected{% endif %}>{{ option }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="form-group half">
+                            <label for="id_evidence_type" style="font-size: 16px;">نوع المؤشر</label>
+                            <select name="evidence_type" id="id_evidence_type" class="form-control" style="font-size: 18px; padding: 10px;">
+                                <option value="">اختر النوع...</option>
+                                {% for option in evidence_type_options %}
+                                <option value="{{ option }}" {% if item.evidence_type == option %}selected{% endif %}>{{ option }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="id_evidence_source_file" style="font-size: 16px;">مصدر الدليل</label>
+                        <select name="evidence_source_file" id="id_evidence_source_file" class="form-control" style="font-size: 18px; padding: 10px;">
+                            <option value="">اختر الملف...</option>
+                            {% for file in school_files %}
+                            <option value="{{ file }}" {% if item.evidence_source_file == file %}selected{% endif %}>{{ file }}</option>
+                            {% endfor %}
+                            {% if item.evidence_source_file and item.evidence_source_file not in school_files %}
+                            <option value="{{ item.evidence_source_file }}" selected>{{ item.evidence_source_file }}</option>
+                            {% endif %}
+                        </select>
+                    </div>
+
+                    <div class="form-group flex-grow">
+                        <label for="id_comments" style="font-size: 16px;">ملاحظات</label>
+                        <textarea name="comments" id="id_comments" class="form-control full-height" style="font-size: 18px; padding: 12px; line-height: 1.6;" placeholder="اكتب ملاحظاتك هنا...">{{ item.comments|default:"" }}</textarea>
+                    </div>
+                </div>
+
+                <!-- SECTION 2: COMMITTEE INPUTS (Right Side) -->
+                <div class="split-section committee-section">
+                    <div class="section-header gold">
+                        <span class="step-number gold">2</span>
+                        <h4 style="font-size: 20px;">قرار لجنة المراجعة الذاتية</h4>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group half">
+                            <label for="id_evaluation" style="font-size: 16px;">التقييم</label>
+                            <select name="evaluation" id="id_evaluation" class="form-control gold-border" style="font-size: 18px; padding: 10px;">
+                                <option value="">اختر التقييم...</option>
+                                {% for option in evaluation_options %}
+                                <option value="{{ option }}" {% if item.evaluation == option %}selected{% endif %}>{{ option }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="form-group half">
+                            <label for="id_evidence_source_employee" style="font-size: 16px;">المقييم</label>
+                            <input type="text" name="evidence_source_employee" id="id_evidence_source_employee" list="executors-list" value="{{ item.evidence_source_employee|default:'' }}" class="form-control gold-border" style="font-size: 18px; padding: 10px;" placeholder="اختر المسمى...">
+                            <datalist id="executors-list">
+                                {% for exc in executors %}
+                                    <option value="{{ exc }}">
+                                {% endfor %}
+                            </datalist>
+                        </div>
+                    </div>
+
+                    <div class="form-group flex-grow">
+                        <label for="id_evaluation_notes" style="font-size: 16px;">ملاحظات القرار</label>
+                        <textarea name="evaluation_notes" id="id_evaluation_notes" class="form-control gold-border full-height" style="font-size: 18px; padding: 12px; line-height: 1.6;" placeholder="ملاحظات اللجنة...">{{ item.evaluation_notes|default:"" }}</textarea>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary" id="save-btn" style="font-size: 18px; padding: 12px 24px;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+                    حفظ التغييرات
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<style>
+    /* Scoped Styles for Modal */
+    .modal-backdrop {
+        position: fixed; inset: 0; z-index: 1000;
+        background: rgba(17, 24, 39, 0.8);
+        backdrop-filter: blur(4px);
+        display: flex; align-items: center; justify-content: center;
+        animation: fadeIn 0.2s ease-out;
+    }
+
+    .modal-content {
+        background: white; width: 98vw; max-width: 1400px; height: 90vh;
+        border-radius: 12px; overflow: hidden; display: flex; flex-direction: column;
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        animation: slideUp 0.3s ease-out;
+    }
+
+    /* Header Styles are now handled by .branded-header in style.css */
+    .modal-header {
+        padding: 1rem 2rem; /* Increased padding */
+        display: flex; justify-content: space-between; align-items: center;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); z-index: 10;
+    }
+
+    .header-title-group, .close-btn { z-index: 1; }
+
+    .header-title-group { display: flex; align-items: center; gap: 1rem; }
+    .icon-circle {
+        width: 40px; height: 40px; border-radius: 50%; background: rgba(255,255,255,0.1);
+        display: flex; align-items: center; justify-content: center; border: 1px solid rgba(255,255,255,0.2);
+    }
+    .modal-title { margin: 0; font-family: 'Tajawal', sans-serif; font-weight: 700; }
+    .close-btn {
+        background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.1);
+        color: white; border-radius: 6px; font-weight: 700;
+        cursor: pointer; transition: all 0.2s;
+    }
+    .close-btn:hover { background: rgba(255,255,255,0.2); }
+
+    /* Form Layout */
+    .modal-form { display: flex; flex-direction: column; flex: 1; overflow: hidden; }
+
+    /* Error Banner */
+    .error-banner {
+        background-color: #fee2e2; border-left: 4px solid #dc2626; color: #b91c1c;
+        padding: 1rem; margin: 1rem 1.5rem 0; border-radius: 4px; font-size: 16px;
+    }
+    .error-banner ul { margin: 0.5rem 0 0 1.5rem; padding: 0; }
+
+    /* Context Section (Read Only) */
+    .context-section {
+        background: white; padding: 1.5rem 2rem; border-bottom: 1px solid #e5e7eb;
+        flex-shrink: 0;
+    }
+    .section-label {
+        color: #5b0e2d; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em;
+        margin-bottom: 1rem; display: flex; align-items: center; gap: 0.75rem;
+    }
+    .context-grid {
+        display: grid; grid-template-columns: repeat(12, 1fr); gap: 1rem;
+    }
+    .context-item label {
+        display: block; font-weight: 700; color: #9ca3af; margin-bottom: 0.25rem;
+    }
+    .value-box {
+        background: #f3f4f6; border: 1px solid #e5e7eb; border-radius: 6px;
+        padding: 0.5rem 1rem; font-weight: 600; color: #1f2937;
+        white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+        font-family: 'Amiri', serif;
+    }
+    .value-box.center { text-align: center; }
+    .value-box.highlight { background: #fffbeb; border-color: #fcd34d; color: #92400e; white-space: normal; }
+    .col-span-1 { grid-column: span 1; } .col-span-2 { grid-column: span 2; }
+    .col-span-3 { grid-column: span 3; } .col-span-4 { grid-column: span 4; }
+    .col-span-6 { grid-column: span 6; } .col-span-12 { grid-column: span 12; }
+
+    /* Split Sections */
+    .split-container { display: flex; flex: 1; overflow: hidden; }
+    .split-section {
+        flex: 1; padding: 2rem; display: flex; flex-direction: column; gap: 1.5rem;
+        position: relative;
+    }
+    .executor-section { background: white; border-left: 1px solid #e5e7eb; }
+    .executor-section::before {
+        content: ''; position: absolute; right: 0; top: 0; bottom: 0; width: 6px; background: #5b0e2d;
+    }
+    .committee-section { background: #fffdf5; }
+    .committee-section::before {
+        content: ''; position: absolute; right: 0; top: 0; bottom: 0; width: 6px; background: #c7a43c;
+    }
+
+    .section-header { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem; }
+    .section-header h4 { margin: 0; font-weight: 700; color: #5b0e2d; font-family: 'Tajawal', sans-serif; }
+    .step-number {
+        width: 28px; height: 28px; background: #5b0e2d; color: white; border-radius: 50%;
+        display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 700;
+    }
+    .section-header.gold h4 { color: #854d0e; }
+    .step-number.gold { background: #c7a43c; }
+
+    /* Inputs */
+    .form-row { display: flex; gap: 1.5rem; }
+    .form-group { display: flex; flex-direction: column; gap: 0.5rem; }
+    .form-group.half { flex: 1; }
+    .form-group.flex-grow { flex: 1; display: flex; flex-direction: column; }
+
+    .form-group label { font-weight: 700; color: #374151; font-family: 'Tajawal', sans-serif; }
+    .form-control {
+        width: 100%; font-weight: 600;
+        border: 1px solid #d1d5db; border-radius: 8px; background: white;
+        transition: all 0.2s; font-family: 'Amiri', serif;
+    }
+    .form-control:focus { outline: none; border-color: #5b0e2d; box-shadow: 0 0 0 2px rgba(91, 14, 45, 0.2); }
+
+    .form-control.gold-border { border-color: #e8d2a6; }
+    .form-control.gold-border:focus { border-color: #c7a43c; box-shadow: 0 0 0 2px rgba(199, 164, 60, 0.2); }
+
+    .full-height { flex: 1; resize: none; }
+
+    /* Footer */
+    .modal-footer {
+        padding: 1.5rem 2rem; background: white; border-top: 1px solid #e5e7eb;
+        display: flex; justify-content: flex-end; flex-shrink: 0;
+    }
+    .btn-primary {
+        background: #5b0e2d; color: white; border-radius: 8px;
+        font-weight: 700; border: none; cursor: pointer;
+        display: flex; align-items: center; gap: 0.75rem; transition: background 0.2s;
+        font-family: 'Tajawal', sans-serif;
+    }
+    .btn-primary:hover { background: #3d071c; }
+    .btn-primary:disabled { opacity: 0.7; cursor: not-allowed; }
+
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+</style>
+
+<script>
+    function closeModal() {
+        const modal = document.querySelector('.modal-backdrop');
+        if (modal) {
+            modal.style.opacity = '0';
+            setTimeout(() => modal.remove(), 200);
+        }
+    }
+
+    // Close on ESC key
+    document.addEventListener('keydown', function(event) {
+        if (event.key === 'Escape') {
+            closeModal();
+        }
+    });
+
+    // Manual Form Submission
+    function submitForm(event, url) {
+        event.preventDefault();
+        const form = event.target;
+        const formData = new FormData(form);
+        const btn = document.getElementById('save-btn');
+
+        // Disable button to prevent double submit
+        btn.disabled = true;
+        btn.innerHTML = 'جاري الحفظ...';
+
+        fetch(url, {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest'
+            }
+        })
+        .then(response => {
+            if (response.ok) {
+                return response.text();
+            }
+            // If validation error (422), return text to display errors
+            if (response.status === 422) {
+                return response.text().then(html => {
+                    throw { isValidationError: true, html: html };
+                });
+            }
+            throw new Error('Network response was not ok.');
+        })
+        .then(html => {
+            // Update the row in the table
+            const rowId = '#row-{{ item.id }}';
+            const row = document.querySelector(rowId);
+            if (row) {
+                row.outerHTML = html;
+            }
+
+            // Show success toast
+            if (typeof showToast === 'function') {
+                showToast('تم حفظ التغييرات بنجاح', 'success');
+            } else {
+                alert('تم حفظ التغييرات بنجاح');
+            }
+
+            // Close modal
+            closeModal();
+        })
+        .catch(error => {
+            if (error.isValidationError) {
+                // Replace modal content with the response (which includes errors)
+                const modalContainer = document.getElementById('modal-container');
+                modalContainer.innerHTML = error.html;
+            } else {
+                console.error('Error:', error);
+                alert('حدث خطأ أثناء الحفظ. يرجى المحاولة مرة أخرى.');
+                btn.disabled = false;
+                btn.innerHTML = `
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+                    حفظ التغييرات
+                `;
+            }
+        });
+    }
+</script>

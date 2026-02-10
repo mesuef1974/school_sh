@@ -1,0 +1,404 @@
+<tr id="row-{{ it.id }}" class="plan-row transition-colors {% if it.status == 'Pending Review' %}row-pending{% elif it.status == 'Completed' %}row-completed{% elif it.status == 'Returned' %}row-returned{% endif %}" tabindex="0"
+    data-edit-url="{% url 'plan_edit_modal' it.id %}"
+    data-can-edit="{% if request.user.is_superuser or it.executor_committee in user_committees %}1{% else %}0{% endif %}">
+    <td class="text-center action-cell">
+        <div class="action-buttons">
+            {% if view_role == 'executor' %}
+                {% if request.user.is_superuser or it.executor_committee in user_committees %}
+                    {% if it.status == 'Completed' %}
+                        <button class="icon-btn edit-btn disabled" 
+                                title="هذا البند مكتمل ولا يمكن تعديله" 
+                                disabled
+                                style="opacity: 0.5; cursor: not-allowed; filter: grayscale(1);">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+                            <span>تحديث التنفيذ</span>
+                        </button>
+                    {% else %}
+                        <button class="icon-btn edit-btn"
+                                title="تحرير كمنفذ"
+                                hx-get="{% url 'plan_edit_modal' it.id %}"
+                                hx-target="#modal-container"
+                                hx-swap="innerHTML">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+                            <span>تحديث التنفيذ</span>
+                        </button>
+                    {% endif %}
+                {% endif %}
+            {% else %}
+                {% if request.user.is_superuser or it.evaluator_committee in user_committees %}
+                    <button class="icon-btn eval-btn"
+                            title="تقييم كمقيم"
+                            hx-get="{% url 'plan_evaluate_modal' it.id %}"
+                            hx-target="#modal-container"
+                            hx-swap="innerHTML">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"></path><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg>
+                        <span>مراجعة وتقييم</span>
+                    </button>
+                {% endif %}
+            {% endif %}
+        </div>
+    </td>
+
+    {% if view_role == 'executor' %}
+        <td>{{ it.rank_name|default_if_none:"" }}</td>
+        <td style="font-weight: 700; color: #6b7280;">{{ it.target_no|default_if_none:"" }}</td>
+        <td>{{ it.target|default_if_none:"" }}</td>
+        <td style="font-weight: 700; color: #6b7280;">{{ it.indicator_no|default_if_none:"" }}</td>
+        <td style="font-weight: 700; color: #6b7280;">{{ it.procedure_no|default_if_none:"" }}</td>
+        <td>{{ it.procedure|default_if_none:"" }}</td>
+        <td style="white-space: nowrap;">{{ it.date_range|default_if_none:"" }}</td>
+        <td>
+            {% if it.follow_up == 'تم الإنجاز' %}<span class="badge-success">تم الإنجاز</span>
+            {% elif it.follow_up == 'لم يتم الإنجاز' %}<span class="badge-danger">لم يتم الإنجاز</span>
+            {% elif it.follow_up == 'مؤجل' %}<span class="badge-warning">مؤجل</span>
+            {% else %}<span class="badge-neutral">{{ it.follow_up|default_if_none:"-" }}</span>{% endif %}
+        </td>
+        <td>
+            {% if it.evidence_requested %}
+                {% if it.evidence_document %}
+                    <span class="badge-success pulse-green-badge" title="تم إرفاق الدليل بنجاح - بانتظار مراجعة المقيم">
+                        <i class="fa-solid fa-check-double"></i>
+                        تم الإرفاق
+                    </span>
+                {% else %}
+                    {% if it.status == 'Completed' %}
+                        <button class="attach-btn disabled" 
+                                title="هذا البند مكتمل ولا يمكن رفع أدلة إضافية" 
+                                disabled
+                                style="opacity: 0.6; cursor: not-allowed; animation: none; filter: grayscale(1);">
+                            <i class="fa-solid fa-lock"></i>
+                            تم الإغلاق
+                        </button>
+                    {% else %}
+                        <button hx-get="{% url 'plan_upload_evidence_modal' it.id %}"
+                                hx-target="#modal-container"
+                                hx-swap="innerHTML"
+                                class="attach-btn"
+                                title="المقيم طلب دليل لهذا البند - اضغط للرفع المباشر">
+                            <i class="fa-solid fa-cloud-arrow-up"></i>
+                            ارفق الدليل
+                        </button>
+                    {% endif %}
+                {% endif %}
+            {% else %}
+                <span class="text-gray-300">-</span>
+            {% endif %}
+        </td>
+        <td>
+            {% if it.evidence_document %}
+                <a href="{{ it.evidence_document.file.url }}" target="_blank" class="text-maroon underline text-xs">الدليل المرفق</a>
+            {% else %}
+                <span class="text-xs text-gray-400">{{ it.evidence_source_file|default_if_none:"-" }}</span>
+            {% endif %}
+        </td>
+        <td class="text-center text-xs">{{ it.comments|default_if_none:"-"|truncatechars:50 }}</td>
+        <td>
+            {% if it.status == 'Completed' %}<span class="badge-success">مكتمل</span>
+            {% elif it.status == 'Pending Review' %}<span class="badge-warning">بانتظار المراجعة</span>
+            {% elif it.status == 'Returned' %}<span class="badge-danger">مرفوض / تعديل</span>
+            {% else %}<span class="badge-neutral">{{ it.get_status_display }}</span>{% endif %}
+        </td>
+        <td class="text-center text-xs">{{ it.evaluation_notes|default_if_none:"-"|truncatechars:50 }}</td>
+    {% else %} {# This is the 'evaluator' view for 'لجنة المراجعة الذاتية' #}
+        <td>{{ it.executor|default_if_none:"" }}</td>
+        <td style="font-weight: 700; color: #6b7280;">{{ it.procedure_no|default_if_none:"" }}</td>
+        <td>{{ it.procedure|default_if_none:"" }}</td>
+        <td style="font-weight: 700; color: #6b7280;">{{ it.indicator_no|default_if_none:"" }}</td>
+        <td>{{ it.indicator|default_if_none:"" }}</td>
+        <td class="text-center text-xs">{{ it.comments|default_if_none:"-"|truncatechars:50 }}</td>
+        <td>
+            {% if it.evidence_document %}
+                <a href="{{ it.evidence_document.file.url }}" target="_blank" class="text-maroon underline text-xs">عرض الدليل</a>
+            {% elif it.evidence_source_file %}
+                <span class="text-xs">{{ it.evidence_source_file }}</span>
+            {% else %}
+                <span class="text-xs text-red-500 font-bold">لا يوجد دليل</span>
+            {% endif %}
+        </td>
+        <td>
+            <div class="evidence-request-wrapper">
+                {% if it.evidence_requested %}
+                    {% if it.evidence_document %}
+                        <a href="{{ it.evidence_document.file.url }}" target="_blank" class="view-evidence-link pulse-green" title="معاينة الدليل المرفوع - جديد">
+                            <i class="fa-solid fa-file-pdf"></i>
+                            عرض الدليل (جديد)
+                        </a>
+                    {% else %}
+                        {% if it.status == 'Completed' %}
+                            <button class="req-btn active disabled" 
+                                    title="هذا البند مكتمل ولا يمكن إلغاء طلب الدليل" 
+                                    disabled
+                                    style="opacity: 0.6; cursor: not-allowed; animation: none; filter: grayscale(1);">
+                                <i class="fa-solid fa-lock"></i>
+                                تم الطلب (مغلق)
+                            </button>
+                        {% else %}
+                            <button hx-post="{% url 'plan_toggle_evidence_request' it.id %}"
+                                    hx-swap="outerHTML"
+                                    hx-target="#row-{{ it.id }}"
+                                    class="req-btn active"
+                                    title="إلغاء طلب الدليل">
+                                <i class="fa-solid fa-hand-holding-medical"></i>
+                                تم الطلب
+                            </button>
+                        {% endif %}
+                    {% endif %}
+                {% else %}
+                    {% if it.status == 'Completed' %}
+                        <button class="req-btn disabled" 
+                                title="هذا البند مكتمل ولا يمكن طلب أدلة إضافية" 
+                                disabled
+                                style="opacity: 0.6; cursor: not-allowed; filter: grayscale(1);">
+                            <i class="fa-solid fa-lock"></i>
+                            طلب دليل (مغلق)
+                        </button>
+                    {% else %}
+                        <button hx-post="{% url 'plan_toggle_evidence_request' it.id %}"
+                                hx-swap="outerHTML"
+                                hx-target="#row-{{ it.id }}"
+                                class="req-btn"
+                                title="طلب دليل من المنفذ">
+                            <i class="fa-solid fa-file-circle-plus"></i>
+                            طلب دليل
+                        </button>
+                    {% endif %}
+                {% endif %}
+            </div>
+        </td>
+        <td class="text-center text-xs">{{ it.evaluation_notes|default_if_none:"-"|truncatechars:50 }}</td>
+        <td>
+            {% if it.status == 'Completed' %}<span class="badge-success">مكتمل</span>
+            {% elif it.status == 'Pending Review' %}<span class="badge-warning">بانتظار المراجعة</span>
+            {% elif it.status == 'Returned' %}<span class="badge-danger">مرفوض / تعديل</span>
+            {% else %}<span class="badge-neutral">{{ it.get_status_display }}</span>{% endif %}
+        </td>
+        <td>
+            {% if it.evaluation == 'متجقق' or it.evaluation == 'متحقق' %}<span class="badge-success">متحقق</span>
+            {% elif it.evaluation == 'متحقق جزئيا' %}<span class="badge-warning">متحقق جزئياً</span>
+            {% elif it.evaluation == 'غير متحقق' %}<span class="badge-danger">غير متحقق</span>
+            {% else %}<span class="badge-neutral">-</span>{% endif %}
+        </td>
+    {% endif %}
+</tr>
+
+<style>
+    .action-cell {
+        padding: 4px !important;
+        vertical-align: middle !important;
+    }
+    .action-buttons {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+    }
+    .icon-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 4px;
+        border: none;
+        cursor: pointer;
+        padding: 4px 8px;
+        border-radius: 4px;
+        font-size: 0.75rem;
+        font-weight: 600;
+        width: 100%;
+        transition: all 0.2s;
+        font-family: 'Tajawal', sans-serif;
+    }
+
+    .edit-btn {
+        background-color: #fdf2f8;
+        color: var(--maroon);
+        border: 1px solid #fce7f3;
+    }
+    .edit-btn:hover {
+        background-color: #fce7f3;
+        border-color: #fbcfe8;
+    }
+
+    .eval-btn {
+        background-color: #fffbeb;
+        color: #92400e;
+        border: 1px solid #fef3c7;
+    }
+    .eval-btn:hover {
+        background-color: #fef3c7;
+        border-color: #fde68a;
+    }
+
+    .badge-success { background: #dcfce7; color: #166534; padding: 2px 6px; border-radius: 4px; font-size: 0.75rem; font-weight: 700; white-space: nowrap; }
+    .badge-danger { background: #fee2e2; color: #991b1b; padding: 2px 6px; border-radius: 4px; font-size: 0.75rem; font-weight: 700; white-space: nowrap; }
+    .badge-warning { background: #fef3c7; color: #92400e; padding: 2px 6px; border-radius: 4px; font-size: 0.75rem; font-weight: 700; white-space: nowrap; }
+    .badge-neutral { background: #f3f4f6; color: #4b5563; padding: 2px 6px; border-radius: 4px; font-size: 0.75rem; font-weight: 700; white-space: nowrap; }
+    .badge-gray { background: #f9fafb; border: 1px solid #e5e7eb; color: #374151; padding: 2px 6px; border-radius: 4px; font-size: 0.75rem; font-weight: 600; display: inline-block; }
+
+    .evidence-req-badge {
+        background-color: #fffbeb;
+        color: #92400e;
+        border: 1px solid #fde68a;
+        padding: 4px 8px;
+        border-radius: 6px;
+        font-size: 0.7rem;
+        font-weight: 800;
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        box-shadow: 0 2px 4px rgba(251, 191, 36, 0.2);
+    }
+
+    .checkbox-interactive {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 2px;
+    }
+
+    .checkbox-gold {
+        width: 1.1rem;
+        height: 1.1rem;
+        accent-color: #d4af37;
+        cursor: pointer;
+    }
+
+    /* --- New Evidence Workflow Buttons --- */
+    .evidence-request-wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    .req-btn {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        padding: 6px 10px;
+        border-radius: 8px;
+        font-size: 0.75rem;
+        font-weight: 700;
+        transition: all 0.3s ease;
+        border: 1px solid #e2e8f0;
+        background: #f8fafc;
+        color: #64748b;
+        cursor: pointer;
+    }
+    
+    .req-btn:hover {
+        background: #f1f5f9;
+        border-color: #cbd5e1;
+    }
+    
+    .req-btn.active {
+        background: #fee2e2;
+        color: #dc2626;
+        border-color: #fecaca;
+        animation: pulse-red 2s infinite;
+    }
+    
+    .req-btn.active:hover {
+        background: #fef2f2;
+    }
+
+    /* Row State Highlights */
+    .row-pending {
+        background-color: #fffbeb !important; /* Very Light Orange/Yellow */
+    }
+    .row-pending:hover {
+        background-color: #fef3c7 !important;
+    }
+    
+    .row-completed {
+        background-color: #f0fdf4 !important; /* Very Light Green */
+    }
+    .row-completed:hover {
+        background-color: #dcfce7 !important;
+    }
+
+    .row-returned {
+        background-color: #fef2f2 !important; /* Very Light Red */
+    }
+    .row-returned:hover {
+        background-color: #fee2e2 !important;
+    }
+
+    @keyframes pulse-red {
+        0% { box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.4); }
+        70% { box-shadow: 0 0 0 10px rgba(220, 38, 38, 0); }
+        100% { box-shadow: 0 0 0 0 rgba(220, 38, 38, 0); }
+    }
+
+    .pulse-green {
+        animation: pulse-green-glow 2s infinite;
+        border-color: #10b981 !important;
+        background-color: #ecfdf5 !important;
+        color: #047857 !important;
+    }
+
+    @keyframes pulse-green-glow {
+        0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4); }
+        70% { box-shadow: 0 0 0 10px rgba(16, 185, 129, 0); }
+        100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+    }
+
+    .pulse-green-badge {
+        animation: pulse-green-glow 2s infinite;
+    }
+
+    .view-evidence-link {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        padding: 6px 12px;
+        background: #ecfdf5;
+        color: #059669;
+        border: 1px solid #d1fae5;
+        border-radius: 8px;
+        font-size: 0.75rem;
+        font-weight: 800;
+        text-decoration: none !important;
+        transition: all 0.2s;
+    }
+    
+    .view-evidence-link:hover {
+        background: #d1fae5;
+        transform: translateY(-1px);
+    }
+
+    /* Executor "Attach" Button */
+    .attach-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        padding: 6px 12px;
+        background: #f0fdf4;
+        color: #166534;
+        border: 2px solid #bbf7d0;
+        border-radius: 8px;
+        font-size: 0.75rem;
+        font-weight: 800;
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+        animation: glow-green 1.5s infinite alternate;
+    }
+
+    @keyframes glow-green {
+        from {
+            box-shadow: 0 0 5px #4ade80, 0 0 2px #4ade80;
+            border-color: #86efac;
+        }
+        to {
+            box-shadow: 0 0 15px #22c55e, 0 0 5px #22c55e;
+            border-color: #22c55e;
+        }
+    }
+    
+    .attach-btn:hover {
+        background: #dcfce7;
+        transform: scale(1.05);
+    }
+</style>

@@ -1,0 +1,160 @@
+{% extends "base.html" %}
+
+{% block title %}الخطة التشغيلية | منصة الشحانية الذكية{% endblock %}
+
+{% block content %}
+<div class="dashboard-container">
+
+
+    <!-- Advanced Filter Bar -->
+    <div class="filter-section" x-data="{ advanced: false }">
+        <form id="filters-form" hx-get="{% url 'plan_list' %}" hx-target="#plan-table-container" hx-trigger="submit" hx-push-url="true">
+            <input type="hidden" name="view_role" id="view_role_input" value="{{ view_role }}">
+
+            <!-- Primary Toolbar -->
+            <div class="filter-toolbar">
+                <!-- Search Input -->
+                <div class="search-group">
+                    <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                    <input type="search" name="q" value="{{ q|default:'' }}" placeholder="بحث في الأهداف، الإجراءات، أو المنفذين..." class="search-input">
+                </div>
+
+                <!-- Quick Sort -->
+                <div class="sort-group">
+                    <select name="sort_by" class="control-input" title="الفرز حسب" data-selected="{{ sort_by }}">
+                        <option value="rank_name">الترتيب الافتراضي</option>
+                        <option value="target_no">رقم الهدف</option>
+                        <option value="indicator_no">رقم الاجراء</option>
+                        <option value="rank_name_exact">المجال</option>
+                        <option value="target">الهدف</option>
+                        <option value="executor">منفذ الاجراء</option>
+                        <option value="date_range">زمن التنفيذ</option>
+                        <option value="evidence_source_employee">المقييم</option>
+                    </select>
+                    <select name="sort_order" class="control-input w-auto" title="اتجاه الفرز" data-selected="{{ sort_order }}">
+                        <option value="asc">تصاعدي</option>
+                        <option value="desc">تنازلي</option>
+                    </select>
+                </div>
+
+                <!-- Actions -->
+                <div class="actions-group">
+                    <button type="button" @click="advanced = !advanced" class="btn-icon" :class="{ 'active': advanced }" title="فلاتر متقدمة">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon></svg>
+                    </button>
+                    <button type="button" class="btn-ghost" title="إعادة تعيين"
+                            hx-get="{% url 'plan_list' %}"
+                            hx-target="#plan-table-container"
+                            hx-push-url="true"
+                            onclick="document.getElementById('filters-form').reset();">
+                        مسح
+                    </button>
+                    <button type="submit" class="btn-primary">تحديث النتائج</button>
+                </div>
+            </div>
+
+            <!-- Advanced Filters Panel (Collapsible) -->
+            <div x-show="advanced" x-collapse class="advanced-panel">
+                <div class="advanced-grid">
+                    <div class="filter-item">
+                        <label>السنة الدراسية</label>
+                        <select name="year" class="control-input" data-selected="{{ year }}">
+                            <option value="">الكل</option>
+                            {% for y in all_years %}
+                                {% if y %}
+                                    <option value="{{ y }}">{{ y }}</option>
+                                {% endif %}
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="filter-item">
+                        <label>المجال</label>
+                        <select name="rank_name" class="control-input" data-selected="{{ rank_name_filter }}">
+                            <option value="">الكل</option>
+                            {% for rn in all_rank_names %}
+                                {% if rn %}
+                                    <option value="{{ rn }}">{{ rn }}</option>
+                                {% endif %}
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="filter-item">
+                        <label>منفذ الاجراء</label>
+                        <select name="executor" class="control-input" data-selected="{{ executor_filter }}">
+                            <option value="">الكل</option>
+                            {% for e in all_executors %}
+                                {% if e %}
+                                    <option value="{{ e }}">{{ e }}</option>
+                                {% endif %}
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="filter-item">
+                        <label>زمن التنفيذ</label>
+                        <select name="date_range" class="control-input" data-selected="{{ date_range_filter }}">
+                            <option value="">الكل</option>
+                            {% for dr in all_date_ranges %}
+                                {% if dr %}
+                                    <option value="{{ dr }}">{{ dr }}</option>
+                                {% endif %}
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="filter-item">
+                        <label>حالة المتابعة</label>
+                        <select name="follow_up" class="control-input" data-selected="{{ follow_up_filter }}">
+                            <option value="">الكل</option>
+                            {% for f in all_follow_ups %}
+                                {% if f %}
+                                    <option value="{{ f }}">{{ f }}</option>
+                                {% endif %}
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="filter-item">
+                        <label>التقييم</label>
+                        <select name="evaluation" class="control-input" data-selected="{{ evaluation_filter }}">
+                            <option value="">الكل</option>
+                            {% for e in all_evaluations %}
+                                {% if e %}
+                                    <option value="{{ e }}">{{ e }}</option>
+                                {% endif %}
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <!-- Table Container -->
+    <div id="plan-table-container" class="table-card">
+        {% include "plan/_table.html" %}
+    </div>
+</div>
+
+<!-- Modal Container -->
+<div id="modal-container"></div>
+
+<script>
+// Keyboard shortcut for editing
+(function(){
+  document.addEventListener('keydown', function(e){
+    const tag = (e.target && e.target.tagName || '').toLowerCase();
+    if (['input','textarea','select'].includes(tag)) return;
+    if ((e.key || '').toLowerCase() === 'e') {
+      const row = document.activeElement && document.activeElement.closest && document.activeElement.closest('.plan-row');
+      if (!row) return;
+      if (row.dataset && row.dataset.canEdit === '1') {
+        try {
+          htmx.ajax('GET', row.dataset.editUrl, {target: '#modal-container', swap: 'innerHTML'});
+          e.preventDefault();
+        } catch(err) {
+          console.warn('HTMX not available or error while opening edit modal', err);
+        }
+      }
+    }
+  });
+})();
+</script>
+{% endblock %}

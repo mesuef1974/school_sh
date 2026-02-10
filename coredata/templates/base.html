@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+{% load static i18n %}
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}منصة مدرسة الشحانية الذكية{% endblock %}</title>
+
+    <!-- Favicon -->
+    <link rel="icon" href="{% static 'brand/favicon.ico' %}" type="image/x-icon">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}?v=20260208">
+
+    <!-- Tailwind CSS (Utility Only) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        maroon: {
+                            900: '#540f0f',
+                            950: '#3d071c', // Much Darker Maroon
+                        },
+                        gold: {
+                            500: '#d4af37',
+                        }
+                    },
+                    backgroundImage: {
+                        'brand-surface': "radial-gradient(1400px 900px at 88% -25%, rgba(212, 175, 55, 0.25), transparent 60%), radial-gradient(1100px 800px at 8% 120%, rgba(91, 14, 45, 0.22), transparent 55%), linear-gradient(180deg, #fbf7f1 0%, #f2ece3 52%, #f7f4ee 100%)"
+                    },
+                    fontFamily: {
+                        sans: ['Tajawal', 'sans-serif'],
+                        serif: ['Amiri', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Libraries -->
+    <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    <style>
+        :root {
+            --brand-maroon: #3d071c; /* Darker Maroon */
+            --brand-gold: #d4af37;
+            --sidebar-width: 276px; /* Increased by 15% (was 240px) */
+            --sidebar-collapsed-width: 80px;
+            --brand-pattern: url("{% static 'brand/pattern.png' %}");
+            --brand-pattern-size: auto;
+            --brand-pattern-opacity: 0.15;
+        }
+
+        html, body {
+            background:
+                radial-gradient(1400px 900px at 88% -25%, rgba(212, 175, 55, 0.25), transparent 60%),
+                radial-gradient(1100px 800px at 8% 120%, rgba(91, 14, 45, 0.22), transparent 55%),
+                linear-gradient(180deg, #fbf7f1 0%, #f2ece3 52%, #f7f4ee 100%) !important;
+            background-attachment: fixed !important;
+        }
+        body {
+            font-family: 'Tajawal', sans-serif;
+            overflow: hidden;
+        }
+        .bg-curves {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+        }
+        .bg-curves svg {
+            width: 100%;
+            height: 100%;
+            opacity: 0.8;
+            animation: float-curves 6s ease-in-out infinite;
+        }
+        .bg-curves path {
+            fill: none;
+            stroke: rgba(212, 175, 55, 0.28);
+            stroke-width: 2.2;
+        }
+        .bg-curves .curve-2 { stroke: rgba(91, 14, 45, 0.2); }
+        .bg-curves .curve-3 { stroke: rgba(212, 175, 55, 0.2); }
+        @keyframes float-curves {
+            0%, 100% { transform: translateY(0) translateX(0) rotate(0deg) scale(1); }
+            25% { transform: translateY(-14px) translateX(14px) rotate(1.2deg) scale(1.01); }
+            50% { transform: translateY(12px) translateX(-16px) rotate(-1.2deg) scale(1.015); }
+            75% { transform: translateY(-10px) translateX(10px) rotate(0.8deg) scale(1.01); }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .bg-curves svg,
+            .bg-sheen { animation: none; }
+        }
+
+        .sidebar-brand {
+            background: linear-gradient(135deg, #5b0e2d 0%, #3d071c 100%);
+            position: relative;
+            border-left: 5px solid #d4af37;
+            box-shadow: -2px 0 15px rgba(212, 175, 55, 0.5), 10px 0 30px rgba(0,0,0,0.3);
+            transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 50;
+        }
+        .sidebar-brand::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background-image: var(--brand-pattern);
+            background-repeat: repeat;
+            background-size: var(--brand-pattern-size);
+            opacity: var(--brand-pattern-opacity);
+            pointer-events: none;
+        }
+
+        .nav-link {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border-right: 4px solid transparent;
+            margin-bottom: 4px;
+            white-space: nowrap;
+            overflow: hidden;
+            position: relative;
+            font-size: 1.1em;
+        }
+        .nav-link:hover {
+            background-color: rgba(212, 175, 55, 0.1);
+            color: #fff;
+            transform: translateX(-4px);
+        }
+        .nav-link.active {
+            background: linear-gradient(to left, rgba(212, 175, 55, 0.2), transparent);
+            border-right-color: var(--brand-gold);
+            color: #fff;
+            font-weight: bold;
+        }
+        .nav-link i {
+            transition: all 0.3s ease;
+            filter: drop-shadow(0 0 5px rgba(212, 175, 55, 0.3));
+            background: linear-gradient(to bottom, #bf953f 0%, #fcf6ba 50%, #b38728 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .nav-link:hover i {
+            transform: scale(1.2) rotate(5deg);
+            filter: drop-shadow(0 0 8px rgba(212, 175, 55, 0.8));
+        }
+
+        .sidebar-collapsed { width: var(--sidebar-collapsed-width) !important; }
+        .sidebar-collapsed .nav-text,
+        .sidebar-collapsed .brand-text,
+        .sidebar-collapsed .section-header { 
+            opacity: 0;
+            width: 0;
+            height: 0;
+            display: none;
+        }
+        .sidebar-collapsed .nav-link { justify-content: center; padding-left: 0; padding-right: 0; transform: none !important; }
+        .sidebar-collapsed .nav-link i { margin: 0; font-size: 1.4rem; }
+
+        .glass-header {
+            background: linear-gradient(135deg, #5b0e2d 0%, #3d071c 100%);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+            box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.4);
+            position: relative;
+            overflow: hidden;
+            color: #fff;
+        }
+
+        .header-pattern {
+            position: absolute;
+            inset: 0;
+            opacity: var(--brand-pattern-opacity);
+            background-image: var(--brand-pattern);
+            background-size: var(--brand-pattern-size);
+            background-repeat: repeat;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .header-btn {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            background-color: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(212, 175, 55, 0.1);
+            color: rgba(255, 255, 255, 0.8);
+        }
+        .header-btn:hover {
+            background-color: rgba(212, 175, 55, 0.1);
+            color: var(--brand-gold);
+            transform: translateY(-1px);
+            border-color: rgba(212, 175, 55, 0.3);
+        }
+        .header-btn:active {
+            transform: translateY(0);
+        }
+
+        .search-container {
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background-color: rgba(255, 255, 255, 0.05);
+            color: #fff;
+        }
+        .search-container::placeholder {
+            color: rgba(255, 255, 255, 0.4);
+        }
+        .search-container:focus-within {
+            border-color: var(--brand-gold);
+            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.15);
+            width: 300px !important;
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .site-footer {
+            background: linear-gradient(135deg, #5b0e2d 0%, #3d071c 100%);
+            color: var(--brand-gold);
+            border-top: 1px solid rgba(212, 175, 55, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+        .footer-content {
+            position: relative;
+            z-index: 1;
+        }
+        .shiny-gold {
+            color: #d4af37;
+            text-shadow: 0 0 10px rgba(212, 175, 55, 0.5), 0 0 2px rgba(255, 255, 255, 0.5);
+            font-weight: 700;
+            background: linear-gradient(to right, #bf953f, #fcf6ba, #b38728, #fcf6ba, #bf953f);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: inline-block;
+        }
+        .footer-pattern {
+            position: absolute;
+            inset: 0;
+            opacity: var(--brand-pattern-opacity);
+            background-image: var(--brand-pattern);
+            background-repeat: repeat;
+            background-size: var(--brand-pattern-size);
+            pointer-events: none;
+        }
+
+        /* Smooth HTMX page transitions for main content */
+        #content-area {
+            opacity: 1;
+            transition: opacity 200ms ease-in-out;
+        }
+        #content-area.htmx-swapping {
+            opacity: 0;
+        }
+        #content-area.htmx-settling {
+            opacity: 1;
+        }
+        #content-area,
+        #content-inner,
+        #content-inner > * {
+            width: 100% !important;
+            max-width: 100% !important;
+        }
+
+        /* Hide Django Debug Toolbar UI */
+        #djdt, .djdt, .djdt-hidden, .djdt-button {
+            display: none !important;
+        }
+    </style>
+</head>
+<body class="h-screen flex bg-fixed bg-[radial-gradient(1400px_900px_at_88%_-25%,rgba(212,175,55,0.25),transparent_60%),radial-gradient(1100px_800px_at_8%_120%,rgba(91,14,45,0.22),transparent_55%),linear-gradient(180deg,#fbf7f1_0%,#f2ece3_52%,#f7f4ee_100%)]" x-data="{ sidebarOpen: false, sidebarCollapsed: localStorage.getItem('sidebarCollapsed') === 'true' }">
+    <div class="bg-curves" aria-hidden="true">
+        <svg viewBox="0 0 1200 800" preserveAspectRatio="none">
+            <path d="M0,120 C300,220 420,40 720,140 C980,220 1050,80 1200,140" />
+            <path class="curve-2" d="M0,520 C260,420 520,700 820,560 C1020,460 1130,640 1200,580" />
+            <path class="curve-3" d="M0,260 C260,360 520,180 820,260 C980,320 1100,240 1200,280" />
+        </svg>
+    </div>
+
+    <!-- Mobile Sidebar Backdrop -->
+    <div x-show="sidebarOpen" class="fixed inset-0 bg-maroon-950/40 z-40 lg:hidden" @click="sidebarOpen = false" x-transition.opacity></div>
+
+    <!-- Sidebar -->
+    <aside :class="[
+        sidebarOpen ? 'translate-x-0' : 'translate-x-full lg:translate-x-0',
+        sidebarCollapsed ? 'sidebar-collapsed' : 'w-[276px]'
+    ]" class="fixed inset-y-0 right-0 lg:static flex flex-col shadow-[10px_0_30px_rgba(0,0,0,0.3)] sidebar-brand h-full shrink-0">
+
+        <!-- Brand Logo -->
+        <div class="h-24 flex items-center justify-center border-b border-white/5 bg-black/10">
+            <div class="flex items-center gap-3 w-full transition-all duration-300" :class="sidebarCollapsed ? 'justify-center px-2' : 'px-6'">
+                <div class="relative group shrink-0">
+                    <div class="absolute -inset-1 bg-gold-500 rounded-full opacity-20 group-hover:opacity-40 blur transition duration-300"></div>
+                    <img src="{% static 'brand/logo.png' %}" alt="Logo" class="relative h-14 w-auto object-contain brightness-0 invert filter drop-shadow-xl transition-all duration-300 shrink-0">
+                </div>
+                <div class="flex flex-col brand-text overflow-hidden transition-all duration-300">
+                    <span class="text-lg font-extrabold tracking-tight text-gold-500 font-serif whitespace-nowrap leading-none">مدرسة الشحانية</span>
+                    <span class="text-[9px] text-white/60 font-sans whitespace-nowrap mt-1 tracking-widest uppercase">الإعدادية الثانوية للبنين</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation -->
+        <nav class="flex-1 overflow-y-auto py-8 px-3 space-y-2">
+            <div class="section-header text-[11px] font-bold text-gold-500/50 px-4 mb-3 mt-4 uppercase tracking-[0.2em] font-sans">الرئيسية</div>
+
+            <a href="{% url 'dashboard' %}" class="nav-link flex items-center gap-3 px-4 py-3 text-sm font-medium rounded-xl text-gray-100 group" 
+               hx-get="{% url 'dashboard' %}" hx-target="#content-inner" hx-select="#content-inner" hx-swap="innerHTML transition:true" hx-push-url="true"
+               :class="{ 'active': request.resolver_match.url_name == 'dashboard' }"
+               data-page-title="الصفحة الرئيسية">
+                <div class="w-8 flex justify-center">
+                    <i class="fa-solid fa-house-chimney text-lg"></i>
+                </div>
+                <span class="nav-text">الصفحة الرئيسية</span>
+            </a>
+
+            <div class="section-header text-[11px] font-bold text-gold-500/50 px-4 mb-3 mt-8 uppercase tracking-[0.2em] font-sans">العمليات التعليمية</div>
+
+            <a href="{% url 'plan_list' %}" class="nav-link flex items-center gap-3 px-4 py-3 text-sm font-medium rounded-xl text-gray-100 group"
+               hx-get="{% url 'plan_list' %}" hx-target="#content-inner" hx-select="#content-inner" hx-swap="innerHTML transition:true" hx-push-url="true"
+               :class="{ 'active': request.resolver_match.url_name == 'plan_list' and (not view_role or view_role == 'executor') }"
+               data-page-title="الخطة التشغيلية">
+                <div class="w-8 flex justify-center">
+                    <i class="fa-solid fa-layer-group text-lg"></i>
+                </div>
+                <span class="nav-text">الخطة التشغيلية</span>
+            </a>
+
+            <a href="{% url 'plan_list' %}?view_role=evaluator" class="nav-link flex items-center gap-3 px-4 py-3 text-sm font-medium rounded-xl text-gray-100 group"
+               hx-get="{% url 'plan_list' %}?view_role=evaluator" hx-target="#content-inner" hx-select="#content-inner" hx-swap="innerHTML transition:true" hx-push-url="true"
+               :class="{ 'active': request.resolver_match.url_name == 'plan_list' and view_role == 'evaluator' }"
+               data-page-title="لجنة المراجعة الذاتية">
+                <div class="w-8 flex justify-center">
+                    <i class="fa-solid fa-user-check text-lg"></i>
+                </div>
+                <span class="nav-text">لجنة المراجعة الذاتية</span>
+            </a>
+            <a href="/admin/coredata/student/" class="nav-link flex items-center gap-3 px-4 py-3 text-sm font-medium rounded-xl text-gray-100 group" 
+               hx-get="/admin/coredata/student/" hx-target="#content-inner" hx-select="#content-inner" hx-swap="innerHTML transition:true" hx-push-url="true"
+               :class="{ 'active': window.location.pathname.includes('student') }"
+               data-page-title="سجلات الطلاب">
+                <div class="w-8 flex justify-center">
+                    <i class="fa-solid fa-user-graduate text-lg"></i>
+                </div>
+                <span class="nav-text">سجلات الطلاب</span>
+            </a>
+            <a href="/admin/coredata/staff/" class="nav-link flex items-center gap-3 px-4 py-3 text-sm font-medium rounded-xl text-gray-100 group" 
+               hx-get="/admin/coredata/staff/" hx-target="#content-inner" hx-select="#content-inner" hx-swap="innerHTML transition:true" hx-push-url="true"
+               :class="{ 'active': window.location.pathname.includes('staff') }"
+               data-page-title="الكادر الوظيفي">
+                <div class="w-8 flex justify-center">
+                    <i class="fa-solid fa-id-card-clip text-lg"></i>
+                </div>
+                <span class="nav-text">الكادر الوظيفي</span>
+            </a>
+
+            <div class="section-header text-[11px] font-bold text-gold-500/50 px-4 mb-3 mt-8 uppercase tracking-[0.2em] font-sans">إدارة النظام</div>
+
+            <a href="/admin/" class="nav-link flex items-center gap-3 px-4 py-3 text-sm font-medium rounded-xl text-gray-100 group" 
+               hx-get="/admin/" hx-target="#content-inner" hx-select="#content-inner" hx-swap="innerHTML transition:true" hx-push-url="true"
+               :class="{ 'active': window.location.pathname.startsWith('/admin/') }"
+               data-page-title="لوحة الإدارة">
+                <div class="w-8 flex justify-center">
+                    <i class="fa-solid fa-sliders text-lg"></i>
+                </div>
+                <span class="nav-text">لوحة الإدارة</span>
+            </a>
+        </nav>
+
+        <!-- Sidebar Footer -->
+        <div class="mt-auto border-t border-white/10 bg-black/20 backdrop-blur-sm">
+            <!-- Collapse Toggle -->
+            <button @click="sidebarCollapsed = !sidebarCollapsed; localStorage.setItem('sidebarCollapsed', sidebarCollapsed)" 
+                    class="hidden lg:flex items-center justify-center w-full py-3 text-gold-500/50 hover:text-gold-500 hover:bg-white/5 transition-all">
+                <i class="fa-solid" :class="sidebarCollapsed ? 'fa-angles-left' : 'fa-angles-right'"></i>
+            </button>
+
+            <!-- User Profile Section -->
+            <div class="p-4" :class="sidebarCollapsed ? 'flex justify-center' : ''">
+                {% if user.is_authenticated %}
+                <div class="flex items-center gap-3 p-2 rounded-2xl bg-white/5 border border-white/5" :class="sidebarCollapsed ? 'justify-center w-12 h-12 p-0 border-0' : ''">
+                    <div class="relative shrink-0">
+                        <div class="h-6 w-6 rounded-lg bg-gradient-to-br from-gold-500 to-yellow-600 flex items-center justify-center text-maroon-900 font-bold text-sm shadow-lg">
+                            {{ user.username|slice:":1"|upper }}
+                        </div>
+                        <span class="absolute -bottom-1 -right-1 h-2 w-2 bg-green-500 border-2 border-maroon-900 rounded-full"></span>
+                    </div>
+                    
+                    <div class="flex-1 min-w-0 nav-text" x-show="!sidebarCollapsed">
+                        <p class="text-sm font-bold text-white truncate">{{ user.staff_profile.name|default:user.get_full_name|default:user.username }}</p>
+                        <p class="text-xs text-gold-500/80 font-medium">{{ user.staff_profile.job_title.title|default:"موظف" }}</p>
+                    </div>
+
+                    <form action="{% url 'logout' %}" method="post" class="nav-text" x-show="!sidebarCollapsed">
+                        {% csrf_token %}
+                        <button type="submit" class="p-2 text-gray-400 hover:text-red-400 hover:bg-red-400/10 rounded-lg transition-all" title="تسجيل الخروج">
+                            <i class="fa-solid fa-power-off text-sm"></i>
+                        </button>
+                    </form>
+                </div>
+                {% else %}
+                <a href="{% url 'login' %}" class="flex w-full justify-center items-center gap-2 rounded-xl bg-gold-500 px-4 py-3 text-sm font-bold text-maroon-900 shadow-lg hover:bg-gold-400 transition-all active:scale-95">
+                    <i class="fa-solid fa-right-to-bracket"></i> <span class="nav-text">دخول</span>
+                </a>
+                {% endif %}
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Content Wrapper -->
+    <div class="flex-1 flex flex-col min-w-0 overflow-hidden bg-transparent transition-all duration-300" style="position: relative; z-index: 2;">
+
+        <!-- Top Header -->
+        <header class="glass-header h-16 flex items-center justify-between px-6 z-20 shrink-0">
+            <div class="header-pattern"></div>
+            
+            <div class="flex items-center gap-6 relative z-10">
+                <!-- Mobile Menu Toggle -->
+                <button @click="sidebarOpen = true" class="lg:hidden p-2 rounded-xl bg-white/10 backdrop-blur-md border border-white/10 text-white hover:bg-white/20 transition-colors">
+                    <i class="fa-solid fa-bars-staggered text-xl"></i>
+                </button>
+                
+                <div class="flex flex-col">
+                    <h2 class="text-2xl font-black text-white font-serif tracking-tight drop-shadow-md" id="page-header-title">
+                        {% block header_title %}
+                            {% with url_name=request.resolver_match.url_name %}
+                                {% if url_name == 'dashboard' %}الصفحة الرئيسية
+                                {% elif url_name == 'plan_list' %}الخطة التشغيلية
+                                {% elif 'student' in request.path %}سجلات الطلاب
+                                {% elif 'staff' in request.path %}الكادر الوظيفي
+                                {% elif '/admin/' in request.path %}لوحة الإدارة
+                                {% else %}لوحة القيادة المدرسية{% endif %}
+                            {% endwith %}
+                        {% endblock %}
+                    </h2>
+                    <div class="flex items-center gap-2 text-[10px] text-gold-500/80 font-bold uppercase tracking-widest mt-0.5">
+                        <span class="w-2 h-2 rounded-full bg-green-400 animate-pulse shadow-[0_0_8px_rgba(74,222,128,0.5)]"></span>
+                        نظام الإدارة الذكي
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex items-center gap-5 relative z-10">
+                <!-- Search Bar -->
+                <div class="hidden xl:flex items-center relative group">
+                    <div class="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none text-white/40 group-hover:text-gold-500 transition-colors">
+                        <i class="fa-solid fa-magnifying-glass text-sm"></i>
+                    </div>
+                    <input type="text" placeholder="بحث سريع... (Ctrl + K)" 
+                           class="search-container w-64 h-11 pr-11 pl-4 rounded-2xl text-sm focus:outline-none transition-all">
+                </div>
+
+                <!-- Vertical Divider -->
+                <div class="hidden md:block w-px h-8 bg-white/10 mx-1"></div>
+
+                <!-- Date Display -->
+                <div class="hidden md:flex flex-col items-start gap-0">
+                    <span class="text-[10px] text-white/40 font-bold uppercase tracking-tighter">اليوم والتاريخ</span>
+                    <div class="flex items-center gap-2 text-sm font-bold text-white">
+                        <i class="fa-regular fa-calendar-check text-gold-500"></i>
+                        <span>{% now "l, j F Y" %}</span>
+                    </div>
+                </div>
+
+                <!-- Notification Bell -->
+                <button class="header-btn relative p-3 rounded-2xl shadow-lg">
+                    <i class="fa-regular fa-bell text-xl"></i>
+                    <span class="absolute top-2.5 right-2.5 flex h-3 w-3">
+                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-3 w-3 bg-red-500 border-2 border-maroon-900"></span>
+                    </span>
+                </button>
+
+                <!-- Settings Button -->
+                <button class="header-btn p-3 rounded-2xl shadow-lg">
+                    <i class="fa-solid fa-gear text-xl"></i>
+                </button>
+            </div>
+        </header>
+
+        <!-- Scrollable Content Area -->
+        <main id="content-area" class="flex-1 overflow-y-auto p-4 bg-transparent">
+            <div id="content-inner" class="w-full">
+                {% block content %}
+                <!-- Content injected here -->
+                {% endblock %}
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="site-footer py-3 shrink-0 mt-auto">
+            <div class="footer-pattern"></div>
+            <div class="footer-content container mx-auto px-6">
+                <div class="flex flex-col md:flex-row justify-between items-center gap-6 text-sm">
+                    <!-- Motto -->
+                    <div class="flex items-center">
+                        <p class="font-bold shiny-gold">نحو بيئة تعليمية ذكية ومبتكرة</p>
+                    </div>
+                    
+                    <!-- Rights & Social -->
+                    <div class="flex items-center gap-6">
+                        <p class="text-[11px] text-gold-500 whitespace-nowrap">© 2026 جميع الحقوق محفوظة</p>
+                        <div class="flex items-center gap-4 border-r border-gold-500/20 pr-6">
+                        <a href="#" class="text-gold-500 hover:text-gold-400 transition-colors"><i class="fa-brands fa-twitter"></i></a>
+                        <a href="#" class="text-gold-500 hover:text-gold-400 transition-colors"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#" class="text-gold-500 hover:text-gold-400 transition-colors"><i class="fa-brands fa-globe"></i></a>
+                        </div>
+                    </div>
+
+                    <!-- Developer -->
+                    <div class="flex flex-wrap items-center gap-2 text-[11px]">
+                        <span class="font-medium drop-shadow-[0_1px_2px_rgba(0,0,0,0.6)]" style="color: #d4af37;">التطوير والدعم: سفيان أحمد مسيف</span>
+                        <span class="text-gold-500/80">|</span>
+                        <a href="mailto:s.mesyef0904@education.qa" class="text-gold-500 hover:text-gold-400 transition-colors">s.mesyef0904@education.qa</a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Toast Container -->
+    <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2"></div>
+
+    <script>
+    // HTMX CSRF Configuration
+    document.body.addEventListener('htmx:configRequest', (event) => {
+        event.detail.headers['X-CSRFToken'] = '{{ csrf_token }}';
+    });
+
+    // Dynamic Title Logic
+    function updateHeaderTitle(titleFromEvent) {
+        const headerTitle = document.getElementById('page-header-title');
+        if (!headerTitle) return;
+
+        if (titleFromEvent && titleFromEvent.trim() !== "") {
+            headerTitle.innerText = titleFromEvent.trim();
+            return;
+        }
+
+        const currentPath = window.location.pathname;
+        const searchParams = new URLSearchParams(window.location.search);
+        const viewRole = searchParams.get('view_role');
+
+        const links = document.querySelectorAll('.nav-link');
+        let activeText = '';
+
+        links.forEach(link => {
+            const href = link.getAttribute('href');
+            if (!href) return;
+            
+            try {
+                const linkUrl = new URL(href, window.location.origin);
+                
+                // Check if path matches
+                if (linkUrl.pathname === currentPath) {
+                    const linkViewRole = linkUrl.searchParams.get('view_role');
+                    // If link has view_role, it must match current URL's view_role
+                    if (linkViewRole) {
+                        if (linkViewRole === viewRole) {
+                            activeText = link.getAttribute('data-page-title') || link.querySelector('.nav-text').innerText;
+                        }
+                    } else if (!viewRole || viewRole === "") {
+                        // Neither has view_role
+                        activeText = link.getAttribute('data-page-title') || link.querySelector('.nav-text').innerText;
+                    }
+                }
+            } catch(e) {
+                // For relative URLs that might fail URL constructor if not careful
+                if (href === currentPath || href.startsWith(currentPath + '?')) {
+                     activeText = link.getAttribute('data-page-title') || link.querySelector('.nav-text').innerText;
+                }
+            }
+        });
+
+        if (activeText) {
+            headerTitle.innerText = activeText.trim();
+        }
+    }
+
+    // Handle HTMX and Browser navigation
+    document.body.addEventListener('htmx:afterSwap', function(event) {
+        // If the swap was triggered by a nav-link, we can get the title from it
+        const triggeringElement = event.detail.requestConfig.elt;
+        let title = '';
+        if (triggeringElement && triggeringElement.closest('.nav-link')) {
+            const navLink = triggeringElement.closest('.nav-link');
+            title = navLink.getAttribute('data-page-title') || navLink.querySelector('.nav-text').innerText;
+        } else {
+            // Check if there is an element with data-page-title in the swapped content
+            const newTitleEl = event.target.querySelector('[data-page-title]');
+            if (newTitleEl) {
+                title = newTitleEl.getAttribute('data-page-title');
+            }
+        }
+
+        updateHeaderTitle(title);
+
+            if (window.Alpine) {
+                // Re-initialize Alpine components in the new content
+                event.target.querySelectorAll('[x-data]').forEach(el => {
+                    window.Alpine.initializeComponent(el);
+                });
+            }
+
+            // If the plan_list page is loaded, initialize its charts
+            // if (typeof window.initializePlanCharts === 'function') { ... } // Removed
+        });
+        
+        window.addEventListener('popstate', updateHeaderTitle);
+
+        // Initial load
+        document.addEventListener('DOMContentLoaded', () => {
+            updateHeaderTitle();
+        });
+
+        function showToast(message, level = 'info') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+
+            let bgClass = 'bg-blue-600';
+            let icon = '<i class="fa-solid fa-info-circle"></i>';
+
+            if (level === 'success') { bgClass = 'bg-green-600'; icon = '<i class="fa-solid fa-check-circle"></i>'; }
+            if (level === 'error') { bgClass = 'bg-red-600'; icon = '<i class="fa-solid fa-exclamation-circle"></i>'; }
+
+            toast.className = `flex items-center w-full max-w-xs p-4 space-x-4 text-white ${bgClass} rounded-lg shadow-lg space-x-reverse transition-all duration-300 transform translate-y-10 opacity-0 font-bold`;
+            toast.innerHTML = `<div class="text-xl">${icon}</div><div class="text-sm">${message}</div>`;
+
+            container.appendChild(toast);
+            requestAnimationFrame(() => toast.classList.remove('translate-y-10', 'opacity-0'));
+            setTimeout(() => {
+                toast.classList.add('translate-y-10', 'opacity-0');
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        document.body.addEventListener('showMessage', (evt) => showToast(evt.detail.message, evt.detail.level));
+        
+    // Modal Event Listeners (Global)
+    function closeModal() {
+        const modal = document.querySelector('.modal-backdrop');
+        if (modal) {
+            modal.style.opacity = '0';
+            setTimeout(() => modal.remove(), 200);
+        }
+        
+        // Dispatch event for any specialized cleanup
+        document.body.dispatchEvent(new CustomEvent('modalClosed'));
+    }
+
+    document.body.addEventListener('closeModal', closeModal);
+    
+    // Compatibility for older scripts
+    window.closeModal = closeModal;
+    window.closeModalInModal = closeModal;
+    </script>
+</body>
+</html>

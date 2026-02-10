@@ -1,0 +1,652 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AIDiffSettings">
+    <option name="showAIDiff" value="true" />
+  </component>
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="8ef06134-cb9d-452f-a279-4c98570c3d51" name="Changes" comment="ديجانجو 058 &#10;فصل المراجعة الذاتية عن لجنة متابعة الخطة التشغيلية في كل شي" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="EmbeddingIndexingInfo">
+    <option name="cachedIndexableFilesCount" value="377" />
+    <option name="fileBasedEmbeddingIndicesEnabled" value="true" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RESET_MODE" value="HARD" />
+  </component>
+  <component name="KubernetesApiPersistence">{}</component>
+  <component name="KubernetesApiProvider">{
+  &quot;configuredContexts&quot;: [
+    {
+      &quot;name&quot;: &quot;docker-desktop&quot;,
+      &quot;kubeConfigUrl&quot;: &quot;file://C:/Users/mesue/.kube/config&quot;
+    }
+  ],
+  &quot;isMigrated&quot;: true
+}</component>
+  <component name="McpProjectServerCommands">
+    <commands />
+    <urls />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+    <option name="showPreview" value="true" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 7
+}</component>
+  <component name="ProjectId" id="38wB1azrHibOEdnIQp6hMipM86C" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;Batch.prime_ai.executor&quot;: &quot;Run&quot;,
+    &quot;JavaScript Debug.00_INDEX.html.executor&quot;: &quot;Run&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;Node.js.markdown_to_rtl_html.js.executor&quot;: &quot;Run&quot;,
+    &quot;Python.0010_operationalplanitems_digital_seal_and_more.executor&quot;: &quot;Run&quot;,
+    &quot;Python.0011_delete_accessrawabsence_delete_accessrawbus_and_more.executor&quot;: &quot;Run&quot;,
+    &quot;Python.check_users_status.executor&quot;: &quot;Run&quot;,
+    &quot;Python.consolidate_groups.executor&quot;: &quot;Run&quot;,
+    &quot;Python.create_staff_users.executor&quot;: &quot;Run&quot;,
+    &quot;Python.create_superuser_force.executor&quot;: &quot;Run&quot;,
+    &quot;Python.debug_permissions.executor&quot;: &quot;Run&quot;,
+    &quot;Python.dump_file_positions.executor&quot;: &quot;Run&quot;,
+    &quot;Python.dump_staff_data.executor&quot;: &quot;Run&quot;,
+    &quot;Python.fix_database_schema.executor&quot;: &quot;Run&quot;,
+    &quot;Python.fix_user_link.executor&quot;: &quot;Run&quot;,
+    &quot;Python.import_operational_plan.executor&quot;: &quot;Run&quot;,
+    &quot;Python.populate_evidence.executor&quot;: &quot;Run&quot;,
+    &quot;Python.refresh_context.executor&quot;: &quot;Run&quot;,
+    &quot;Python.reset_and_create_users.executor&quot;: &quot;Run&quot;,
+    &quot;Python.reset_students_table.executor&quot;: &quot;Run&quot;,
+    &quot;Python.restore_superuser.executor&quot;: &quot;Run&quot;,
+    &quot;Python.setup_permissions.executor&quot;: &quot;Run&quot;,
+    &quot;Python.setup_roles_and_permissions.executor&quot;: &quot;Run&quot;,
+    &quot;Python.update_usernames.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.MCP Project settings loaded&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1&quot;: &quot;true&quot;,
+    &quot;database.data.extractors.current.export.id&quot;: &quot;Comma-separated (CSV)_id&quot;,
+    &quot;database.data.extractors.current.id&quot;: &quot;Comma-separated (CSV)_id&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/SULTAN_HAGRY/shaniya_django/الارشيف/Doc_School/school_DATA&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  },
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;postgresql&quot;
+    ]
+  }
+}</component>
+  <component name="RecapSpentCounter">
+    <option name="endsOfQuotaMs" value="1771259735523" />
+    <option name="spentUsd" value="0.16726571" />
+  </component>
+  <component name="RecapUselessUpdatesCounter">
+    <option name="suspendCountdown" value="0" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\SULTAN_HAGRY\shaniya_django\الارشيف\Doc_School\school_DATA" />
+      <recent name="D:\SULTAN_HAGRY\shaniya_django\الارشيف" />
+      <recent name="D:\SULTAN_HAGRY\shaniya_django\Doc_School" />
+      <recent name="D:\SULTAN_HAGRY\shaniya_django" />
+      <recent name="D:\SULTAN_HAGRY" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\SULTAN_HAGRY\shaniya_django\الارشيف" />
+      <recent name="D:\SULTAN_HAGRY\shaniya_django" />
+      <recent name="D:\SULTAN_HAGRY\old_system" />
+      <recent name="D:\SULTAN_HAGRY\shaniya_django\Doc_School" />
+      <recent name="D:\SULTAN_HAGRY\DATA" />
+    </key>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-d6986cc7102b-9b0f141eb926-JavaScript-PY-253.30387.173" />
+        <option value="bundled-python-sdk-4762d8aabb82-6d6dccd035ac-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-253.30387.173" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="8ef06134-cb9d-452f-a279-4c98570c3d51" name="Changes" comment="" />
+      <created>1769700539095</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1769700539095</updated>
+      <workItem from="1769700540149" duration="10505000" />
+      <workItem from="1769711275107" duration="6257000" />
+      <workItem from="1769722711515" duration="4708000" />
+      <workItem from="1769749099911" duration="23634000" />
+      <workItem from="1769784007381" duration="10378000" />
+      <workItem from="1769818894018" duration="35311000" />
+      <workItem from="1769934014052" duration="34938000" />
+      <workItem from="1770032308735" duration="11720000" />
+      <workItem from="1770162487776" duration="19550000" />
+      <workItem from="1770229343445" duration="761000" />
+      <workItem from="1770304952966" duration="3814000" />
+      <workItem from="1770333214036" duration="4140000" />
+      <workItem from="1770355979067" duration="2495000" />
+      <workItem from="1770358533037" duration="5771000" />
+      <workItem from="1770364505394" duration="2188000" />
+      <workItem from="1770369904428" duration="2017000" />
+      <workItem from="1770384512756" duration="3445000" />
+      <workItem from="1770388189904" duration="37426000" />
+      <workItem from="1770461830443" duration="706000" />
+      <workItem from="1770462601254" duration="5072000" />
+      <workItem from="1770522411953" duration="3784000" />
+      <workItem from="1770560525826" duration="21705000" />
+      <workItem from="1770611666324" duration="3409000" />
+      <workItem from="1770635358591" duration="2415000" />
+      <workItem from="1770678753343" duration="289000" />
+      <workItem from="1770707445935" duration="90000" />
+      <workItem from="1770707944501" duration="201000" />
+    </task>
+    <task id="LOCAL؜-٠٠٠٢١" summary="024 البدء - خطة المدرسة التشغيلية 2026&#10;تفعيل وضع الصيانة  &#10;المطور: سفيان مسيف">
+      <option name="closed" value="true" />
+      <created>1769855291369</created>
+      <option name="number" value="٠٠٠٢١" />
+      <option name="presentableId" value="LOCAL؜-٠٠٠٢١" />
+      <option name="project" value="LOCAL؜" />
+      <updated>1769855291369</updated>
+    </task>
+    <task id="LOCAL؜-٠٠٠٢٢" summary="025 البدء - خطة المدرسة التشغيلية 2026&#10; ارابيسك&#10; المطور: سفيان مسيف">
+      <option name="closed" value="true" />
+      <created>1769890345626</created>
+      <option name="number" value="٠٠٠٢٢" />
+      <option name="presentableId" value="LOCAL؜-٠٠٠٢٢" />
+      <option name="project" value="LOCAL؜" />
+      <updated>1769890345626</updated>
+    </task>
+    <task id="LOCAL؜-٠٠٠٢٣" summary="ديجانجو 002">
+      <option name="closed" value="true" />
+      <created>1769987615524</created>
+      <option name="number" value="٠٠٠٢٣" />
+      <option name="presentableId" value="LOCAL؜-٠٠٠٢٣" />
+      <option name="project" value="LOCAL؜" />
+      <updated>1769987615524</updated>
+    </task>
+    <task id="LOCAL؜-٠٠٠٢٤" summary="ديجانجو 003">
+      <option name="closed" value="true" />
+      <created>1769990971052</created>
+      <option name="number" value="٠٠٠٢٤" />
+      <option name="presentableId" value="LOCAL؜-٠٠٠٢٤" />
+      <option name="project" value="LOCAL؜" />
+      <updated>1769990971052</updated>
+    </task>
+    <task id="LOCAL؜-٠٠٠٢٥" summary="ديجانجو 004">
+      <option name="closed" value="true" />
+      <created>1769991456659</created>
+      <option name="number" value="٠٠٠٢٥" />
+      <option name="presentableId" value="LOCAL؜-٠٠٠٢٥" />
+      <option name="project" value="LOCAL؜" />
+      <updated>1769991456659</updated>
+    </task>
+    <task id="LOCAL؜-٠٠٠٢٦" summary="ديجانجو 006">
+      <option name="closed" value="true" />
+      <created>1770036832771</created>
+      <option name="number" value="٠٠٠٢٦" />
+      <option name="presentableId" value="LOCAL؜-٠٠٠٢٦" />
+      <option name="project" value="LOCAL؜" />
+      <updated>1770036832771</updated>
+    </task>
+    <task id="LOCAL؜-٠٠٠٢٧" summary="ديجانجو 007">
+      <option name="closed" value="true" />
+      <created>1770041562966</created>
+      <option name="number" value="٠٠٠٢٧" />
+      <option name="presentableId" value="LOCAL؜-٠٠٠٢٧" />
+      <option name="project" value="LOCAL؜" />
+      <updated>1770041562966</updated>
+    </task>
+    <task id="LOCAL؜-٠٠٠٢٨" summary="ديجانجو 008">
+      <option name="closed" value="true" />
+      <created>1770042328466</created>
+      <option name="number" value="٠٠٠٢٨" />
+      <option name="presentableId" value="LOCAL؜-٠٠٠٢٨" />
+      <option name="project" value="LOCAL؜" />
+      <updated>1770042328466</updated>
+    </task>
+    <task id="LOCAL؜-٠٠٠٢٩" summary="ديجانجو 008">
+      <option name="closed" value="true" />
+      <created>1770043022939</created>
+      <option name="number" value="٠٠٠٢٩" />
+      <option name="presentableId" value="LOCAL؜-٠٠٠٢٩" />
+      <option name="project" value="LOCAL؜" />
+      <updated>1770043022939</updated>
+    </task>
+    <task id="LOCAL؜-٠٠٠٣٠" summary="ديجانجو 009">
+      <option name="closed" value="true" />
+      <created>1770043391806</created>
+      <option name="number" value="٠٠٠٣٠" />
+      <option name="presentableId" value="LOCAL؜-٠٠٠٣٠" />
+      <option name="project" value="LOCAL؜" />
+      <updated>1770043391806</updated>
+    </task>
+    <task id="LOCAL؜-٠٠٠٣١" summary="ديجانجو 010">
+      <option name="closed" value="true" />
+      <created>1770045604260</created>
+      <option name="number" value="٠٠٠٣١" />
+      <option name="presentableId" value="LOCAL؜-٠٠٠٣١" />
+      <option name="project" value="LOCAL؜" />
+      <updated>1770045604260</updated>
+    </task>
+    <task id="LOCAL؜-٠٠٠٣٢" summary="ديجانجو 015">
+      <option name="closed" value="true" />
+      <created>1770132057031</created>
+      <option name="number" value="٠٠٠٣٢" />
+      <option name="presentableId" value="LOCAL؜-٠٠٠٣٢" />
+      <option name="project" value="LOCAL؜" />
+      <updated>1770132057031</updated>
+    </task>
+    <task id="LOCAL؜-٠٠٠٣٣" summary="ديجانجو 016">
+      <option name="closed" value="true" />
+      <created>1770134267231</created>
+      <option name="number" value="٠٠٠٣٣" />
+      <option name="presentableId" value="LOCAL؜-٠٠٠٣٣" />
+      <option name="project" value="LOCAL؜" />
+      <updated>1770134267231</updated>
+    </task>
+    <task id="LOCAL؜-٠٠٠٣٤" summary="ديجانجو 018">
+      <option name="closed" value="true" />
+      <created>1770137728658</created>
+      <option name="number" value="٠٠٠٣٤" />
+      <option name="presentableId" value="LOCAL؜-٠٠٠٣٤" />
+      <option name="project" value="LOCAL؜" />
+      <updated>1770137728658</updated>
+    </task>
+    <task id="LOCAL؜-٠٠٠٣٥" summary="ديجانجو 019">
+      <option name="closed" value="true" />
+      <created>1770144058465</created>
+      <option name="number" value="٠٠٠٣٥" />
+      <option name="presentableId" value="LOCAL؜-٠٠٠٣٥" />
+      <option name="project" value="LOCAL؜" />
+      <updated>1770144058465</updated>
+    </task>
+    <task id="LOCAL؜-٠٠٠٣٦" summary="ديجانجو 020">
+      <option name="closed" value="true" />
+      <created>1770156837461</created>
+      <option name="number" value="٠٠٠٣٦" />
+      <option name="presentableId" value="LOCAL؜-٠٠٠٣٦" />
+      <option name="project" value="LOCAL؜" />
+      <updated>1770156837461</updated>
+    </task>
+    <task id="LOCAL؜-٠٠٠٣٧" summary="ديجانجو 021">
+      <option name="closed" value="true" />
+      <created>1770160697189</created>
+      <option name="number" value="٠٠٠٣٧" />
+      <option name="presentableId" value="LOCAL؜-٠٠٠٣٧" />
+      <option name="project" value="LOCAL؜" />
+      <updated>1770160697189</updated>
+    </task>
+    <task id="LOCAL؜-٠٠٠٣٨" summary="ديجانجو 022">
+      <option name="closed" value="true" />
+      <created>1770161296247</created>
+      <option name="number" value="٠٠٠٣٨" />
+      <option name="presentableId" value="LOCAL؜-٠٠٠٣٨" />
+      <option name="project" value="LOCAL؜" />
+      <updated>1770161296247</updated>
+    </task>
+    <task id="LOCAL؜-٠٠٠٣٩" summary="ديجانجو 023">
+      <option name="closed" value="true" />
+      <created>1770205488926</created>
+      <option name="number" value="٠٠٠٣٩" />
+      <option name="presentableId" value="LOCAL؜-٠٠٠٣٩" />
+      <option name="project" value="LOCAL؜" />
+      <updated>1770205488926</updated>
+    </task>
+    <task id="LOCAL؜-٠٠٠٤٠" summary="ديجانجو 024">
+      <option name="closed" value="true" />
+      <created>1770206979071</created>
+      <option name="number" value="٠٠٠٤٠" />
+      <option name="presentableId" value="LOCAL؜-٠٠٠٤٠" />
+      <option name="project" value="LOCAL؜" />
+      <updated>1770206979071</updated>
+    </task>
+    <task id="LOCAL؜-٠٠٠٤١" summary="ديجانجو 025">
+      <option name="closed" value="true" />
+      <created>1770223458910</created>
+      <option name="number" value="٠٠٠٤١" />
+      <option name="presentableId" value="LOCAL؜-٠٠٠٤١" />
+      <option name="project" value="LOCAL؜" />
+      <updated>1770223458910</updated>
+    </task>
+    <task id="LOCAL؜-٠٠٠٤٢" summary="ديجانجو 027 &#10;تفعيل الذاكرة الحية في بداية كل محادثة عن طريق الملف &#10;D:\SULTAN_HAGRY\prime_ai.bat">
+      <option name="closed" value="true" />
+      <created>1770228099382</created>
+      <option name="number" value="٠٠٠٤٢" />
+      <option name="presentableId" value="LOCAL؜-٠٠٠٤٢" />
+      <option name="project" value="LOCAL؜" />
+      <updated>1770228099382</updated>
+    </task>
+    <task id="LOCAL؜-٠٠٠٤٣" summary="ديجانجو 028 &#10;fix">
+      <option name="closed" value="true" />
+      <created>1770332775509</created>
+      <option name="number" value="٠٠٠٤٣" />
+      <option name="presentableId" value="LOCAL؜-٠٠٠٤٣" />
+      <option name="project" value="LOCAL؜" />
+      <updated>1770332775509</updated>
+    </task>
+    <task id="LOCAL؜-٠٠٠٤٤" summary="ديجانجو 029 &#10;التحول الجذري للخطة التشعيلية الديناميكية الذكية">
+      <option name="closed" value="true" />
+      <created>1770335502963</created>
+      <option name="number" value="٠٠٠٤٤" />
+      <option name="presentableId" value="LOCAL؜-٠٠٠٤٤" />
+      <option name="project" value="LOCAL؜" />
+      <updated>1770335502963</updated>
+    </task>
+    <task id="LOCAL؜-٠٠٠٤٥" summary="ديجانجو 031 &#10;التحول الجذري للخطة التشعيلية الديناميكية الذكية">
+      <option name="closed" value="true" />
+      <created>1770355518194</created>
+      <option name="number" value="٠٠٠٤٥" />
+      <option name="presentableId" value="LOCAL؜-٠٠٠٤٥" />
+      <option name="project" value="LOCAL؜" />
+      <updated>1770355518194</updated>
+    </task>
+    <task id="LOCAL؜-٠٠٠٤٦" summary="ديجانجو 032 &#10;التحول الجذري للخطة التشعيلية الديناميكية الذكية">
+      <option name="closed" value="true" />
+      <created>1770356042524</created>
+      <option name="number" value="٠٠٠٤٦" />
+      <option name="presentableId" value="LOCAL؜-٠٠٠٤٦" />
+      <option name="project" value="LOCAL؜" />
+      <updated>1770356042524</updated>
+    </task>
+    <task id="LOCAL؜-٠٠٠٤٧" summary="ديجانجو 033 &#10;التحول الجذري للخطة التشعيلية الديناميكية الذكية">
+      <option name="closed" value="true" />
+      <created>1770356836052</created>
+      <option name="number" value="٠٠٠٤٧" />
+      <option name="presentableId" value="LOCAL؜-٠٠٠٤٧" />
+      <option name="project" value="LOCAL؜" />
+      <updated>1770356836052</updated>
+    </task>
+    <task id="LOCAL؜-٠٠٠٤٨" summary="ديجانجو 034 &#10;التحول الجذري للخطة التشعيلية الديناميكية الذكية">
+      <option name="closed" value="true" />
+      <created>1770357762959</created>
+      <option name="number" value="٠٠٠٤٨" />
+      <option name="presentableId" value="LOCAL؜-٠٠٠٤٨" />
+      <option name="project" value="LOCAL؜" />
+      <updated>1770357762959</updated>
+    </task>
+    <task id="LOCAL؜-٠٠٠٤٩" summary="ديجانجو 035 &#10;التحول الجذري للخطة التشعيلية الديناميكية الذكية">
+      <option name="closed" value="true" />
+      <created>1770363215922</created>
+      <option name="number" value="٠٠٠٤٩" />
+      <option name="presentableId" value="LOCAL؜-٠٠٠٤٩" />
+      <option name="project" value="LOCAL؜" />
+      <updated>1770363215922</updated>
+    </task>
+    <task id="LOCAL؜-٠٠٠٥٠" summary="ديجانجو 037 &#10;حل مشكلة القائمة المنسدلة لمواقع الادلة">
+      <option name="closed" value="true" />
+      <created>1770398491951</created>
+      <option name="number" value="٠٠٠٥٠" />
+      <option name="presentableId" value="LOCAL؜-٠٠٠٥٠" />
+      <option name="project" value="LOCAL؜" />
+      <updated>1770398491951</updated>
+    </task>
+    <task id="LOCAL؜-٠٠٠٥١" summary="ديجانجو 038 &#10;حل مشكلة القائمة المنسدلة لمواقع الادلة">
+      <option name="closed" value="true" />
+      <created>1770399112702</created>
+      <option name="number" value="٠٠٠٥١" />
+      <option name="presentableId" value="LOCAL؜-٠٠٠٥١" />
+      <option name="project" value="LOCAL؜" />
+      <updated>1770399112702</updated>
+    </task>
+    <task id="LOCAL؜-٠٠٠٥٢" summary="ديجانجو 039 &#10;حل مشكلة القائمة المنسدلة لمواقع الادلة">
+      <option name="closed" value="true" />
+      <created>1770428800227</created>
+      <option name="number" value="٠٠٠٥٢" />
+      <option name="presentableId" value="LOCAL؜-٠٠٠٥٢" />
+      <option name="project" value="LOCAL؜" />
+      <updated>1770428800227</updated>
+    </task>
+    <task id="LOCAL؜-٠٠٠٥٣" summary="ديجانجو 040 &#10;الرضى 85% عن الوضع الحالي">
+      <option name="closed" value="true" />
+      <created>1770437131112</created>
+      <option name="number" value="٠٠٠٥٣" />
+      <option name="presentableId" value="LOCAL؜-٠٠٠٥٣" />
+      <option name="project" value="LOCAL؜" />
+      <updated>1770437131113</updated>
+    </task>
+    <task id="LOCAL؜-٠٠٠٥٤" summary="ديجانجو 041 &#10;تجويييييد">
+      <option name="closed" value="true" />
+      <created>1770450640802</created>
+      <option name="number" value="٠٠٠٥٤" />
+      <option name="presentableId" value="LOCAL؜-٠٠٠٥٤" />
+      <option name="project" value="LOCAL؜" />
+      <updated>1770450640802</updated>
+    </task>
+    <task id="LOCAL؜-٠٠٠٥٥" summary="ديجانجو 042 &#10;تجويييييد">
+      <option name="closed" value="true" />
+      <created>1770462846404</created>
+      <option name="number" value="٠٠٠٥٥" />
+      <option name="presentableId" value="LOCAL؜-٠٠٠٥٥" />
+      <option name="project" value="LOCAL؜" />
+      <updated>1770462846404</updated>
+    </task>
+    <task id="LOCAL؜-٠٠٠٥٦" summary="ديجانجو 043 &#10;تجويييييد">
+      <option name="closed" value="true" />
+      <created>1770478633233</created>
+      <option name="number" value="٠٠٠٥٦" />
+      <option name="presentableId" value="LOCAL؜-٠٠٠٥٦" />
+      <option name="project" value="LOCAL؜" />
+      <updated>1770478633233</updated>
+    </task>
+    <task id="LOCAL؜-٠٠٠٥٧" summary="ديجانجو 045 &#10;تجويييييد">
+      <option name="closed" value="true" />
+      <created>1770481750959</created>
+      <option name="number" value="٠٠٠٥٧" />
+      <option name="presentableId" value="LOCAL؜-٠٠٠٥٧" />
+      <option name="project" value="LOCAL؜" />
+      <updated>1770481750959</updated>
+    </task>
+    <task id="LOCAL؜-٠٠٠٥٨" summary="ديجانجو 046 &#10;تجويييييد">
+      <option name="closed" value="true" />
+      <created>1770484105742</created>
+      <option name="number" value="٠٠٠٥٨" />
+      <option name="presentableId" value="LOCAL؜-٠٠٠٥٨" />
+      <option name="project" value="LOCAL؜" />
+      <updated>1770484105742</updated>
+    </task>
+    <task id="LOCAL؜-٠٠٠٥٩" summary="ديجانجو 047 &#10;تجويييييد">
+      <option name="closed" value="true" />
+      <created>1770490663992</created>
+      <option name="number" value="٠٠٠٥٩" />
+      <option name="presentableId" value="LOCAL؜-٠٠٠٥٩" />
+      <option name="project" value="LOCAL؜" />
+      <updated>1770490663992</updated>
+    </task>
+    <task id="LOCAL؜-٠٠٠٦٠" summary="ديجانجو 048 &#10;تجويييييد">
+      <option name="closed" value="true" />
+      <created>1770491509215</created>
+      <option name="number" value="٠٠٠٦٠" />
+      <option name="presentableId" value="LOCAL؜-٠٠٠٦٠" />
+      <option name="project" value="LOCAL؜" />
+      <updated>1770491509215</updated>
+    </task>
+    <task id="LOCAL؜-٠٠٠٦١" summary="ديجانجو 049 &#10;تجويييييد">
+      <option name="closed" value="true" />
+      <created>1770492240690</created>
+      <option name="number" value="٠٠٠٦١" />
+      <option name="presentableId" value="LOCAL؜-٠٠٠٦١" />
+      <option name="project" value="LOCAL؜" />
+      <updated>1770492240690</updated>
+    </task>
+    <task id="LOCAL؜-٠٠٠٦٢" summary="ديجانجو 050 &#10;تجويييييد">
+      <option name="closed" value="true" />
+      <created>1770492813722</created>
+      <option name="number" value="٠٠٠٦٢" />
+      <option name="presentableId" value="LOCAL؜-٠٠٠٦٢" />
+      <option name="project" value="LOCAL؜" />
+      <updated>1770492813722</updated>
+    </task>
+    <task id="LOCAL؜-٠٠٠٦٣" summary="ديجانجو 051 &#10;الانتقال السلس بين الصفحات دون ومضات مزعجة">
+      <option name="closed" value="true" />
+      <created>1770495948984</created>
+      <option name="number" value="٠٠٠٦٣" />
+      <option name="presentableId" value="LOCAL؜-٠٠٠٦٣" />
+      <option name="project" value="LOCAL؜" />
+      <updated>1770495948984</updated>
+    </task>
+    <task id="LOCAL؜-٠٠٠٦٤" summary="ديجانجو 052 &#10;الانتقال السلس بين الصفحات دون ومضات مزعجة">
+      <option name="closed" value="true" />
+      <created>1770497997706</created>
+      <option name="number" value="٠٠٠٦٤" />
+      <option name="presentableId" value="LOCAL؜-٠٠٠٦٤" />
+      <option name="project" value="LOCAL؜" />
+      <updated>1770497997706</updated>
+    </task>
+    <task id="LOCAL؜-٠٠٠٦٥" summary="ديجانجو 053 &#10;الانتقال السلس بين الصفحات دون ومضات مزعجة">
+      <option name="closed" value="true" />
+      <created>1770499858169</created>
+      <option name="number" value="٠٠٠٦٥" />
+      <option name="presentableId" value="LOCAL؜-٠٠٠٦٥" />
+      <option name="project" value="LOCAL؜" />
+      <updated>1770499858169</updated>
+    </task>
+    <task id="LOCAL؜-٠٠٠٦٦" summary="ديجانجو 054 &#10;الانتقال السلس بين الصفحات دون ومضات مزعجة">
+      <option name="closed" value="true" />
+      <created>1770501545914</created>
+      <option name="number" value="٠٠٠٦٦" />
+      <option name="presentableId" value="LOCAL؜-٠٠٠٦٦" />
+      <option name="project" value="LOCAL؜" />
+      <updated>1770501545914</updated>
+    </task>
+    <task id="LOCAL؜-٠٠٠٦٧" summary="ديجانجو 055 &#10;الانتقال السلس بين الصفحات دون ومضات مزعجة">
+      <option name="closed" value="true" />
+      <created>1770501939834</created>
+      <option name="number" value="٠٠٠٦٧" />
+      <option name="presentableId" value="LOCAL؜-٠٠٠٦٧" />
+      <option name="project" value="LOCAL؜" />
+      <updated>1770501939834</updated>
+    </task>
+    <task id="LOCAL؜-٠٠٠٦٨" summary="ديجانجو 056 &#10;فصل المراجعة الذاتية عن لجنة متابعة الخطة التشغيلية في كل شي">
+      <option name="closed" value="true" />
+      <created>1770578617783</created>
+      <option name="number" value="٠٠٠٦٨" />
+      <option name="presentableId" value="LOCAL؜-٠٠٠٦٨" />
+      <option name="project" value="LOCAL؜" />
+      <updated>1770578617783</updated>
+    </task>
+    <task id="LOCAL؜-٠٠٠٦٩" summary="ديجانجو 057 &#10;فصل المراجعة الذاتية عن لجنة متابعة الخطة التشغيلية في كل شي">
+      <option name="closed" value="true" />
+      <created>1770579686210</created>
+      <option name="number" value="٠٠٠٦٩" />
+      <option name="presentableId" value="LOCAL؜-٠٠٠٦٩" />
+      <option name="project" value="LOCAL؜" />
+      <updated>1770579686210</updated>
+    </task>
+    <option name="localTasksCounter" value="70" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="ديجانجو 031 &#10;التحول الجذري للخطة التشعيلية الديناميكية الذكية" />
+    <MESSAGE value="ديجانجو 032 &#10;التحول الجذري للخطة التشعيلية الديناميكية الذكية" />
+    <MESSAGE value="ديجانجو 033 &#10;التحول الجذري للخطة التشعيلية الديناميكية الذكية" />
+    <MESSAGE value="ديجانجو 034 &#10;التحول الجذري للخطة التشعيلية الديناميكية الذكية" />
+    <MESSAGE value="ديجانجو 035 &#10;التحول الجذري للخطة التشعيلية الديناميكية الذكية" />
+    <MESSAGE value="ديجانجو 037 &#10;حل مشكلة القائمة المنسدلة لمواقع الادلة" />
+    <MESSAGE value="ديجانجو 038 &#10;حل مشكلة القائمة المنسدلة لمواقع الادلة" />
+    <MESSAGE value="ديجانجو 039 &#10;حل مشكلة القائمة المنسدلة لمواقع الادلة" />
+    <MESSAGE value="ديجانجو 040 &#10;الرضى 85% عن الوضع الحالي" />
+    <MESSAGE value="ديجانجو 041 &#10;تجويييييد" />
+    <MESSAGE value="ديجانجو 042 &#10;تجويييييد" />
+    <MESSAGE value="ديجانجو 043 &#10;تجويييييد" />
+    <MESSAGE value="ديجانجو 045 &#10;تجويييييد" />
+    <MESSAGE value="ديجانجو 046 &#10;تجويييييد" />
+    <MESSAGE value="ديجانجو 047 &#10;تجويييييد" />
+    <MESSAGE value="ديجانجو 048 &#10;تجويييييد" />
+    <MESSAGE value="ديجانجو 049 &#10;تجويييييد" />
+    <MESSAGE value="ديجانجو 050 &#10;تجويييييد" />
+    <MESSAGE value="ديجانجو 051 &#10;الانتقال السلس بين الصفحات دون ومضات مزعجة" />
+    <MESSAGE value="ديجانجو 052 &#10;الانتقال السلس بين الصفحات دون ومضات مزعجة" />
+    <MESSAGE value="ديجانجو 053 &#10;الانتقال السلس بين الصفحات دون ومضات مزعجة" />
+    <MESSAGE value="ديجانجو 054 &#10;الانتقال السلس بين الصفحات دون ومضات مزعجة" />
+    <MESSAGE value="ديجانجو 055 &#10;الانتقال السلس بين الصفحات دون ومضات مزعجة" />
+    <MESSAGE value="ديجانجو 056 &#10;فصل المراجعة الذاتية عن لجنة متابعة الخطة التشغيلية في كل شي" />
+    <MESSAGE value="ديجانجو 057 &#10;فصل المراجعة الذاتية عن لجنة متابعة الخطة التشغيلية في كل شي" />
+    <option name="LAST_COMMIT_MESSAGE" value="ديجانجو 057 &#10;فصل المراجعة الذاتية عن لجنة متابعة الخطة التشغيلية في كل شي" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/shaniya_django/coredata/templates/base.html</url>
+          <line>32</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/SULTAN_HAGRY$0010_operationalplanitems_digital_seal_and_more.coverage" NAME="0010_operationalplanitems_digital_seal_and_more Coverage Results" MODIFIED="1770654927959" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/shaniya_django/coredata/migrations" />
+    <SUITE FILE_PATH="coverage/SULTAN_HAGRY$dump_file_positions.coverage" NAME="dump_file_positions Coverage Results" MODIFIED="1770360164813" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/shaniya_django" />
+    <SUITE FILE_PATH="coverage/SULTAN_HAGRY$update_usernames.coverage" NAME="update_usernames Coverage Results" MODIFIED="1770301345506" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/shaniya_django" />
+    <SUITE FILE_PATH="coverage/SULTAN_HAGRY$refresh_context.coverage" NAME="refresh_context Coverage Results" MODIFIED="1770334249240" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/shaniya_django" />
+    <SUITE FILE_PATH="coverage/SULTAN_HAGRY$debug_permissions.coverage" NAME="debug_permissions Coverage Results" MODIFIED="1770331857149" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/shaniya_django" />
+    <SUITE FILE_PATH="coverage/SULTAN_HAGRY$fix_user_link.coverage" NAME="fix_user_link Coverage Results" MODIFIED="1770359822223" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/shaniya_django" />
+    <SUITE FILE_PATH="coverage/SULTAN_HAGRY$reset_students_table.coverage" NAME="reset_students_table Coverage Results" MODIFIED="1770464802205" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/shaniya_django/coredata/management/commands" />
+    <SUITE FILE_PATH="coverage/SULTAN_HAGRY$setup_permissions.coverage" NAME="setup_permissions Coverage Results" MODIFIED="1770362546341" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/shaniya_django" />
+    <SUITE FILE_PATH="coverage/SULTAN_HAGRY$create_staff_users.coverage" NAME="create_staff_users Coverage Results" MODIFIED="1770302106162" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/shaniya_django" />
+    <SUITE FILE_PATH="coverage/SULTAN_HAGRY$reset_and_create_users.coverage" NAME="reset_and_create_users Coverage Results" MODIFIED="1770304097457" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/shaniya_django" />
+    <SUITE FILE_PATH="coverage/SULTAN_HAGRY$fix_database_schema.coverage" NAME="fix_database_schema Coverage Results" MODIFIED="1770301456451" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/shaniya_django" />
+    <SUITE FILE_PATH="coverage/SULTAN_HAGRY$create_committee_csv.coverage" NAME="create_committee_csv Coverage Results" MODIFIED="1770353422179" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/shaniya_django" />
+    <SUITE FILE_PATH="coverage/SULTAN_HAGRY$restore_superuser.coverage" NAME="restore_superuser Coverage Results" MODIFIED="1770383126029" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/shaniya_django" />
+    <SUITE FILE_PATH="coverage/SULTAN_HAGRY$consolidate_groups.coverage" NAME="consolidate_groups Coverage Results" MODIFIED="1770356663108" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/shaniya_django" />
+    <SUITE FILE_PATH="coverage/SULTAN_HAGRY$dump_staff_data.coverage" NAME="dump_staff_data Coverage Results" MODIFIED="1770359740693" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/shaniya_django" />
+    <SUITE FILE_PATH="coverage/SULTAN_HAGRY$update_committees_from_csv.coverage" NAME="update_committees_from_csv Coverage Results" MODIFIED="1770352483106" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/shaniya_django" />
+    <SUITE FILE_PATH="coverage/SULTAN_HAGRY$create_superuser_force.coverage" NAME="create_superuser_force Coverage Results" MODIFIED="1770331145322" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/shaniya_django" />
+    <SUITE FILE_PATH="coverage/SULTAN_HAGRY$populate_evidence.coverage" NAME="populate_evidence Coverage Results" MODIFIED="1770373736292" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/shaniya_django/coredata/management/commands" />
+    <SUITE FILE_PATH="coverage/SULTAN_HAGRY$setup_roles_and_permissions.coverage" NAME="setup_roles_and_permissions Coverage Results" MODIFIED="1770331786511" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/shaniya_django" />
+    <SUITE FILE_PATH="coverage/SULTAN_HAGRY$0011_delete_accessrawabsence_delete_accessrawbus_and_more.coverage" NAME="0011_delete_accessrawabsence_delete_accessrawbus_and_more Coverage Results" MODIFIED="1770382964857" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/shaniya_django/coredata/migrations" />
+    <SUITE FILE_PATH="coverage/SULTAN_HAGRY$import_operational_plan.coverage" NAME="import_operational_plan Coverage Results" MODIFIED="1770655152064" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/shaniya_django/coredata/management/commands" />
+    <SUITE FILE_PATH="coverage/SULTAN_HAGRY$check_users_status.coverage" NAME="check_users_status Coverage Results" MODIFIED="1770302188304" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/shaniya_django" />
+  </component>
+</project>

@@ -1,0 +1,386 @@
+{% load static %}
+<div class="modal-backdrop" onclick="closeModal()">
+    <!-- Main Modal Container -->
+    <div class="modal-content" onclick="event.stopPropagation()">
+
+        <!-- 1. Branded Header -->
+        <div class="modal-header branded-header">
+            <div class="header-brand">
+                <div class="header-icon-box">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+                </div>
+                <div class="header-titles">
+                    <h3>تحديث بيانات التنفيذ</h3>
+                </div>
+            </div>
+            <button type="button" class="close-btn" onclick="closeModal()" title="إغلاق">✕</button>
+        </div>
+
+        <form id="plan-form-edit-{{ item.id }}"
+              class="modal-form"
+              hx-post="{% url 'plan_edit_save' item.id %}"
+              hx-target="#row-{{ item.id }}"
+              hx-swap="outerHTML">
+            {% csrf_token %}
+
+            <!-- Error Banner -->
+            {% if form.errors %}
+            <div class="error-banner">
+                <strong>يرجى مراجعة البيانات:</strong>
+                <ul>{% for field, errors in form.errors.items %}<li>{{ field }}: {{ errors.0 }}</li>{% endfor %}</ul>
+            </div>
+            {% endif %}
+
+            <!-- 2. Compact Body -->
+            <div class="modal-body">
+
+                <!-- A. Context Cards (Read Only) - New Layout -->
+                <div class="info-grid">
+                    <!-- Row 1 -->
+                    <div class="info-card col-4">
+                        <div class="card-label">السنة الدراسية</div>
+                        <div class="card-value center">{{ item.academic_year.name|default:item.year|default:"-" }}</div>
+                    </div>
+                    <div class="info-card col-4">
+                        <div class="card-label">المجال</div>
+                        <div class="card-value center">{{ item.rank_name|default:"-" }}</div>
+                    </div>
+                    <div class="info-card col-4">
+                        <div class="card-label">مقيّم المجال</div>
+                        <div class="card-value center">{{ evaluator_name|default:"-" }}</div>
+                    </div>
+
+                    <!-- Row 2 -->
+                    <div class="info-card col-2">
+                        <div class="card-label"># الهدف</div>
+                        <div class="card-value number center">{{ item.target_no|default:"-" }}</div>
+                    </div>
+                    <div class="info-card col-10">
+                        <div class="card-label">الهدف الاستراتيجي</div>
+                        <div class="card-value text-content">{{ item.target|default:"-" }}</div>
+                    </div>
+
+                    <!-- Row 3 -->
+                    <div class="info-card col-2">
+                        <div class="card-label"># الإجراء</div>
+                        <div class="card-value number center">{{ item.procedure_no|default:"-" }}</div>
+                    </div>
+                    <div class="info-card col-10">
+                        <div class="card-label">الإجراء التنفيذي</div>
+                        <div class="card-value text-content highlight">{{ item.procedure|default:"-" }}</div>
+                    </div>
+
+                    <!-- Row 4 -->
+                    <div class="info-card col-2">
+                        <div class="card-label"># المؤشر</div>
+                        <div class="card-value number center">{{ item.indicator_no|default:"-" }}</div>
+                    </div>
+                    <div class="info-card col-10">
+                        <div class="card-label">مؤشر الأداء</div>
+                        <div class="card-value text-content">{{ item.indicator|default:"-" }}</div>
+                    </div>
+                </div>
+
+                <!-- Separator -->
+                <div class="separator-bar">
+                    <span class="separator-text">زمن التنفيذ: {{ item.date_range|default:"-" }}</span>
+                </div>
+
+                <!-- B. Action Section (Inputs) -->
+                <div class="action-section">
+                    <div class="input-grid">
+                        <div class="input-group">
+                            <label for="{{ form.follow_up.id_for_label }}">حالة المتابعة</label>
+                            {{ form.follow_up }}
+                        </div>
+
+                        <div class="input-group">
+                            <label for="{{ form.evidence_type.id_for_label }}">نوع الدليل</label>
+                            {{ form.evidence_type }}
+                        </div>
+
+                        <div class="input-group span-2 evidence-upload-box">
+                            <label for="{{ form.evidence_document.id_for_label }}">
+                                <i class="fa-solid fa-cloud-arrow-up"></i>
+                                ارفاق دليل من المستودع (خزنة ملفاتي)
+                            </label>
+                            {{ form.evidence_document }}
+                            <div class="helper-text">
+                                <i class="fa-solid fa-circle-info"></i>
+                                يمكنك اختيار ملف قمت برفعه مسبقاً في "مستودع الأدلة".
+                            </div>
+                        </div>
+
+                        <div class="input-group span-full">
+                            <label for="{{ form.evidence_source_file.id_for_label }}">موقع الدليل (اختياري - يدوي)</label>
+                            {{ form.evidence_source_file }}
+                        </div>
+
+                        <div class="input-group span-full">
+                            <label for="{{ form.comments.id_for_label }}">الملاحظات والتحديات</label>
+                            {{ form.comments }}
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- 3. Footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" onclick="closeModal()">إلغاء</button>
+                <button type="submit" class="btn btn-primary" id="save-btn">
+                    <span class="btn-text">حفظ التغييرات</span>
+                    <span class="htmx-indicator spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<style>
+    /* --- Variables --- */
+    :root {
+        --maroon-deep: #5b0e2d;
+        --maroon-light: #7b1e2b;
+        --gold-accent: #c7a43c;
+        --gray-bg: #f8fafc;
+        --gray-border: #e2e8f0;
+        --text-dark: #0f172a;
+        --text-muted: #64748b;
+    }
+
+    /* --- Layout --- */
+    .modal-backdrop {
+        position: fixed; inset: 0; z-index: 1100;
+        background: rgba(15, 23, 42, 0.85);
+        backdrop-filter: blur(4px);
+        display: flex; align-items: center; justify-content: center;
+        animation: fadeIn 0.2s ease-out;
+    }
+
+    .modal-content {
+        background: #fff;
+        width: 95vw; max-width: 980px; /* Increased from 820px */
+        height: auto; max-height: 95vh;
+        border-radius: 12px;
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        display: flex; flex-direction: column;
+        overflow: hidden;
+        animation: slideUp 0.3s ease-out;
+    }
+
+    /* --- Header --- */
+    .modal-header.branded-header {
+        padding: 0.8rem 1.5rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-shrink: 0;
+    }
+
+    .header-brand { display: flex; align-items: center; gap: 0.8rem; }
+    .header-icon-box { color: var(--gold-accent); }
+    .header-titles h3 { margin: 0; font-family: 'Tajawal', sans-serif; font-weight: 700; font-size: 1.1rem; }
+
+    /* Fixed Close Button */
+    .close-btn {
+        background: none;
+        border: none;
+        color: white;
+        font-size: 1.5rem; /* Larger X */
+        cursor: pointer;
+        opacity: 0.8;
+        line-height: 1;
+        padding: 0 0.5rem;
+        display: flex;
+        align-items: center;
+    }
+    .close-btn:hover { opacity: 1; }
+
+    /* --- Body --- */
+    .modal-form { display: flex; flex-direction: column; flex: 1; overflow: hidden; }
+    .modal-body {
+        flex: 1;
+        padding: 1.5rem;
+        background: var(--gray-bg);
+        display: flex; flex-direction: column; gap: 1.5rem;
+        overflow-y: auto; /* Fallback scroll if screen is too small */
+    }
+
+    /* --- Info Grid (12 Columns) --- */
+    .info-grid {
+        display: grid;
+        grid-template-columns: repeat(12, 1fr);
+        gap: 0.8rem;
+    }
+
+    .info-card {
+        background: white;
+        border: 1px solid var(--gray-border);
+        border-radius: 6px;
+        padding: 0.6rem 0.8rem;
+        display: flex; flex-direction: column;
+        justify-content: center;
+        min-height: 60px;
+    }
+
+    .card-label {
+        font-size: 0.7rem; font-weight: 700; color: var(--text-muted);
+        margin-bottom: 0.2rem; font-family: 'Tajawal', sans-serif;
+    }
+    .card-value {
+        font-size: 0.95rem; font-weight: 600; color: var(--text-dark);
+        font-family: 'Amiri', serif; line-height: 1.3;
+    }
+    .card-value.number { font-family: 'Tajawal', sans-serif; font-weight: 700; color: var(--maroon-light); }
+    .card-value.highlight { color: var(--maroon-deep); }
+    .card-value.center { text-align: center; }
+    .card-value.text-content {
+        white-space: normal;
+        display: -webkit-box;
+        -webkit-line-clamp: 3; /* Limit lines if absolutely necessary, but usually fits */
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    /* Column Spans */
+    .col-2 { grid-column: span 2; }
+    .col-4 { grid-column: span 4; }
+    .col-10 { grid-column: span 10; }
+    .separator-bar { text-align: center; padding: 0.8rem; margin: 0.5rem 0; background: #f1f5f9; border-radius: 6px; border-top: 2px solid var(--gray-border); border-bottom: 2px solid var(--gray-border); }
+    .separator-text { font-size: 1.2rem; font-weight: 800; color: var(--maroon-deep); font-family: 'Tajawal', sans-serif; }
+
+    /* --- Action Section --- */
+    .action-section {
+        background: white;
+        border: 1px solid var(--gray-border);
+        border-radius: 8px;
+        padding: 1.2rem;
+        border-top: 3px solid var(--maroon-light);
+    }
+
+    .input-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; } /* 2 cols instead of 4 */
+    .input-group { display: flex; flex-direction: column; gap: 0.4rem; }
+    .input-group.span-2 { grid-column: span 2; }
+    .input-group.span-full { grid-column: 1 / -1; }
+
+    .input-group label {
+        font-weight: 700; font-size: 0.85rem; color: var(--text-dark);
+        font-family: 'Tajawal', sans-serif;
+    }
+
+    .form-control {
+        width: 100%; padding: 0.5rem 0.8rem;
+        border: 1px solid var(--gray-border); border-radius: 6px;
+        font-family: 'Amiri', serif; font-size: 0.95rem;
+        background: #fff;
+    }
+    .form-control:focus { border-color: var(--maroon-light); outline: none; }
+    .form-control.textarea { min-height: 60px; resize: none; text-align: right; }
+
+    /* Evidence Upload Box Enhancement */
+    .evidence-upload-box {
+        background: #f0fdf4;
+        padding: 1rem;
+        border-radius: 8px;
+        border: 1px dashed #22c55e;
+    }
+    .evidence-upload-box label {
+        color: #166534 !important;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-bottom: 0.5rem;
+    }
+    .evidence-upload-box .helper-text {
+        font-size: 0.75rem;
+        color: #15803d;
+        margin-top: 0.4rem;
+        display: flex;
+        align-items: center;
+        gap: 0.3rem;
+    }
+    .select-gold {
+        border-color: #22c55e !important;
+        font-weight: 700;
+    }
+
+    /* --- Footer --- */
+    .modal-footer {
+        padding: 0.8rem 1.5rem; background: white;
+        border-top: 1px solid var(--gray-border);
+        display: flex; justify-content: flex-end; gap: 0.8rem;
+        flex-shrink: 0;
+    }
+
+    .btn {
+        padding: 0.5rem 1.2rem; border-radius: 6px; font-weight: 700;
+        font-family: 'Tajawal', sans-serif; cursor: pointer; border: none; font-size: 0.9rem;
+    }
+    .btn-secondary { background: #f1f5f9; color: var(--text-dark); }
+    .btn-primary { background: var(--maroon-deep); color: white; }
+    .btn-primary:hover { background: var(--maroon-light); }
+
+    /* --- Error Banner --- */
+    .error-banner {
+        margin: 0.5rem 1.5rem 0; padding: 0.5rem;
+        background: #fef2f2; border: 1px solid #fee2e2; color: #991b1b;
+        border-radius: 6px; font-size: 0.85rem;
+    }
+
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+</style>
+
+<script>
+    function closeModal() {
+        const modal = document.querySelector('.modal-backdrop');
+        if (modal) {
+            modal.style.opacity = '0';
+            setTimeout(() => modal.remove(), 200);
+        }
+    }
+
+    document.addEventListener('keydown', function(event) {
+        if (event.key === 'Escape') closeModal();
+    });
+
+    function submitForm(event, url) {
+        event.preventDefault();
+        const form = event.target;
+        const formData = new FormData(form);
+        const btn = document.getElementById('save-btn');
+        const originalText = btn.innerHTML;
+
+        btn.disabled = true;
+        btn.innerHTML = 'جاري الحفظ...';
+
+        fetch(url, {
+            method: 'POST',
+            body: formData,
+            headers: { 'X-Requested-With': 'XMLHttpRequest' }
+        })
+        .then(response => {
+            if (response.ok) return response.text();
+            if (response.status === 422) return response.text().then(html => { throw { isValidationError: true, html: html }; });
+            throw new Error('Network response was not ok.');
+        })
+        .then(html => {
+            const rowId = '#row-{{ item.id }}';
+            const row = document.querySelector(rowId);
+            if (row) row.outerHTML = html;
+            if (typeof showToast === 'function') showToast('تم حفظ التغييرات بنجاح', 'success');
+            closeModal();
+        })
+        .catch(error => {
+            if (error.isValidationError) {
+                document.getElementById('modal-container').innerHTML = error.html;
+            } else {
+                console.error('Error:', error);
+                alert('حدث خطأ أثناء الحفظ.');
+                btn.disabled = false;
+                btn.innerHTML = originalText;
+            }
+        });
+    }
+</script>

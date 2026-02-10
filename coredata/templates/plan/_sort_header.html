@@ -1,0 +1,20 @@
+<th class="
+    {% if sort_field_name == 'target' or sort_field_name == 'indicator' or sort_field_name == 'procedure' %}col-xl{% endif %}
+    {% if sort_field_name == 'rank_name' or sort_field_name == 'executor' %}col-medium{% endif %}
+    {% if sort_field_name == 'date_range' or sort_field_name == 'follow_up' or sort_field_name == 'evaluation' %}col-short{% endif %}
+">
+    <a href="#"
+       hx-get="{% url 'plan_list' %}?q={{ q|default:'' }}&year={{ year|default:'' }}&executor={{ executor_filter|default:'' }}&follow_up={{ follow_up_filter|default:'' }}&evaluation={{ evaluation_filter|default:'' }}&sort_by={{ sort_field_name }}&sort_order={% if sort_by == sort_field_name and sort_order == 'asc' %}desc{% else %}asc{% endif %}"
+       hx-target="#plan-table-container"
+       hx-push-url="true"
+       style="color: white; text-decoration: none; display: flex; align-items: center; gap: 4px;">
+        {{ display_name }}
+        {% if sort_by == sort_field_name %}
+            {% if sort_order == 'asc' %}
+                <span>▲</span>
+            {% else %}
+                <span>▼</span>
+            {% endif %}
+        {% endif %}
+    </a>
+</th>

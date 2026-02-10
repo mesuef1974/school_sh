@@ -1,0 +1,73 @@
+
+version: "3.9"
+services:
+  django:
+    build:
+      context: ..
+      dockerfile: docker/Django.Dockerfile
+    environment:
+      POSTGRES_DB: shaniya
+      POSTGRES_USER: app_admin
+      POSTGRES_PASSWORD: admin
+      POSTGRES_HOST: postgres
+      POSTGRES_PORT: 5432
+      CELERY_BROKER_URL: redis://redis:6379/0
+      CELERY_RESULT_BACKEND: redis://redis:6379/0
+      DJANGO_DEBUG: "1"
+    ports:
+      - "8000:8000"
+    depends_on:
+      - postgres
+      - redis
+    volumes:
+      - ../coredata:/app/coredata
+
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: shaniya
+      POSTGRES_USER: app_admin
+      POSTGRES_PASSWORD: admin
+    ports:
+      - "5432:5432"
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+
+  redis:
+    image: redis:7-alpine
+    ports: ["6379:6379"]
+
+  celery:
+    build:
+      context: ..
+      dockerfile: docker/Django.Dockerfile
+    command: ["celery","-A","config.celery","worker","-l","INFO"]
+    environment:
+      POSTGRES_DB: shaniya
+      POSTGRES_USER: app_admin
+      POSTGRES_PASSWORD: admin
+      POSTGRES_HOST: postgres
+      POSTGRES_PORT: 5432
+      CELERY_BROKER_URL: redis://redis:6379/0
+      CELERY_RESULT_BACKEND: redis://redis:6379/0
+    depends_on:
+      - django
+      - redis
+
+  flower:
+    image: mher/flower:2.0
+    command: ["--broker=redis://redis:6379/0"]
+    ports:
+      - "5555:5555"
+    depends_on:
+      - redis
+
+  adminer:
+    image: adminer:latest
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+
+volumes:
+  pg_data:

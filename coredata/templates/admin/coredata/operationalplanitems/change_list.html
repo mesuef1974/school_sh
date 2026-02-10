@@ -1,0 +1,206 @@
+{% extends "admin/change_list.html" %}
+{% load i18n admin_urls static admin_list %}
+
+{% block extrastyle %}
+  {{ block.super }}
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    /* --- Modern Operational Plan Layout --- */
+    :root {
+      --primary-color: #2563eb;
+      --bg-color: #f8fafc;
+      --card-bg: #ffffff;
+      --border-color: #e2e8f0;
+      --text-main: #1e293b;
+      --text-muted: #64748b;
+    }
+
+    .dark-mode {
+      --bg-color: #1a1d20;
+      --card-bg: #2c3034;
+      --border-color: #45494e;
+      --text-main: #e2e8f0;
+      --text-muted: #94a3b8;
+    }
+
+    /* Layout Structure */
+    #content-main { display: flex; flex-direction: column; gap: 15px; }
+
+    /* 1. Top Stats Bar */
+    .stats-bar {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px;
+      margin-bottom: 10px;
+    }
+    .stat-card {
+      background: var(--card-bg); padding: 15px; border-radius: 8px;
+      border-left: 4px solid var(--primary-color);
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .stat-card h3 { margin: 0; font-size: 1.8rem; color: var(--text-main); }
+    .stat-card p { margin: 0; font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase; font-weight: 700; }
+    .stat-card i { font-size: 1.5rem; opacity: 0.2; }
+
+    /* 2. Main Grid Area */
+    .plan-grid-container {
+      display: grid; grid-template-columns: 280px 1fr; gap: 20px;
+      align-items: start;
+    }
+
+    /* Filters Sidebar (Left) */
+    .filters-sidebar {
+      background: var(--card-bg); border-radius: 8px; padding: 15px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+      position: sticky; top: 20px;
+    }
+    .filters-sidebar h3 { font-size: 1rem; border-bottom: 1px solid var(--border-color); padding-bottom: 10px; margin-bottom: 15px; }
+    .filter-group { margin-bottom: 15px; }
+    .filter-group label { display: block; font-size: 0.8rem; font-weight: 700; margin-bottom: 5px; color: var(--text-muted); }
+    .filter-group select, .filter-group input { width: 100%; padding: 8px; border: 1px solid var(--border-color); border-radius: 4px; background: var(--bg-color); color: var(--text-main); }
+
+    /* Plan Items List (Right) */
+    .plan-items-list {
+      display: flex; flex-direction: column; gap: 10px;
+    }
+
+    /* The Plan Item Card */
+    .plan-card {
+      background: var(--card-bg); border-radius: 8px; padding: 0;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+      border: 1px solid var(--border-color);
+      transition: transform 0.2s, box-shadow 0.2s;
+      position: relative; overflow: hidden;
+    }
+    .plan-card:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+
+    /* Status Stripe */
+    .status-stripe { width: 6px; position: absolute; top: 0; bottom: 0; right: 0; }
+    .status-Completed { background: #10b981; }
+    .status-In.Progress { background: #3b82f6; }
+    .status-Pending.Review { background: #f59e0b; }
+    .status-Draft { background: #94a3b8; }
+    .status-Returned { background: #ef4444; }
+
+    .card-content { padding: 15px 25px 15px 15px; display: grid; grid-template-columns: 1fr 200px; gap: 20px; }
+
+    .card-main h4 { margin: 0 0 5px 0; font-size: 1.1rem; color: var(--text-main); }
+    .card-main .meta { font-size: 0.8rem; color: var(--text-muted); display: flex; gap: 15px; align-items: center; margin-bottom: 10px; }
+    .card-main .meta i { margin-left: 5px; }
+    .card-main .procedure { font-size: 0.95rem; line-height: 1.5; color: var(--text-main); background: rgba(0,0,0,0.02); padding: 10px; border-radius: 6px; border-right: 3px solid var(--primary-color); }
+
+    .card-actions { display: flex; flex-direction: column; gap: 10px; justify-content: center; border-right: 1px solid var(--border-color); padding-right: 20px; }
+
+    .progress-wrapper { text-align: center; }
+    .progress-bar { height: 6px; background: #e2e8f0; border-radius: 3px; overflow: hidden; margin-top: 5px; }
+    .progress-fill { height: 100%; background: var(--primary-color); }
+
+    .action-btn {
+      display: block; text-align: center; padding: 6px 12px; border-radius: 4px;
+      font-size: 0.8rem; font-weight: 700; text-decoration: none;
+      background: var(--bg-color); color: var(--text-main); border: 1px solid var(--border-color);
+    }
+    .action-btn:hover { background: var(--primary-color); color: white; border-color: var(--primary-color); }
+
+    /* Badges */
+    .badge { padding: 2px 8px; border-radius: 12px; font-size: 0.7rem; font-weight: 700; }
+    .badge-gray { background: #f1f5f9; color: #475569; }
+    .badge-blue { background: #dbeafe; color: #1e40af; }
+  </style>
+{% endblock %}
+
+{% block content %}
+  <div id="content-main">
+
+    <!-- 1. Stats Bar -->
+    <div class="stats-bar">
+      <div class="stat-card" style="border-color: #3b82f6;">
+        <div><h3>{{ cl.result_list|length }}</h3><p>إجمالي البنود</p></div>
+        <i class="fas fa-list" style="color: #3b82f6;"></i>
+      </div>
+      <div class="stat-card" style="border-color: #10b981;">
+        <div><h3>--</h3><p>مكتملة</p></div>
+        <i class="fas fa-check-circle" style="color: #10b981;"></i>
+      </div>
+      <div class="stat-card" style="border-color: #f59e0b;">
+        <div><h3>--</h3><p>قيد المراجعة</p></div>
+        <i class="fas fa-clock" style="color: #f59e0b;"></i>
+      </div>
+      <div class="stat-card" style="border-color: #ef4444;">
+        <div><h3>--</h3><p>متأخرة</p></div>
+        <i class="fas fa-exclamation-triangle" style="color: #ef4444;"></i>
+      </div>
+    </div>
+
+    <!-- 2. Main Layout -->
+    <div class="plan-grid-container">
+
+      <!-- Left: Filters (Replaces standard Django filters) -->
+      <div class="filters-sidebar">
+        <h3><i class="fas fa-filter"></i> تصفية البنود</h3>
+        {% if cl.has_filters %}
+          {% for spec in cl.filter_specs %}
+            <div class="filter-group">
+              {% admin_list_filter cl spec %}
+            </div>
+          {% endfor %}
+        {% endif %}
+
+        <div class="filter-group">
+            <label>بحث سريع</label>
+            <input type="text" id="quick-search" placeholder="ابحث في الإجراءات...">
+        </div>
+      </div>
+
+      <!-- Right: Cards List -->
+      <div class="plan-items-list">
+        {% for result in cl.result_list %}
+        <div class="plan-card">
+            <div class="status-stripe status-{{ result.status|cut:' ' }}"></div>
+            <div class="card-content">
+                <div class="card-main">
+                    <div style="display: flex; justify-content: space-between;">
+                        <h4>{{ result.code }} <span style="font-weight: 400; font-size: 0.9em; color: #64748b;">| {{ result.rank_name }}</span></h4>
+                        <span class="badge badge-gray">{{ result.get_status_display }}</span>
+                    </div>
+
+                    <div class="meta">
+                        <span><i class="fas fa-calendar-alt"></i> {{ result.date_range|default:"غير محدد" }}</span>
+                        <span><i class="fas fa-user-tie"></i> {{ result.executor|default:"غير محدد" }}</span>
+                        {% if result.evidence_type %}
+                        <span><i class="fas fa-file-alt"></i> {{ result.evidence_type }}</span>
+                        {% endif %}
+                    </div>
+
+                    <div class="procedure">
+                        {{ result.procedure|truncatewords:30 }}
+                    </div>
+                </div>
+
+                <div class="card-actions">
+                    <div class="progress-wrapper">
+                        <span style="font-size: 0.75rem; font-weight: 700; color: var(--text-muted);">نسبة الإنجاز</span>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: {% if result.status == 'Completed' %}100%{% elif result.status == 'In Progress' %}50%{% else %}0%{% endif %}; background-color: {% if result.status == 'Completed' %}#10b981{% elif result.status == 'In Progress' %}#3b82f6{% else %}#e2e8f0{% endif %};"></div>
+                        </div>
+                    </div>
+                    <a href="{% url 'admin:coredata_operationalplanitems_change' result.id %}" class="action-btn">
+                        <i class="fas fa-edit"></i> تعديل / تحديث
+                    </a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+
+        {% if not cl.result_list %}
+        <div style="text-align: center; padding: 40px; color: var(--text-muted);">
+            <i class="fas fa-inbox" style="font-size: 3rem; margin-bottom: 10px; opacity: 0.3;"></i>
+            <p>لا توجد بنود مطابقة للفلاتر الحالية.</p>
+        </div>
+        {% endif %}
+
+        <!-- Pagination -->
+        {% block pagination %}{% pagination cl %}{% endblock %}
+      </div>
+    </div>
+  </div>
+{% endblock %}

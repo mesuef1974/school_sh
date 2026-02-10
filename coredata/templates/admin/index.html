@@ -1,0 +1,420 @@
+{% extends "admin/index.html" %}
+{% load i18n %}
+
+{% block extrastyle %}
+    {{ block.super }}
+    <style>
+        /* --- Ultra-Compact Executive Dashboard (Full Width, Zero Scroll) --- */
+        :root {
+            --sidebar-width: 250px;
+            --header-height: 50px;
+            --card-bg: #ffffff;
+            --text-main: #334155;
+            --text-muted: #64748b;
+            --border-color: #e2e8f0;
+        }
+
+        /* Hide Default Admin Elements */
+        #content-main { visibility: hidden; height: 0; overflow: hidden; }
+        .content-header { display: none !important; }
+
+        /* Force Full Screen Layout */
+        body.sidebar-mini.layout-fixed .wrapper .content-wrapper {
+            height: 100vh;
+            overflow: hidden;
+            padding: 0 !important;
+            margin-top: var(--header-height) !important;
+        }
+
+        /* Remove container constraints */
+        .container-fluid { padding: 0 !important; margin: 0 !important; max-width: 100% !important; }
+
+        .exec-dashboard {
+            visibility: visible;
+            display: grid;
+            grid-template-rows: 70px 60px 1fr; /* Increased top rows for larger text */
+            gap: 6px;
+            height: calc(100vh - var(--header-height));
+            padding: 6px;
+            background: #f1f5f9;
+            box-sizing: border-box;
+            overflow: hidden; /* NO SCROLL ALLOWED */
+            width: 100%;
+        }
+        .dark-mode .exec-dashboard { background: #1a1d20; --card-bg: #2c3034; --text-main: #e2e8f0; --text-muted: #94a3b8; --border-color: #45494e; }
+
+        /* 1. KPI Row (Larger Text) */
+        .kpi-row { 
+            display: grid; 
+            grid-template-columns: repeat(6, 1fr);
+            gap: 6px;
+        }
+        .kpi-micro {
+            background: var(--card-bg); border-radius: 4px; padding: 6px 12px;
+            display: flex; justify-content: space-between; align-items: center;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+            border-right: 3px solid;
+        }
+        .kpi-micro.blue { border-color: #3b82f6; }
+        .kpi-micro.teal { border-color: #14b8a6; }
+        .kpi-micro.indigo { border-color: #6366f1; }
+        .kpi-micro.purple { border-color: #8b5cf6; }
+        .kpi-micro.green { border-color: #10b981; }
+        .kpi-micro.orange { border-color: #f97316; }
+
+        .kpi-micro .val { font-size: 1.5rem; font-weight: 800; display: block; line-height: 1; color: var(--text-main); }
+        .kpi-micro .lbl { font-size: 0.75rem; color: var(--text-muted); font-weight: 700; text-transform: uppercase; }
+        .kpi-micro i { font-size: 1.5rem; opacity: 0.15; color: var(--text-main); }
+
+        /* 2. Process Flow (Larger Text) */
+        .process-flow {
+            background: var(--card-bg); border-radius: 4px; padding: 0 10px;
+            display: flex; justify-content: space-around; align-items: center;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+            position: relative;
+        }
+        .flow-step { text-align: center; position: relative; z-index: 2; flex: 1; display: flex; align-items: center; justify-content: center; gap: 8px; }
+        .step-icon {
+            width: 28px; height: 28px; border-radius: 50%; background: #f1f5f9;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1rem; color: var(--text-muted); border: 2px solid var(--card-bg);
+        }
+        .flow-step.active .step-icon { background: #3b82f6; color: #fff; }
+        .flow-step.success .step-icon { background: #10b981; color: #fff; }
+        
+        .flow-line { position: absolute; top: 50%; left: 5%; right: 5%; height: 2px; background: var(--border-color); z-index: 1; transform: translateY(-50%); }
+        .step-label { font-size: 0.8rem; font-weight: 700; color: var(--text-muted); }
+        .step-count { font-size: 1rem; font-weight: 800; color: var(--text-main); background: var(--card-bg); padding: 0 6px; border-radius: 3px; }
+
+        /* 3. Main Workspace (Grid) */
+        .workspace-grid {
+            display: grid;
+            grid-template-columns: 50% 25% 25%;
+            gap: 6px;
+            overflow: hidden;
+            height: 100%;
+        }
+
+        .panel { 
+            background: var(--card-bg); border-radius: 6px; display: flex; flex-direction: column;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05); overflow: hidden; height: 100%;
+        }
+
+        .panel-header { 
+            padding: 6px 10px; background: rgba(0,0,0,0.02); border-bottom: 1px solid var(--border-color);
+            display: flex; justify-content: space-between; align-items: center; height: 36px; flex-shrink: 0;
+        }
+        .panel-header h4 { margin: 0; font-size: 0.95rem; font-weight: 800; color: var(--text-main); }
+
+        .panel-body { padding: 6px; overflow: hidden; flex: 1; display: flex; flex-direction: column; }
+
+        /* Student Stats Specifics */
+        .chart-row-top { height: 30%; position: relative; margin-bottom: 4px; }
+        .chart-row-bottom {
+            height: 70%;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(2, 1fr);
+            gap: 4px;
+        }
+        .mini-chart-box {
+            background: rgba(0,0,0,0.02); border-radius: 4px;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            padding: 1px;
+            overflow: hidden;
+        }
+        .mini-chart-box h6 { margin: 0; font-size: 0.75rem; color: var(--text-muted); margin-bottom: 1px; font-weight: 700; }
+
+        /* Reduced Height for Section Charts (Container Only -5%) */
+        .canvas-wrapper-xs { width: 70%; height: 70%; position: relative; } /* Reduced container size */
+
+        /* Operational Charts */
+        .op-charts-container { display: flex; flex-direction: column; height: 100%; gap: 4px; justify-content: center; }
+        .op-chart-box {
+            flex: 1;
+            position: relative;
+            border-bottom: 1px dashed var(--border-color);
+            padding-bottom: 2px;
+            display: flex; align-items: center; justify-content: center;
+            overflow: hidden;
+        }
+        .op-chart-box:last-child { border-bottom: none; }
+        .op-chart-box canvas { max-height: 85% !important; max-width: 85% !important; } /* Optimized size */
+
+        /* Roadmap List */
+        .roadmap-list { overflow-y: auto; padding-right: 4px; }
+        .roadmap-item {
+            display: flex; align-items: center; gap: 8px; padding: 6px 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .roadmap-item:last-child { border-bottom: none; }
+        .roadmap-item i { font-size: 1rem; color: #3b82f6; width: 18px; text-align: center; }
+        .roadmap-item div { flex: 1; }
+        .roadmap-item h5 { margin: 0; font-size: 0.85rem; font-weight: 700; color: var(--text-main); }
+        .roadmap-item p { margin: 0; font-size: 0.75rem; color: var(--text-muted); line-height: 1.2; }
+
+        .activity-section { margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--border-color); }
+        .activity-header { display: flex; align-items: center; justify-content: space-between; }
+        .activity-header h5 { margin: 0; font-size: 0.8rem; font-weight: 800; color: var(--text-main); }
+        .activity-header a { font-size: 0.7rem; color: #3b82f6; text-decoration: none; }
+        .activity-header a:hover { text-decoration: underline; }
+        .activity-list { list-style: none; padding: 0; margin: 6px 0 0; max-height: 160px; overflow-y: auto; }
+        .activity-item { display: grid; grid-template-columns: 60px 1fr; gap: 6px; padding: 4px 0; border-bottom: 1px solid var(--border-color); }
+        .activity-item:last-child { border-bottom: none; }
+        .activity-time { font-size: 0.65rem; color: var(--text-muted); text-align: center; }
+        .activity-meta { font-size: 0.72rem; color: var(--text-main); }
+        .activity-meta strong { font-weight: 800; }
+
+        /* Scrollbar hiding */
+        ::-webkit-scrollbar { width: 3px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 2px; }
+    </style>
+{% endblock %}
+
+{% block content %}
+<div class="exec-dashboard">
+    <!-- 1. KPIs -->
+    <div class="kpi-row">
+        <div class="kpi-micro blue"><div><span class="lbl">الطلاب</span><span class="val">{{ student_count|default:"0" }}</span></div><i class="fas fa-user-graduate"></i></div>
+        <div class="kpi-micro teal"><div><span class="lbl">إعدادي</span><span class="val">{{ student_stats.prep_total|default:"0" }}</span></div><i class="fas fa-school"></i></div>
+        <div class="kpi-micro indigo"><div><span class="lbl">ثانوي</span><span class="val">{{ student_stats.sec_total|default:"0" }}</span></div><i class="fas fa-university"></i></div>
+        <div class="kpi-micro purple"><div><span class="lbl">الموظفين</span><span class="val">{{ staff_count|default:"0" }}</span></div><i class="fas fa-users"></i></div>
+        <div class="kpi-micro green"><div><span class="lbl">البنود</span><span class="val">{{ plan_items_total|default:"0" }}</span></div><i class="fas fa-tasks"></i></div>
+        <div class="kpi-micro orange"><div><span class="lbl">المنجز</span><span class="val">{{ plan_items_completed|default:"0" }}</span></div><i class="fas fa-check-circle"></i></div>
+    </div>
+
+    <!-- 2. Flow -->
+    <div class="process-flow">
+        <div class="flow-line"></div>
+        <div class="flow-step active"><div class="step-icon"><i class="fas fa-edit"></i></div><div><div class="step-label">مسودة</div><div class="step-count">{{ flow_stats.draft }}</div></div></div>
+        <div class="flow-step active"><div class="step-icon"><i class="fas fa-spinner"></i></div><div><div class="step-label">قيد التنفيذ</div><div class="step-count">{{ flow_stats.progress }}</div></div></div>
+        <div class="flow-step active"><div class="step-icon"><i class="fas fa-search"></i></div><div><div class="step-label">مراجعة</div><div class="step-count">{{ flow_stats.pending }}</div></div></div>
+        <div class="flow-step success"><div class="step-icon"><i class="fas fa-award"></i></div><div><div class="step-label">معتمد</div><div class="step-count">{{ flow_stats.completed }}</div></div></div>
+    </div>
+
+    <!-- 3. Workspace -->
+    <div class="workspace-grid">
+        <!-- A. Student Stats (Left - Largest) -->
+        <div class="panel">
+            <div class="panel-header"><h4>توزيع الطلاب والشعب (7-12)</h4></div>
+            <div class="panel-body">
+                <!-- Top: Bar Chart -->
+                <div class="chart-row-top">
+                    <canvas id="studentGradeChart"></canvas>
+                </div>
+                <!-- Bottom: 6 Doughnuts Grid -->
+                <div class="chart-row-bottom">
+                    {% for grade in grade_list %}
+                    <div class="mini-chart-box">
+                        <h6>الصف {{ grade }}</h6>
+                        <div class="canvas-wrapper-xs"><canvas id="sectionChart{{ grade }}"></canvas></div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <!-- B. Operational Status (Middle) -->
+        <div class="panel">
+            <div class="panel-header"><h4>مؤشرات الأداء</h4></div>
+            <div class="panel-body">
+                <div class="op-charts-container">
+                    <div class="op-chart-box"><canvas id="followUpChart"></canvas></div>
+                    <div class="op-chart-box"><canvas id="evaluationChart"></canvas></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- C. Strategy & Roadmap (Right) -->
+        <div class="panel">
+            <div class="panel-header"><h4>خارطة الطريق 2026</h4></div>
+            <div class="panel-body roadmap-list">
+                {% for goal in roadmap_goals %}
+                <div class="roadmap-item">
+                    {% if "بصمة" in goal.name %}<i class="fas fa-fingerprint"></i>
+                    {% elif "QR" in goal.name %}<i class="fas fa-qrcode"></i>
+                    {% else %}<i class="fas fa-microphone-alt"></i>{% endif %}
+                    <div><h5>{{ goal.name }}</h5><p>{{ goal.kpi }}</p></div>
+                </div>
+                {% endfor %}
+
+                <div style="margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--border-color);">
+                    <h5 style="font-size: 0.75rem; margin-bottom: 4px; color: var(--text-main);">تحليل SWOT</h5>
+                    {% for item in swot_items|slice:":3" %}
+                    <div style="font-size: 0.7rem; margin-bottom: 3px; padding-right: 6px; border-right: 2px solid {% if item.category == 'strength' %}#10b981{% elif item.category == 'weakness' %}#ef4444{% else %}#3b82f6{% endif %};">
+                        {{ item.title }}
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <div class="activity-section">
+                    <div class="activity-header">
+                        <h5>آخر النشاطات</h5>
+                        <a href="{% url 'admin:activity_report' %}">التقرير الكامل</a>
+                    </div>
+                    <ul class="activity-list">
+                        {% for entry in recent_activity %}
+                        <li class="activity-item">
+                            <div class="activity-time">{{ entry.action_time|date:"H:i" }}</div>
+                            <div class="activity-meta">
+                                <strong>{{ entry.user }}</strong>
+                                {% if entry.action_flag == 1 %}أضاف
+                                {% elif entry.action_flag == 2 %}عدّل
+                                {% elif entry.action_flag == 3 %}حذف
+                                {% else %}حدّث{% endif %}
+                                {{ entry.object_repr }}
+                            </div>
+                        </li>
+                        {% empty %}
+                        <li class="activity-item">
+                            <div class="activity-time">--</div>
+                            <div class="activity-meta">لا توجد نشاطات حالياً</div>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="original-content" style="display: none;">{{ block.super }}</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const isDarkMode = document.body.classList.contains('dark-mode');
+    Chart.defaults.color = isDarkMode ? '#adb5bd' : '#64748b';
+    Chart.defaults.font.family = "'Tajawal', sans-serif";
+    Chart.defaults.font.size = 11;
+    Chart.defaults.maintainAspectRatio = false;
+
+    // --- 1. Student Grade Bar Chart ---
+    try {
+        const gradeLabels = {{ student_stats.chart_labels|safe }};
+        const gradeData = {{ student_stats.chart_data|safe }};
+
+        new Chart(document.getElementById('studentGradeChart').getContext('2d'), {
+            type: 'bar',
+            data: {
+                labels: gradeLabels,
+                datasets: [{
+                    label: 'الطلاب',
+                    data: gradeData,
+                    backgroundColor: ['#3b82f6', '#3b82f6', '#3b82f6', '#6366f1', '#6366f1', '#6366f1'],
+                    borderRadius: 3,
+                    barThickness: 25
+                }]
+            },
+            options: {
+                plugins: { legend: { display: false } },
+                scales: {
+                    y: { beginAtZero: true, grid: { display: true, drawBorder: false }, ticks: { font: { size: 10 } } },
+                    x: { grid: { display: false }, ticks: { font: { size: 10 } } }
+                },
+                layout: { padding: 0 }
+            }
+        });
+    } catch(e) {}
+
+    // --- 2. Section Doughnuts (Tiny) ---
+    try {
+        const sectionsData = JSON.parse('{{ sections_data|escapejs }}');
+        const sectionColors = ['#10b981', '#3b82f6', '#f59e0b', '#ef4444', '#8b5cf6', '#ec4899'];
+
+        ['7', '8', '9', '10', '11', '12'].forEach(grade => {
+            const canvas = document.getElementById('sectionChart' + grade);
+            if (canvas && sectionsData[grade]) {
+                new Chart(canvas.getContext('2d'), {
+                    type: 'doughnut',
+                    data: {
+                        labels: sectionsData[grade].labels,
+                        datasets: [{
+                            data: sectionsData[grade].data,
+                            backgroundColor: sectionColors,
+                            borderWidth: 0
+                        }]
+                    },
+                    options: {
+                        cutout: '50%',
+                        plugins: { legend: { display: false }, tooltip: { enabled: true } },
+                        layout: { padding: 0 }
+                    }
+                });
+            }
+        });
+    } catch(e) {}
+
+    // --- 3. Operational Charts (Professional Doughnuts) ---
+    const createOpChart = (id, data, title) => {
+        const ctx = document.getElementById(id);
+        if (!ctx) return;
+
+        // Ensure data exists
+        if (!data || !data.labels || data.labels.length === 0) {
+            // Show placeholder if no data
+            return;
+        }
+
+        new Chart(ctx.getContext('2d'), {
+            type: 'doughnut',
+            data: {
+                labels: data.labels,
+                datasets: [{
+                    data: data.datasets[0].data,
+                    backgroundColor: data.datasets[0].backgroundColor,
+                    borderWidth: 2,
+                    borderColor: isDarkMode ? '#2c3034' : '#ffffff',
+                    hoverOffset: 4
+                }]
+            },
+            options: {
+                cutout: '70%', // Thinner ring for modern look
+                plugins: {
+                    legend: {
+                        position: 'right',
+                        labels: {
+                            boxWidth: 10,
+                            usePointStyle: true,
+                            pointStyle: 'circle',
+                            font: { size: 11, family: "'Tajawal', sans-serif" },
+                            padding: 15
+                        }
+                    },
+                    title: {
+                        display: true,
+                        text: title,
+                        position: 'top',
+                        align: 'center',
+                        font: { size: 14, weight: 'bold', family: "'Tajawal', sans-serif" },
+                        padding: { bottom: 10 }
+                    },
+                    tooltip: {
+                        backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                        titleFont: { family: "'Tajawal', sans-serif" },
+                        bodyFont: { family: "'Tajawal', sans-serif" },
+                        padding: 10,
+                        cornerRadius: 4,
+                        displayColors: true
+                    }
+                },
+                layout: { padding: 10 },
+                animation: {
+                    animateScale: true,
+                    animateRotate: true
+                }
+            }
+        });
+    };
+
+    try {
+        createOpChart('followUpChart', JSON.parse('{{ follow_up_chart_data|escapejs }}'), 'حالة المتابعة');
+        createOpChart('evaluationChart', JSON.parse('{{ evaluation_chart_data|escapejs }}'), 'نتائج التقييم');
+    } catch(e) {}
+
+    document.getElementById('content-main').style.visibility = 'visible';
+    document.getElementById('content-main').style.height = 'auto';
+});
+</script>
+{% endblock %}

@@ -1,0 +1,55 @@
+services:
+  postgres_test:
+    image: postgres:17
+    container_name: school_postgres_test
+    environment:
+      - POSTGRES_DB=school_test
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+    ports:
+      - "5434:5432"
+    volumes:
+      - pg_test_data:/var/lib/postgresql/data
+      - ./DATA_old_system/access_mysql_export_v2:/data_import
+
+  redis:
+    image: redis:7
+    container_name: school_redis
+    ports:
+      - "6379:6379"
+
+  worker:
+    build: .
+    container_name: school_worker
+    command: celery -A app.core.celery_app.celery_app worker --loglevel=info
+    volumes:
+      - .:/app
+    environment:
+      - REDIS_URL=redis://redis:6379/0
+      - DATABASE_URL=postgresql+psycopg2://postgres:password@postgres_test:5432/school_test
+    depends_on:
+      - redis
+      - postgres_test
+
+  flower:
+    build: .
+    container_name: school_flower
+    command: celery -A app.core.celery_app.celery_app flower --port=5555
+    ports:
+      - "5555:5555"
+    environment:
+      - REDIS_URL=redis://redis:6379/0
+    depends_on:
+      - redis
+      - worker
+
+  adminer:
+    image: adminer
+    container_name: school_adminer
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres_test
+
+volumes:
+  pg_test_data:

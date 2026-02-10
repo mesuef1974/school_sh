@@ -1,0 +1,101 @@
+<!-- Charts Section (Dashboard Cards) -->
+<div class="charts-grid grid grid-cols-1 md:grid-cols-2 gap-5">
+    <!-- Follow Up Chart -->
+    <div class="chart-card">
+        <div class="card-header branded-header">
+            <h3>حالة المتابعة</h3>
+        </div>
+        <div class="card-body">
+            <div class="canvas-wrapper">
+                <canvas id="followUpChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <!-- Evaluation Chart -->
+    <div class="chart-card">
+        <div class="card-header branded-header">
+            <h3>التقييم</h3>
+        </div>
+        <div class="card-body">
+            <div class="canvas-wrapper">
+                <canvas id="evaluationChart"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// This script will be re-executed every time this partial is loaded
+(function() {
+    // Destroy existing chart instances if they exist to prevent memory leaks
+    if (window.followUpChartInstance) {
+        window.followUpChartInstance.destroy();
+    }
+    if (window.evaluationChartInstance) {
+        window.evaluationChartInstance.destroy();
+    }
+
+    const createDoughnutChart = (ctx, data, title) => {
+        return new Chart(ctx, {
+            type: 'doughnut',
+            data: data,
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                cutout: '60%',
+                plugins: {
+                    legend: {
+                        position: 'right',
+                        rtl: true,
+                        labels: {
+                            font: { family: "'Cairo', sans-serif", size: 12, weight: 600 },
+                            usePointStyle: true,
+                            pointStyle: 'circle',
+                            boxWidth: 12,
+                            padding: 15,
+                            color: '#4b5563'
+                        }
+                    },
+                    title: { display: false },
+                    tooltip: {
+                        rtl: true,
+                        backgroundColor: 'rgba(61, 7, 28, 0.9)',
+                        titleFont: { family: "'Cairo', sans-serif" },
+                        bodyFont: { family: "'Cairo', sans-serif" },
+                        padding: 10,
+                        cornerRadius: 8,
+                        callbacks: {
+                            label: function(context) {
+                                let label = context.label || '';
+                                let value = context.raw;
+                                let total = context.chart.getDatasetMeta(0).total;
+                                let percentage = total > 0 ? ((value / total) * 100).toFixed(1) + '%' : '0%';
+                                return ` ${label}: ${value} (${percentage})`;
+                            }
+                        }
+                    }
+                },
+                animation: { duration: 900, easing: 'easeOutQuart' }
+            }
+        });
+    };
+
+    // Initial Chart Rendering
+    const followUpCtx = document.getElementById('followUpChart');
+    if (followUpCtx) {
+        const followUpData = JSON.parse('{{ follow_up_chart_data|escapejs }}');
+        if (followUpData.labels.length > 0) {
+            window.followUpChartInstance = createDoughnutChart(followUpCtx.getContext('2d'), followUpData, 'حالة المتابعة');
+        }
+    }
+
+    const evaluationCtx = document.getElementById('evaluationChart');
+    if (evaluationCtx) {
+        const evaluationData = JSON.parse('{{ evaluation_chart_data|escapejs }}');
+        if (evaluationData.labels.length > 0) {
+            window.evaluationChartInstance = createDoughnutChart(evaluationCtx.getContext('2d'), evaluationData, 'التقييم');
+        }
+    }
+})();
+</script>

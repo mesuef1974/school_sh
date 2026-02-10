@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}تسجيل الدخول | منصة الشحانية الذكية{% endblock %}
+
+{% block content %}
+<div style="min-height: 80vh; display: flex; align-items: center; justify-content: center;">
+
+    <!-- Login Box Container -->
+    <div class="login-box" style="width: 100%; max-width: 530px; margin: 0 auto;">
+
+        <!-- Header Section -->
+        <div style="text-align: center; margin-bottom: 2rem;">
+            <img src="{% static 'brand/logo.png' %}" alt="شعار مدرسة الشحانية" style="height: 100px; margin: 0 auto 15px; display: block; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.3));">
+            <h1 style="color: white; font-size: 1.8rem; font-weight: 800; margin: 0; text-shadow: 0 2px 4px rgba(0,0,0,0.3);">منصة الشحانية الذكية</h1>
+            <p style="color: rgba(255, 255, 255, 0.9); font-size: 1rem; margin-top: 5px;">بوابة الدخول الموحد</p>
+        </div>
+
+        <!-- Card -->
+        <div style="background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); border-radius: 16px; padding: 40px; box-shadow: 0 20px 50px rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.2);">
+
+            {% if form.errors %}
+                <div style="background-color: #fee2e2; color: #991b1b; padding: 12px; border-radius: 8px; margin-bottom: 20px; text-align: center; font-weight: 600; border: 1px solid #fecaca;">
+                    اسم المستخدم أو كلمة المرور غير صحيحة.
+                </div>
+            {% endif %}
+
+            <form method="post" action="{% url 'login' %}">
+                {% csrf_token %}
+
+                <div style="margin-bottom: 20px;">
+                    <label for="id_username" style="display: block; margin-bottom: 8px; font-weight: 700; color: #4a041d;">اسم المستخدم</label>
+                    <input type="text" name="username" autofocus autocapitalize="none" autocomplete="username" maxlength="150" required id="id_username"
+                           style="width: 100%; padding: 12px 15px; border: 2px solid #e5e7eb; border-radius: 10px; font-size: 1rem; transition: all 0.3s; outline: none; text-align: right; color: #4a041d; font-weight: 600;"
+                           placeholder="أدخل اسم المستخدم">
+                </div>
+
+                <div style="margin-bottom: 30px;">
+                    <label for="id_password" style="display: block; margin-bottom: 8px; font-weight: 700; color: #4a041d;">كلمة المرور</label>
+                    <input type="password" name="password" autocomplete="current-password" required id="id_password"
+                           style="width: 100%; padding: 12px 15px; border: 2px solid #e5e7eb; border-radius: 10px; font-size: 1rem; transition: all 0.3s; outline: none; text-align: right; color: #4a041d; font-weight: 600;"
+                           placeholder="••••••••">
+                </div>
+
+                <button type="submit"
+                        style="width: 100%; background: linear-gradient(135deg, #5b0e2d 0%, #3d071c 100%); color: white; padding: 14px; border: none; border-radius: 10px; cursor: pointer; font-size: 1.1rem; font-weight: 700; transition: transform 0.2s, box-shadow 0.2s; box-shadow: 0 4px 15px rgba(91, 14, 45, 0.3);">
+                    تسجيل الدخول
+                </button>
+            </form>
+        </div>
+
+        <!-- Footer Text -->
+        <div style="text-align: center; margin-top: 25px;">
+            <p style="color: rgba(255, 255, 255, 0.7); font-size: 0.85rem; margin-bottom: 5px;">&copy; 2026 مدرسة الشحانية الإعدادية الثانوية للبنين</p>
+            <p class="developer-credit">التطوير والدعم: سفيان أحمد مسيف</p>
+        </div>
+
+    </div>
+</div>
+
+<style>
+    /* Input Focus Effects */
+    input:focus {
+        border-color: #5b0e2d !important;
+        box-shadow: 0 0 0 4px rgba(91, 14, 45, 0.1);
+        background-color: #fff;
+    }
+
+    /* Placeholder Color */
+    ::placeholder {
+        color: #9ca3af;
+        font-weight: 400;
+    }
+
+    /* Button Hover */
+    button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(91, 14, 45, 0.4) !important;
+    }
+    button:active {
+        transform: translateY(0);
+    }
+
+    /* Golden Text Effect */
+    .developer-credit {
+        font-family: 'Tajawal', sans-serif;
+        font-size: 0.9rem;
+        font-weight: 700;
+        background: linear-gradient(to right, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+        margin-top: 5px;
+        display: inline-block;
+    }
+</style>
+{% endblock %}

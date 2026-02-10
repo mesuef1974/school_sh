@@ -1,0 +1,248 @@
+/*
+  This file now contains the full visual identity from the original platform.
+*/
+
+:root {
+  --maroon: #5b0e2d;
+  --maroon-dark: #3d071c;
+  --maroon-soft: #7b1a3d;
+  --gold: #c7a43c;
+  --gold-soft: #f1d9a3;
+  --yellow-matte: #f7f0da;
+  --red-matte: #d9a0a0;
+  --blue-matte: #b7cad8;
+  --ink: #1b1b1f;
+  --paper: #fffdf8;
+  --line: #e5d8c5;
+}
+
+html,
+body {
+  direction: rtl;
+}
+
+body {
+  margin: 0;
+  text-align: right;
+  font-family: "Noto Naskh Arabic", "Cairo", sans-serif;
+  background:
+    radial-gradient(circle at 80% -10%, rgba(199, 164, 60, 0.18), transparent 45%),
+    radial-gradient(circle at 0% 100%, rgba(183, 202, 216, 0.25), transparent 40%),
+    linear-gradient(180deg, #fdf8ef 0%, #f7f0da 60%, #f9f6ef 100%);
+  color: var(--ink);
+  min-height: 100vh;
+  line-height: 1.8;
+}
+
+a {
+  color: var(--maroon);
+}
+
+a:hover {
+  color: var(--maroon-dark);
+}
+
+/* Shell and layout */
+.shell {
+  width: 98%;
+  max-width: none;
+  margin: 0 auto;
+  padding: 24px clamp(18px, 2vw, 32px) 40px;
+  box-sizing: border-box;
+}
+
+/* Header styles */
+.site-header {
+  background: linear-gradient(135deg, var(--maroon) 0%, var(--maroon-dark) 100%);
+  border-radius: 26px;
+  color: #ffffff;
+  padding: 26px clamp(20px, 3vw, 52px) 18px;
+  box-shadow: 0 24px 50px rgba(61, 7, 28, 0.28);
+  position: relative;
+  overflow: hidden;
+}
+
+.site-header::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    url('/static/brand/pattern.png'),
+    radial-gradient(circle at 15% 20%, rgba(255, 255, 255, 0.18), transparent 40%),
+    radial-gradient(circle at 85% 0%, rgba(199, 164, 60, 0.28), transparent 50%);
+  background-repeat: repeat;
+  opacity: 0.2;
+  pointer-events: none;
+}
+
+.header-grid {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  z-index: 1;
+}
+
+/* Main content area */
+.site-main {
+  background: var(--paper);
+  border-radius: 22px;
+  padding: clamp(22px, 3vw, 36px);
+  margin-top: 28px;
+  box-shadow: 0 16px 32px rgba(61, 7, 28, 0.12);
+  border: 1px solid var(--line);
+}
+
+/* Footer */
+.site-footer {
+  margin-top: 28px;
+  text-align: center;
+  color: #4b2b2b;
+  font-size: 0.95rem;
+}
+
+.site-footer span {
+  color: var(--maroon);
+  font-weight: 700;
+}
+
+/* Typography */
+.site-main h1,
+.site-main h2,
+.site-main h3 {
+  font-family: "Cairo", sans-serif;
+  color: var(--maroon-dark);
+  margin-top: 24px;
+  margin-bottom: 12px;
+}
+
+/* Tables */
+.site-main table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  overflow: hidden;
+  margin: 16px 0;
+  table-layout: fixed;
+}
+
+.site-main th,
+.site-main td {
+  border-bottom: 1px solid var(--line);
+  padding: 8px 12px;
+  text-align: right;
+  position: relative;
+  z-index: 1;
+  word-wrap: break-word;
+}
+
+.site-main thead th {
+  background: var(--maroon);
+  color: #ffffff;
+  font-weight: 600;
+  overflow: hidden;
+}
+
+.site-main thead th::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: url('/static/brand/pattern.png');
+    background-repeat: repeat;
+    opacity: 0.15;
+    pointer-events: none;
+    z-index: -1;
+}
+
+/* Smart column widths */
+.col-actions { width: 60px; }
+.col-short { width: 100px; }
+.col-medium { width: 150px; }
+.col-long { width: 300px; }
+.col-xl { width: 400px; }
+
+/* New Filter & Stats Styles */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+.stat-card {
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 1rem;
+}
+.stat-card h4 {
+    margin: 0 0 0.5rem;
+    font-size: 1rem;
+    color: var(--maroon-soft);
+}
+.stat-card .value {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--maroon-dark);
+}
+.stat-card .percentage {
+    font-size: 1rem;
+    color: var(--gold);
+}
+
+.filters-container {
+    background: #fff8eb;
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+.filters-container h3 {
+    margin-top: 0;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 0.5rem;
+    margin-bottom: 1rem;
+}
+.filter-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1rem;
+}
+.filter-grid label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+    font-size: 0.9rem;
+}
+.filter-grid input,
+.filter-grid select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    box-sizing: border-box;
+}
+.filter-actions {
+    margin-top: 1.5rem;
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+}
+.btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+}
+.btn-primary {
+    background: var(--maroon);
+    color: white;
+}
+.btn-secondary {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    color: var(--ink);
+}

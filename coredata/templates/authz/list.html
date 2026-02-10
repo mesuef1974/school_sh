@@ -1,0 +1,22 @@
+
+{% extends 'base.html' %}
+{% block title %}الصلاحيات والأدوار{% endblock %}
+{% block content %}
+<h1>الأدوار والصلاحيات</h1>
+<div class="grid">
+  <div>
+    <h3>الأدوار</h3>
+    <ul class="list">
+      {% for g in roles %}
+        <li><b>{{ g.name }}</b><br><small class="muted">{{ g.permissions.all|join:", " }}</small></li>
+      {% empty %}<li class="muted">لا توجد أدوار</li>{% endfor %}
+    </ul>
+  </div>
+  <div>
+    <h3>جميع الصلاحيات</h3>
+    <ul class="list small">
+      {% for p in perms %}<li>{{ p.codename }}</li>{% empty %}<li class="muted">لا صلاحيات</li>{% endfor %}
+    </ul>
+  </div>
+</div>
+{% endblock %}

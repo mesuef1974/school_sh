@@ -1,0 +1,33 @@
+{% extends "admin/base_site.html" %}
+{% load i18n %}
+
+{% block extrahead %}
+{{ block.super }}
+<script>
+    // Immediately apply the theme from localStorage if it exists, to prevent FOUC
+    (function() {
+        try {
+            const theme = localStorage.getItem('jazzmin_theme');
+            if (theme) {
+                const body = document.body;
+                const currentTheme = body.classList.contains('dark-mode') ? 'dark-mode' : '';
+
+                // Find the theme link and update it
+                const themeLink = document.querySelector('link[href*="/jazzmin/css/themes/"]');
+                if (themeLink) {
+                    themeLink.href = themeLink.href.replace(/\/(darkly|default)\.css/, `/${theme}.css`);
+                }
+
+                // Toggle dark-mode class if necessary
+                if (theme !== 'default' && !currentTheme) {
+                    body.classList.add('dark-mode');
+                } else if (theme === 'default' && currentTheme) {
+                    body.classList.remove('dark-mode');
+                }
+            }
+        } catch (e) {
+            console.error("Could not apply theme from localStorage", e);
+        }
+    })();
+</script>
+{% endblock %}

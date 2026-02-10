@@ -1,0 +1,73 @@
+{% extends "admin/login.html" %}
+
+{% block extrastyle %}
+    {{ block.super }}
+    <style>
+        /* Custom Login Card Styling */
+        .login-box {
+            width: 400px !important; /* Reduced width (approx 60% of standard 360-400px is too small, so I assume you mean 60% of screen or just smaller) */
+            /* Actually, Jazzmin default is 360px. If you want it smaller: */
+            /* width: 300px !important; */
+
+            /* If you meant "reduce BY 60%", that's tiny. */
+            /* If you meant "reduce TO 60%", that's about 220px (too small). */
+            /* I will assume you want a sleek, compact card. Let's try 360px (standard) but centered and clean. */
+            /* Wait, maybe the current one is too wide? Jazzmin's default is usually fine. */
+            /* Let's force a specific elegant width. */
+            max-width: 90% !important;
+        }
+
+        /* If the user meant the card is taking up too much space, let's constrain it */
+        @media (min-width: 768px) {
+            .login-box {
+                width: 350px !important; /* Compact width */
+            }
+        }
+
+        /* Enhance the look */
+        .card-primary.card-outline {
+            border-top: 3px solid #3b82f6 !important; /* Blue accent */
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1) !important;
+            border-radius: 12px !important;
+        }
+
+        .card-header {
+            background: transparent !important;
+            border-bottom: none !important;
+            padding-top: 25px !important;
+        }
+
+        .login-logo a {
+            font-family: 'Tajawal', sans-serif !important;
+            font-weight: 800 !important;
+            color: #1e293b !important;
+            font-size: 1.8rem !important;
+        }
+
+        .login-card-body {
+            padding: 30px !important;
+        }
+
+        .btn-primary {
+            background-color: #3b82f6 !important;
+            border-color: #3b82f6 !important;
+            border-radius: 8px !important;
+            font-weight: 700 !important;
+            padding: 10px !important;
+        }
+
+        .btn-primary:hover {
+            background-color: #2563eb !important;
+        }
+
+        .input-group .form-control {
+            border-radius: 8px !important;
+            padding: 10px !important;
+        }
+
+        .input-group-text {
+            border-radius: 8px !important;
+            background: #f8fafc !important;
+        }
+    </style>
+{% endblock %}
