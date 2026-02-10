@@ -1740,5 +1740,23 @@ DJANGO_DEBUG=True
             }
         }
     </script>
+    <script>
+        function switchTab(tabId) {
+            document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+            const target = document.getElementById(tabId);
+            if(target) {
+                target.classList.add('active');
+                const activeLink = document.querySelector('[onclick="switchTab(\'' + tabId + '\')"]');
+                if(activeLink) activeLink.classList.add('active');
+                document.getElementById('scroll-container').scrollTop = 0;
+            }
+        }
+    </script>
+    <!-- Vercel Speed Insights -->
+    <script>
+      window.si = window.si || function () { (window.siq = window.siq || []).push(arguments); };
+    </script>
+    <script defer src="/_vercel/speed-insights/script.js"></script>
 </body>
 </html>
