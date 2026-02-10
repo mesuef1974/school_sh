@@ -7,15 +7,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8ef06134-cb9d-452f-a279-4c98570c3d51" name="Changes" comment="ديجانجو 058 &#10;فصل المراجعة الذاتية عن لجنة متابعة الخطة التشغيلية في كل شي">
+    <list default="true" id="8ef06134-cb9d-452f-a279-4c98570c3d51" name="Changes" comment="060">
+      <change afterPath="$PROJECT_DIR$/node_modules/.package-lock.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/@vercel/speed-insights/.eslintrc.cjs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/@vercel/speed-insights/LICENSE" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/@vercel/speed-insights/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/@vercel/speed-insights/package.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/@vercel/speed-insights/test.setup.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/@vercel/speed-insights/tsconfig.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/@vercel/speed-insights/tsup.config.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/node_modules/@vercel/speed-insights/vitest.config.mts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/asgi.py" beforeDir="false" afterPath="$PROJECT_DIR$/config/asgi.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker/Django.Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/docker/Django.Dockerfile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker/docker-compose.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/memory/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/memory/manifest.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/requirements-dev.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements-dev.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/requirements.in" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.in" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -200,15 +204,7 @@
       <workItem from="1770707445935" duration="90000" />
       <workItem from="1770707944501" duration="201000" />
       <workItem from="1770747324956" duration="444000" />
-      <workItem from="1770747790466" duration="401000" />
-    </task>
-    <task id="LOCAL؜-٠٠٠٢١" summary="024 البدء - خطة المدرسة التشغيلية 2026&#10;تفعيل وضع الصيانة  &#10;المطور: سفيان مسيف">
-      <option name="closed" value="true" />
-      <created>1769855291369</created>
-      <option name="number" value="٠٠٠٢١" />
-      <option name="presentableId" value="LOCAL؜-٠٠٠٢١" />
-      <option name="project" value="LOCAL؜" />
-      <updated>1769855291369</updated>
+      <workItem from="1770747790466" duration="3123000" />
     </task>
     <task id="LOCAL؜-٠٠٠٢٢" summary="025 البدء - خطة المدرسة التشغيلية 2026&#10; ارابيسك&#10; المطور: سفيان مسيف">
       <option name="closed" value="true" />
@@ -594,7 +590,15 @@
       <option name="project" value="LOCAL؜" />
       <updated>1770579686210</updated>
     </task>
-    <option name="localTasksCounter" value="70" />
+    <task id="LOCAL؜-٠٠٠٧٠" summary="ديجانجو 058 &#10;فصل المراجعة الذاتية عن لجنة متابعة الخطة التشغيلية في كل شي">
+      <option name="closed" value="true" />
+      <created>1770748464635</created>
+      <option name="number" value="٠٠٠٧٠" />
+      <option name="presentableId" value="LOCAL؜-٠٠٠٧٠" />
+      <option name="project" value="LOCAL؜" />
+      <updated>1770748464635</updated>
+    </task>
+    <option name="localTasksCounter" value="71" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -612,8 +616,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="ديجانجو 031 &#10;التحول الجذري للخطة التشعيلية الديناميكية الذكية" />
-    <MESSAGE value="ديجانجو 032 &#10;التحول الجذري للخطة التشعيلية الديناميكية الذكية" />
     <MESSAGE value="ديجانجو 033 &#10;التحول الجذري للخطة التشعيلية الديناميكية الذكية" />
     <MESSAGE value="ديجانجو 034 &#10;التحول الجذري للخطة التشعيلية الديناميكية الذكية" />
     <MESSAGE value="ديجانجو 035 &#10;التحول الجذري للخطة التشعيلية الديناميكية الذكية" />
@@ -637,7 +639,9 @@
     <MESSAGE value="ديجانجو 055 &#10;الانتقال السلس بين الصفحات دون ومضات مزعجة" />
     <MESSAGE value="ديجانجو 056 &#10;فصل المراجعة الذاتية عن لجنة متابعة الخطة التشغيلية في كل شي" />
     <MESSAGE value="ديجانجو 057 &#10;فصل المراجعة الذاتية عن لجنة متابعة الخطة التشغيلية في كل شي" />
-    <option name="LAST_COMMIT_MESSAGE" value="ديجانجو 057 &#10;فصل المراجعة الذاتية عن لجنة متابعة الخطة التشغيلية في كل شي" />
+    <MESSAGE value="ديجانجو 058 &#10;فصل المراجعة الذاتية عن لجنة متابعة الخطة التشغيلية في كل شي" />
+    <MESSAGE value="060" />
+    <option name="LAST_COMMIT_MESSAGE" value="060" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
