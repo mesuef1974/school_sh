@@ -39,6 +39,16 @@ class JobTitle(models.Model):
     title = models.CharField("المسمى الوظيفي", max_length=255, unique=True, db_index=True)
     code = models.CharField("كود المسمى", max_length=50, blank=True, null=True, unique=True, db_index=True)
     description = models.TextField("الوصف", blank=True, null=True)
+    
+    # New fields for Professional Infrastructure
+    groups = models.ManyToManyField(
+        Group, 
+        blank=True, 
+        related_name="job_titles", 
+        verbose_name="مجموعات الصلاحيات (Django Groups)",
+        help_text="المجموعات التي سينضم إليها الموظف تلقائياً عند حمله لهذا المسمى"
+    )
+    is_canonical = models.BooleanField("مسمى معتمد/رئيسي", default=False)
 
     created_at = models.DateTimeField("تاريخ الإنشاء", auto_now_add=True, null=True)
     updated_at = models.DateTimeField("آخر تحديث", auto_now=True, null=True)
@@ -335,7 +345,12 @@ class Committee(models.Model):
     def save(self, *args, **kwargs):
         if not self.code:
             year_part = self.academic_year.code if self.academic_year else "XXXX"
-            temp_id = self.id if self.id else Committee.objects.count() + 1
+            if not self.id:
+                # Use Max(id) instead of count() to avoid collisions after deletions
+                max_id = Committee.objects.aggregate(Max('id'))['id__max'] or 0
+                temp_id = max_id + 1
+            else:
+                temp_id = self.id
             self.code = f"COM-{year_part}-{temp_id:03d}"
         super().save(*args, **kwargs)
 
