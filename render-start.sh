@@ -6,6 +6,9 @@ set -o errexit
 echo "==> Running Migrations..."
 python manage.py migrate --noinput
 
+echo "==> Creating Superuser..."
+python manage.py initadmin
+
 echo "==> Collecting Static Files..."
 python manage.py collectstatic --noinput
 

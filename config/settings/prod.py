@@ -2,6 +2,11 @@ from .base import *
 import os
 import dj_database_url
 
+# Normalize DATABASE_URL if it uses SQLAlchemy-style scheme like 'postgresql+psycopg2'
+_db_url = os.environ.get('DATABASE_URL')
+if _db_url and '+psycopg2' in _db_url:
+    os.environ['DATABASE_URL'] = _db_url.replace('+psycopg2', '')
+
 # --- PRODUCTION SETTINGS FOR RENDER (PostgreSQL) ---
 
 # Turn off DEBUG for production once verified
