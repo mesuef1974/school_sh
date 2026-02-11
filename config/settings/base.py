@@ -21,7 +21,7 @@ SECRET_KEY = env('SECRET_KEY', default='dev-secret-key-change-me')
 DEBUG = True
 ALLOWED_HOSTS = ['*']
 
-# --- RE-ENABLING APPS ---
+# --- ISOLATING THE CRASHING APP ---
 INSTALLED_APPS = [
     # 'jazzmin', # Still disabled
     'django.contrib.admin',
@@ -31,22 +31,21 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     
-    # Third-party apps
-    'rest_framework',
-    'django_htmx',
-    # 'tailwind', # Still disabled
-    'theme',
-    'rangefilter',
-    'import_export',
-    'health_check',
-    'health_check.db',
-    'health_check.cache',
-    'health_check.storage',
-    'simple_history',
+    # Third-party apps - DISABLED AGAIN
+    # 'rest_framework',
+    # 'django_htmx',
+    # 'theme',
+    # 'rangefilter',
+    # 'import_export',
+    # 'health_check',
+    # 'health_check.db',
+    # 'health_check.cache',
+    # 'health_check.storage',
+    # 'simple_history',
 
     # Local apps
     'coredata',
-    'project_memory',
+    # 'project_memory', # REMOVED as requested
 ]
 
 MIDDLEWARE = [
@@ -58,9 +57,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'simple_history.middleware.HistoryRequestMiddleware',
-    'django_htmx.middleware.HtmxMiddleware',
-
+    # 'simple_history.middleware.HistoryRequestMiddleware', # Disabled
+    # 'django_htmx.middleware.HtmxMiddleware', # Disabled
 ]
 
 ROOT_URLCONF = 'config.urls'
