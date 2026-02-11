@@ -2,31 +2,84 @@
 from .base import *
 import os
 
-DEBUG = False
+# FORCE DEBUG to be False in production, but allow override for troubleshooting
+DEBUG = os.environ.get('DJANGO_DEBUG', 'False') == 'True'
 
 # Allow all hosts for Vercel deployment
 ALLOWED_HOSTS = ['*']
 
 # Security settings
+# Vercel handles SSL termination, so we need to trust the headers
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
-SECURE_SSL_REDIRECT = True
+# Disable SSL Redirect to avoid infinite loops behind Vercel proxy
+SECURE_SSL_REDIRECT = False 
 
 # WhiteNoise configuration for static files
-MIDDLEWARE.insert(1, 'whitenoise.middleware.WhiteNoiseMiddleware')
+# Use a simpler storage backend to avoid "MissingFileError" during build
+try:
+    MIDDLEWARE.insert(1, 'whitenoise.middleware.WhiteNoiseMiddleware')
+except ValueError:
+    pass # Middleware might already be there
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+# Use simpler storage that doesn't require manifest generation (safer for Vercel)
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
+
+# Ensure static root exists
+if not os.path.exists(STATIC_ROOT):
+    os.makedirs(STATIC_ROOT)
 
 # Database configuration
-# Note: SQLite on Vercel is ephemeral. For production, use PostgreSQL.
-# If DATABASE_URL is set (e.g. from Vercel Postgres), use it.
 import dj_database_url
+
+# Check if DATABASE_URL is set
 if os.environ.get('DATABASE_URL'):
+    try:
+        DATABASES = {
+            'default': dj_database_url.config(
+                default=os.environ.get('DATABASE_URL'),
+                conn_max_age=600,
+                conn_health_checks=True,
+            )
+        }
+    except Exception as e:
+        print(f"Error configuring database: {e}")
+        # Fallback to SQLite if DB config fails (so the app at least starts)
+        DATABASES = {
+            'default': {
+                'ENGINE': 'django.db.backends.sqlite3',
+                'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+            }
+        }
+else:
+    print("WARNING: DATABASE_URL not found, using SQLite")
     DATABASES = {
-        'default': dj_database_url.config(
-            default=os.environ.get('DATABASE_URL'),
-            conn_max_age=600,
-        )
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        }
     }
+
+# Logging configuration to see errors in Vercel logs
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'root': {
+        'handlers': ['console'],
+        'level': 'INFO',
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console'],
+            'level': 'INFO',
+            'propagate': True,
+        },
+    },
+}
