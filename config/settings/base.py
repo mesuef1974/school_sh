@@ -21,7 +21,7 @@ SECRET_KEY = env('SECRET_KEY', default='dev-secret-key-change-me')
 DEBUG = True
 ALLOWED_HOSTS = ['*']
 
-# --- USING THE CLEAN 'diagnostics' APP ---
+# --- REBUILDING THE APP ---
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -30,7 +30,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     
-    'diagnostics',
+    'diagnostics', # Our new clean app
+    'simple_history', # Dependency for models
 ]
 
 MIDDLEWARE = [
@@ -42,6 +43,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'simple_history.middleware.HistoryRequestMiddleware', # Dependency for models
 ]
 
 ROOT_URLCONF = 'config.urls'
