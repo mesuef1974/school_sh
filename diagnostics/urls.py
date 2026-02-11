@@ -6,6 +6,5 @@ urlpatterns = [
     path('plan/', include([
         path('', views.plan_list, name='plan_list'),
     ])),
-    path('auth/login/', views.login_view, name='login'),
-    path('auth/logout/', views.logout_view, name='logout'),
+    path('auth/login/', views.CustomLoginView.as_view(), name='login'),
 ]
