@@ -18,5 +18,6 @@ django-import-export>=3.3.0
 django-health-check>=3.18.0
 django-simple-history>=3.4.0
 Pillow>=10.0.0
+cryptography>=42.0.0
 # Render deployment trigger
 gunicorn>=23.0.0
