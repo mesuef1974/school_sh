@@ -13,7 +13,7 @@ django-jazzmin==3.0.0
 djangorestframework==3.14.0
 django-htmx==1.17.0
 django-tailwind==3.8.0
-django-rangefilter==0.13.0
+django-rangefilter==0.13.2
 django-import-export==3.3.0
 django-health-check==3.18.0
 django-simple-history==3.4.0
