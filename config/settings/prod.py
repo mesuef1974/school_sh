@@ -3,32 +3,31 @@ from .base import *
 import os
 import dj_database_url
 
-# FORCE DEBUG to be False in production, but allow override for troubleshooting
-# IMPORTANT: Set DJANGO_DEBUG=True in Vercel Environment Variables to see errors
-DEBUG = os.environ.get('DJANGO_DEBUG', 'False') == 'True'
+# --- DEBUGGING MODE: ON ---
+# We force DEBUG=True to see the actual error on Vercel
+DEBUG = True 
 
-# Allow all hosts for Vercel deployment
 ALLOWED_HOSTS = ['*']
 
 # Security settings
-# Vercel handles SSL termination, so we need to trust the headers
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
-# Disable SSL Redirect to avoid infinite loops behind Vercel proxy
 SECURE_SSL_REDIRECT = False 
 
-# WhiteNoise configuration for static files
+# WhiteNoise configuration
 try:
     MIDDLEWARE.insert(1, 'whitenoise.middleware.WhiteNoiseMiddleware')
 except ValueError:
-    pass # Middleware might already be there
+    pass
 
-# Vercel specific static files configuration
+# Static files
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles_build', 'static')
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-# Media files on Vercel (Read-only fallback)
+# Use simpler storage to avoid "Missing Manifest" errors
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
+
+# Media files
 MEDIA_ROOT = '/tmp/media'
 
 # Database configuration
@@ -44,8 +43,6 @@ if os.environ.get('DATABASE_URL'):
             'default': db_config
         }
     except Exception as e:
-        print(f"Error configuring database: {e}")
-        # Fallback to SQLite in memory or tmp to avoid read-only errors
         DATABASES = {
             'default': {
                 'ENGINE': 'django.db.backends.sqlite3',
@@ -53,9 +50,7 @@ if os.environ.get('DATABASE_URL'):
             }
         }
 else:
-    print("WARNING: DATABASE_URL not found, using SQLite in /tmp")
-    # Vercel file system is read-only except for /tmp
-    # We copy the local db to tmp if it exists, or create new one
+    # Fallback to SQLite in /tmp
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
@@ -63,7 +58,7 @@ else:
         }
     }
 
-# Logging configuration to see errors in Vercel logs
+# Logging
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
@@ -81,11 +76,6 @@ LOGGING = {
             'handlers': ['console'],
             'level': 'INFO',
             'propagate': True,
-        },
-        'django.request': {
-            'handlers': ['console'],
-            'level': 'ERROR',
-            'propagate': False,
         },
     },
 }
