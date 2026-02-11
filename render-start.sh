@@ -3,11 +3,6 @@
 # Exit on error
 set -o errexit
 
-echo "==> Ensuring Migrations are up to date..."
-python manage.py makemigrations --noinput
-python manage.py makemigrations coredata --noinput
-python manage.py makemigrations project_memory --noinput
-
 echo "==> Running Migrations..."
 python manage.py migrate --noinput
 
