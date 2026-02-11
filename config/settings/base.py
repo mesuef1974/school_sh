@@ -31,6 +31,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     
     'diagnostics', # Our new clean app
+    'coredata',
     'rest_framework',
     'django_htmx',
     'theme',
