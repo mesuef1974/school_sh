@@ -22,3 +22,9 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy the rest of the application code
 COPY . .
+
+# Make the start script executable
+RUN chmod +x render-start.sh
+
+# Start the application using the script
+CMD ["./render-start.sh"]
