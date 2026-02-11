@@ -21,7 +21,7 @@ SECRET_KEY = env('SECRET_KEY', default='dev-secret-key-change-me')
 DEBUG = True
 ALLOWED_HOSTS = ['*']
 
-# --- DISABLING ALL LOCAL APPS TO GET A STABLE BASE ---
+# --- RE-ENABLING COREDATA ---
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -30,8 +30,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     
-    # 'coredata', # DISABLED
-    # 'project_memory', # DISABLED
+    'coredata', # RE-ENABLED
 ]
 
 MIDDLEWARE = [
@@ -50,7 +49,7 @@ ROOT_URLCONF = 'config.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'coredata' / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
