@@ -17,3 +17,5 @@ django-rangefilter>=0.9.0
 django-import-export>=3.3.0
 django-health-check>=3.18.0
 django-simple-history>=3.4.0
+# Render deployment trigger
+gunicorn>=23.0.0
