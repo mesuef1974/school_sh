@@ -2,7 +2,7 @@
     "version": 2,
     "builds": [
         {
-            "src": "config/wsgi.py",
+            "src": "api/index.py",
             "use": "@vercel/python",
             "config": {
                 "runtime": "python3.9"
@@ -11,16 +11,8 @@
     ],
     "routes": [
         {
-            "src": "/static/(.*)",
-            "dest": "/static/$1"
-        },
-        {
             "src": "/(.*)",
-            "dest": "config/wsgi.py"
+            "dest": "api/index.py"
         }
-    ],
-    "env": {
-        "DJANGO_SETTINGS_MODULE": "config.settings.prod",
-        "DJANGO_DEBUG": "0"
-    }
+    ]
 }
