@@ -7,7 +7,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8ef06134-cb9d-452f-a279-4c98570c3d51" name="Changes" comment="060">
+    <list default="true" id="8ef06134-cb9d-452f-a279-4c98570c3d51" name="Changes" comment="061 تفعيل الموقع اون لاين الان">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -206,15 +206,7 @@
       <workItem from="1770707944501" duration="201000" />
       <workItem from="1770747324956" duration="444000" />
       <workItem from="1770747790466" duration="3123000" />
-      <workItem from="1770812266734" duration="21624000" />
-    </task>
-    <task id="LOCAL؜-٠٠٠٢٢" summary="025 البدء - خطة المدرسة التشغيلية 2026&#10; ارابيسك&#10; المطور: سفيان مسيف">
-      <option name="closed" value="true" />
-      <created>1769890345626</created>
-      <option name="number" value="٠٠٠٢٢" />
-      <option name="presentableId" value="LOCAL؜-٠٠٠٢٢" />
-      <option name="project" value="LOCAL؜" />
-      <updated>1769890345626</updated>
+      <workItem from="1770812266734" duration="25204000" />
     </task>
     <task id="LOCAL؜-٠٠٠٢٣" summary="ديجانجو 002">
       <option name="closed" value="true" />
@@ -600,7 +592,15 @@
       <option name="project" value="LOCAL؜" />
       <updated>1770748464635</updated>
     </task>
-    <option name="localTasksCounter" value="71" />
+    <task id="LOCAL؜-٠٠٠٧١" summary="061 تفعيل الموقع اون لاين الان">
+      <option name="closed" value="true" />
+      <created>1770839616976</created>
+      <option name="number" value="٠٠٠٧١" />
+      <option name="presentableId" value="LOCAL؜-٠٠٠٧١" />
+      <option name="project" value="LOCAL؜" />
+      <updated>1770839616977</updated>
+    </task>
+    <option name="localTasksCounter" value="72" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -618,7 +618,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="ديجانجو 033 &#10;التحول الجذري للخطة التشعيلية الديناميكية الذكية" />
     <MESSAGE value="ديجانجو 034 &#10;التحول الجذري للخطة التشعيلية الديناميكية الذكية" />
     <MESSAGE value="ديجانجو 035 &#10;التحول الجذري للخطة التشعيلية الديناميكية الذكية" />
     <MESSAGE value="ديجانجو 037 &#10;حل مشكلة القائمة المنسدلة لمواقع الادلة" />
@@ -643,7 +642,8 @@
     <MESSAGE value="ديجانجو 057 &#10;فصل المراجعة الذاتية عن لجنة متابعة الخطة التشغيلية في كل شي" />
     <MESSAGE value="ديجانجو 058 &#10;فصل المراجعة الذاتية عن لجنة متابعة الخطة التشغيلية في كل شي" />
     <MESSAGE value="060" />
-    <option name="LAST_COMMIT_MESSAGE" value="060" />
+    <MESSAGE value="061 تفعيل الموقع اون لاين الان" />
+    <option name="LAST_COMMIT_MESSAGE" value="061 تفعيل الموقع اون لاين الان" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

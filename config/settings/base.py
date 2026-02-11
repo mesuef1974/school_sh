@@ -30,7 +30,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     
-    'diagnostics', # Our new clean app
     'coredata',
     'rest_framework',
     'django_htmx',
@@ -57,7 +56,7 @@ ROOT_URLCONF = 'config.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'coredata' / 'templates'], # Pointing to actual templates folder
+        'DIRS': [BASE_DIR / 'coredata' / 'templates'], 
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
