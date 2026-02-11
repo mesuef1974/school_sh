@@ -9,8 +9,6 @@
   <component name="ChangeListManager">
     <list default="true" id="8ef06134-cb9d-452f-a279-4c98570c3d51" name="Changes" comment="060">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/settings/prod.py" beforeDir="false" afterPath="$PROJECT_DIR$/config/settings/prod.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/coredata/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/coredata/admin.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -208,7 +206,7 @@
       <workItem from="1770707944501" duration="201000" />
       <workItem from="1770747324956" duration="444000" />
       <workItem from="1770747790466" duration="3123000" />
-      <workItem from="1770812266734" duration="20484000" />
+      <workItem from="1770812266734" duration="21624000" />
     </task>
     <task id="LOCAL؜-٠٠٠٢٢" summary="025 البدء - خطة المدرسة التشغيلية 2026&#10; ارابيسك&#10; المطور: سفيان مسيف">
       <option name="closed" value="true" />
