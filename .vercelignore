@@ -16,3 +16,17 @@ htmlcov
 .tox
 .DS_Store
 Thumbs.db
+# Large directories not needed for production
+الارشيف
+backups
+DATA_old_system
+project_memory
+memory
+docs
+docker
+tests
+tasks
+scripts
+health_check_storage_test
+.ruff_cache
+.github
