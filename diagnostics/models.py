@@ -1,6 +1,31 @@
 
 from django.db import models
 from django.contrib.auth.models import Group
+from django.conf import settings
+import hashlib
+import base64
+from cryptography.fernet import Fernet
+
+# --- LAZY KEY LOADING ---
+def get_fernet():
+    key = hashlib.sha256(settings.SECRET_KEY.encode()).digest()
+    return Fernet(base64.urlsafe_b64encode(key))
+
+class EncryptedCharField(models.TextField):
+    def from_db_value(self, value, expression, connection):
+        if value is None: return value
+        try:
+            return get_fernet().decrypt(value.encode()).decode()
+        except Exception:
+            return value
+
+    def to_python(self, value):
+        if value is None or isinstance(value, str): return value
+        return get_fernet().decrypt(value.encode()).decode()
+
+    def get_prep_value(self, value):
+        if value is None: return value
+        return get_fernet().encrypt(str(value).encode()).decode()
 
 class AcademicYear(models.Model):
     name = models.CharField("السنة الدراسية", max_length=20, unique=True)
@@ -26,3 +51,21 @@ class JobTitle(models.Model):
     class Meta:
         verbose_name = "مسمى وظيفي"
         verbose_name_plural = "المسميات الوظيفية"
+
+class Staff(models.Model):
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, blank=True, related_name="staff_profile")
+    job_title = models.ForeignKey(JobTitle, on_delete=models.SET_NULL, null=True, blank=True, related_name="staff_members")
+    name = models.CharField("الاسم", max_length=255, db_index=True)
+    code = models.CharField("كود الموظف الهيكلي", max_length=50, blank=True, null=True, unique=True, db_index=True)
+    nationality = models.CharField("الجنسية", max_length=10, choices=[('QA', 'قطري'), ('EXP', 'مقيم')], default='EXP', db_index=True)
+    job_number = models.CharField("الرقم الوظيفي", max_length=50, blank=True, null=True, unique=True, db_index=True)
+    email = models.EmailField("البريد الإلكتروني", max_length=254, blank=True, null=True, unique=True, db_index=True)
+    national_no = EncryptedCharField("الرقم الوطني", blank=True, null=True, unique=True)
+    phone_no = EncryptedCharField("رقم الجوال", blank=True, null=True)
+    account_no = EncryptedCharField("رقم الحساب", blank=True, null=True)
+    created_at = models.DateTimeField("تاريخ الإنشاء", auto_now_add=True, null=True)
+    updated_at = models.DateTimeField("آخر تحديث", auto_now=True, null=True)
+    def __str__(self): return self.name
+    class Meta:
+        verbose_name = "موظف"
+        verbose_name_plural = "الموظفون"
