@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>دليل التطوير والإضافة - النسخة المؤسسية</title>
+
+    <!-- Material Icons Filled -->
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:FILL@1" />
+
+    <!-- Corporate Clean Style -->
+    <style>
+        body {
+            font-family: "Cairo", sans-serif;
+            background: #F5F6F7;
+            color: #2E2E2E;
+            margin: 0;
+            padding: 0;
+            line-height: 1.8;
+        }
+
+        .container {
+            max-width: 980px;
+            margin: auto;
+            background: white;
+            padding: 40px;
+            border-radius: 16px;
+            margin-top: 40px;
+            margin-bottom: 40px;
+            box-shadow: 0 8px 28px rgba(0,0,0,0.08);
+        }
+
+        h1, h2, h3 {
+            font-weight: 700;
+        }
+
+        h1 {
+            color: #7B2E2F; /* ماروني هادئ */
+            font-size: 32px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        h2 {
+            color: #2E2E2E;
+            border-right: 6px solid #A7C7E7;
+            padding-right: 12px;
+            margin-top: 36px;
+        }
+
+        h3 {
+            color: #7B2E2F;
+            margin-top: 22px;
+        }
+
+        .icon {
+            font-family: 'Material Symbols Rounded';
+            vertical-align: middle;
+            margin-left: 6px;
+            font-size: 26px;
+        }
+
+        .section-box {
+            background: #FAFAFA;
+            border-right: 4px solid #A9D6B3;
+            padding: 18px 22px;
+            border-radius: 12px;
+            margin-top: 18px;
+        }
+
+        ul {
+            padding-right: 22px;
+            margin: 0;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 50px;
+            color: #777;
+            font-size: 14px;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <h1>🧠✨ دليل التطوير والإضافة — النسخة المؤسسية الهادئة</h1>
+
+    <div class="section-box">
+        <p>نسخة مُحسّنة ✨ — ألوان Soft Pastel — أيقونات Material Filled — جاهزة للاستخدام.</p>
+    </div>
+
+    <!-- 1 -->
+    <h2><span class="icon">settings</span> 1. المبادئ الأساسية للعمل الاحترافي</h2>
+
+    <h3>🧩 فصل البيئات</h3>
+    <ul>
+        <li>Development</li>
+        <li>Staging</li>
+        <li>Production</li>
+    </ul>
+
+    <h3>⛔ ممنوع:</h3>
+    <ul>
+        <li>اختبار ميزات جديدة على الإنتاج</li>
+        <li>تشغيل DEBUG=True على Production</li>
+        <li>استخدام قاعدة بيانات الإنتاج محليًا</li>
+    </ul>
+
+    <!-- 2 -->
+    <h2><span class="icon">tune</span> 2. إدارة الإعدادات Configuration</h2>
+
+    <h3>🔑 المتغيرات السرية</h3>
+    <ul>
+        <li>جميع القيم عبر Environment Variables</li>
+        <li>يمنع تخزين كلمات المرور داخل الكود</li>
+    </ul>
+
+    <h3>🏗️ الهيكلة</h3>
+    <pre><code>
+settings/
+  base.py
+  dev.py
+  prod.py
+    </code></pre>
+
+    <!-- 3 -->
+    <h2><span class="icon">database</span> 3. إدارة قاعدة البيانات PostgreSQL</h2>
+
+    <h3>🔁 الاستمرارية</h3>
+    <ul>
+        <li>استخدام Docker Volumes</li>
+        <li>منع حذف البيانات بدون قصد</li>
+    </ul>
+
+    <h3>💾 النسخ الاحتياطي 3-2-1</h3>
+    <ul>
+        <li>3 نسخ</li>
+        <li>2 مواقع</li>
+        <li>1 خارجية</li>
+    </ul>
+
+    <!-- 4 -->
+    <h2><span class="icon">terminal</span> 4. إدارة Docker</h2>
+
+    <h3>🧱 Dockerfile إنتاجي</h3>
+    <ul>
+        <li>استخدام Python Slim</li>
+        <li>تشغيل Gunicorn</li>
+        <li>تقليل الطبقات</li>
+    </ul>
+
+    <!-- 5 -->
+    <h2><span class="icon">bolt</span> 5. تطوير الميزات Feature Workflow</h2>
+
+    <h3>🔀 Git Flow</h3>
+    <ul>
+        <li>feature/&lt;name&gt;</li>
+        <li>develop</li>
+        <li>main</li>
+    </ul>
+
+    <!-- 6 -->
+    <h2><span class="icon">check_circle</span> 6. الاختبارات Testing</h2>
+
+    <ul>
+        <li>Unit Tests</li>
+        <li>Integration Tests</li>
+        <li>تغطية 70%+</li>
+    </ul>
+
+    <!-- 7 -->
+    <h2><span class="icon">cloud_upload</span> 7. النشر Deployment</h2>
+
+    <ul>
+        <li>Build</li>
+        <li>Migrate</li>
+        <li>Restart</li>
+        <li>Health Check</li>
+    </ul>
+
+    <!-- 8 -->
+    <h2><span class="icon">folder</span> 8. إدارة الملفات</h2>
+
+    <ul>
+        <li>WhiteNoise أو CDN</li>
+        <li>Object Storage للملفات</li>
+    </ul>
+
+    <!-- 9 -->
+    <h2><span class="icon">security</span> 9. الأمن Security</h2>
+
+    <ul>
+        <li>DEBUG=False</li>
+        <li>HTTPS</li>
+        <li>حماية Admin</li>
+        <li>مراقبة النشاط</li>
+    </ul>
+
+    <!-- 10 -->
+    <h2><span class="icon">monitor_heart</span> 10. المراقبة Monitoring</h2>
+
+    <ul>
+        <li>Sentry</li>
+        <li>CPU/RAM Monitoring</li>
+        <li>تنبيه عند الأعطال</li>
+    </ul>
+
+    <!-- 11 -->
+    <h2><span class="icon">warning</span> 11. خطة الطوارئ</h2>
+
+    <ul>
+        <li>Rollback</li>
+        <li>Restart تلقائي</li>
+        <li>استعادة نسخة سليمة</li>
+    </ul>
+
+    <!-- 12 -->
+    <h2><span class="icon">shield</span> 12. منع فقدان البيانات</h2>
+
+    <ul>
+        <li>منع down -v</li>
+        <li>نسخ احتياطي قبل أي تحديث</li>
+    </ul>
+
+    <!-- 13 -->
+    <h2><span class="icon">speed</span> 13. تحسين الأداء</h2>
+
+    <ul>
+        <li>Redis Cache</li>
+        <li>select_related</li>
+        <li>Connection Pooling</li>
+    </ul>
+
+    <!-- 14 -->
+    <h2><span class="icon">library_books</span> 14. التوثيق</h2>
+
+    <ul>
+        <li>README احترافي</li>
+        <li>خطة نسخ احتياطي</li>
+        <li>معمارية النظام</li>
+    </ul>
+
+    <!-- 15 -->
+    <h2><span class="icon">school</span> 15. حماية بيانات الطلاب</h2>
+
+    <ul>
+        <li>Least Privilege</li>
+        <li>عزل قاعدة البيانات</li>
+        <li>نسخ احتياطي يومي</li>
+    </ul>
+
+    <div class="footer">
+        نسخة HTML بتصميم مؤسسي — أستاذ سفيان ✨
+    </div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,18 @@
+services:
+  - type: web
+    name: school-sh
+    env: python
+    plan: free # Or your preferred plan
+    buildCommand: "./build.sh"
+    startCommand: "gunicorn config.wsgi:application"
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: school-sh-db # This should match the name of your Render PostgreSQL database
+          property: connectionString
+      - key: SECRET_KEY
+        generateValue: true # Render will generate a random secret key
+      - key: WEB_CONCURRENCY
+        value: 4
+      - key: DJANGO_SETTINGS_MODULE
+        value: config.settings.prod
