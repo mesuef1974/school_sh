@@ -7,14 +7,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8ef06134-cb9d-452f-a279-4c98570c3d51" name="Changes" comment="062 تفعيل الموقع اون لاين الان">
+    <list default="true" id="8ef06134-cb9d-452f-a279-4c98570c3d51" name="Changes" comment="060">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/settings/base.py" beforeDir="false" afterPath="$PROJECT_DIR$/config/settings/base.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/settings/dev.py" beforeDir="false" afterPath="$PROJECT_DIR$/config/settings/dev.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/settings/prod.py" beforeDir="false" afterPath="$PROJECT_DIR$/config/settings/prod.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/coredata/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/coredata/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/coredata/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/coredata/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/diagnostics/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/diagnostics/models.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,7 +16,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="EmbeddingIndexingInfo">
-    <option name="cachedIndexableFilesCount" value="459" />
+    <option name="cachedIndexableFilesCount" value="432" />
     <option name="fileBasedEmbeddingIndicesEnabled" value="true" />
   </component>
   <component name="FileTemplateManagerImpl">
@@ -47,18 +41,18 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="RESET_MODE" value="HARD" />
   </component>
-  <component name="GitHubPullRequestSearchHistory">{
-  &quot;lastFilter&quot;: {
-    &quot;state&quot;: &quot;OPEN&quot;,
-    &quot;assignee&quot;: &quot;mesuef1974&quot;
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "mesuef1974"
   }
-}</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/mesuef1974/school_sh.git&quot;,
-    &quot;accountId&quot;: &quot;78df67f3-b79f-4ed8-aa18-445035d25a9d&quot;
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/mesuef1974/school_sh.git",
+    "accountId": "78df67f3-b79f-4ed8-aa18-445035d25a9d"
   }
-}</component>
+}]]></component>
   <component name="KubernetesApiPersistence">{}</component>
   <component name="KubernetesApiProvider">{
   &quot;configuredContexts&quot;: [
@@ -88,60 +82,60 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;Batch.prime_ai.executor&quot;: &quot;Run&quot;,
-    &quot;JavaScript Debug.00_INDEX.html.executor&quot;: &quot;Run&quot;,
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;Node.js.markdown_to_rtl_html.js.executor&quot;: &quot;Run&quot;,
-    &quot;Python.0010_operationalplanitems_digital_seal_and_more.executor&quot;: &quot;Run&quot;,
-    &quot;Python.0011_delete_accessrawabsence_delete_accessrawbus_and_more.executor&quot;: &quot;Run&quot;,
-    &quot;Python.check_users_status.executor&quot;: &quot;Run&quot;,
-    &quot;Python.consolidate_groups.executor&quot;: &quot;Run&quot;,
-    &quot;Python.create_staff_users.executor&quot;: &quot;Run&quot;,
-    &quot;Python.create_superuser_force.executor&quot;: &quot;Run&quot;,
-    &quot;Python.debug_permissions.executor&quot;: &quot;Run&quot;,
-    &quot;Python.dump_file_positions.executor&quot;: &quot;Run&quot;,
-    &quot;Python.dump_staff_data.executor&quot;: &quot;Run&quot;,
-    &quot;Python.fix_database_schema.executor&quot;: &quot;Run&quot;,
-    &quot;Python.fix_user_link.executor&quot;: &quot;Run&quot;,
-    &quot;Python.import_operational_plan.executor&quot;: &quot;Run&quot;,
-    &quot;Python.populate_evidence.executor&quot;: &quot;Run&quot;,
-    &quot;Python.refresh_context.executor&quot;: &quot;Run&quot;,
-    &quot;Python.reset_and_create_users.executor&quot;: &quot;Run&quot;,
-    &quot;Python.reset_students_table.executor&quot;: &quot;Run&quot;,
-    &quot;Python.restore_superuser.executor&quot;: &quot;Run&quot;,
-    &quot;Python.setup_permissions.executor&quot;: &quot;Run&quot;,
-    &quot;Python.setup_roles_and_permissions.executor&quot;: &quot;Run&quot;,
-    &quot;Python.update_usernames.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.MCP Project settings loaded&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1&quot;: &quot;true&quot;,
-    &quot;database.data.extractors.current.export.id&quot;: &quot;Comma-separated (CSV)_id&quot;,
-    &quot;database.data.extractors.current.id&quot;: &quot;Comma-separated (CSV)_id&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/SULTAN_HAGRY/coredata/static&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
-    &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Batch.prime_ai.executor": "Run",
+    "JavaScript Debug.00_INDEX.html.executor": "Run",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "Node.js.markdown_to_rtl_html.js.executor": "Run",
+    "Python.0010_operationalplanitems_digital_seal_and_more.executor": "Run",
+    "Python.0011_delete_accessrawabsence_delete_accessrawbus_and_more.executor": "Run",
+    "Python.check_users_status.executor": "Run",
+    "Python.consolidate_groups.executor": "Run",
+    "Python.create_staff_users.executor": "Run",
+    "Python.create_superuser_force.executor": "Run",
+    "Python.debug_permissions.executor": "Run",
+    "Python.dump_file_positions.executor": "Run",
+    "Python.dump_staff_data.executor": "Run",
+    "Python.fix_database_schema.executor": "Run",
+    "Python.fix_user_link.executor": "Run",
+    "Python.import_operational_plan.executor": "Run",
+    "Python.populate_evidence.executor": "Run",
+    "Python.refresh_context.executor": "Run",
+    "Python.reset_and_create_users.executor": "Run",
+    "Python.reset_students_table.executor": "Run",
+    "Python.restore_superuser.executor": "Run",
+    "Python.setup_permissions.executor": "Run",
+    "Python.setup_roles_and_permissions.executor": "Run",
+    "Python.update_usernames.executor": "Run",
+    "RunOnceActivity.MCP Project settings loaded": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
+    "database.data.extractors.current.export.id": "Comma-separated (CSV)_id",
+    "database.data.extractors.current.id": "Comma-separated (CSV)_id",
+    "ignore.virus.scanning.warn.message": "true",
+    "junie.onboarding.icon.badge.shown": "true",
+    "last_opened_file_path": "D:/SULTAN_HAGRY/coredata/static",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "run.code.analysis.last.selected.profile": "pProject Default",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "to.speed.mode.migration.done": "true",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;DatabaseDriversLRU&quot;: [
-      &quot;postgresql&quot;
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "postgresql"
     ]
   }
-}</component>
+}]]></component>
   <component name="RecapSpentCounter">
     <option name="endsOfQuotaMs" value="1771259735523" />
     <option name="spentUsd" value="0.16726571" />
@@ -212,8 +206,23 @@
       <workItem from="1770707944501" duration="201000" />
       <workItem from="1770747324956" duration="444000" />
       <workItem from="1770747790466" duration="3123000" />
-      <workItem from="1770812266734" duration="30514000" />
-      <workItem from="1770874977755" duration="4466000" />
+      <workItem from="1770812266734" duration="21624000" />
+    </task>
+    <task id="LOCAL؜-٠٠٠٢٢" summary="025 البدء - خطة المدرسة التشغيلية 2026&#10; ارابيسك&#10; المطور: سفيان مسيف">
+      <option name="closed" value="true" />
+      <created>1769890345626</created>
+      <option name="number" value="٠٠٠٢٢" />
+      <option name="presentableId" value="LOCAL؜-٠٠٠٢٢" />
+      <option name="project" value="LOCAL؜" />
+      <updated>1769890345626</updated>
+    </task>
+    <task id="LOCAL؜-٠٠٠٢٣" summary="ديجانجو 002">
+      <option name="closed" value="true" />
+      <created>1769987615524</created>
+      <option name="number" value="٠٠٠٢٣" />
+      <option name="presentableId" value="LOCAL؜-٠٠٠٢٣" />
+      <option name="project" value="LOCAL؜" />
+      <updated>1769987615524</updated>
     </task>
     <task id="LOCAL؜-٠٠٠٢٤" summary="ديجانجو 003">
       <option name="closed" value="true" />
@@ -591,23 +600,7 @@
       <option name="project" value="LOCAL؜" />
       <updated>1770748464635</updated>
     </task>
-    <task id="LOCAL؜-٠٠٠٧١" summary="061 تفعيل الموقع اون لاين الان">
-      <option name="closed" value="true" />
-      <created>1770839616976</created>
-      <option name="number" value="٠٠٠٧١" />
-      <option name="presentableId" value="LOCAL؜-٠٠٠٧١" />
-      <option name="project" value="LOCAL؜" />
-      <updated>1770839616977</updated>
-    </task>
-    <task id="LOCAL؜-٠٠٠٧٢" summary="062 تفعيل الموقع اون لاين الان">
-      <option name="closed" value="true" />
-      <created>1770848936497</created>
-      <option name="number" value="٠٠٠٧٢" />
-      <option name="presentableId" value="LOCAL؜-٠٠٠٧٢" />
-      <option name="project" value="LOCAL؜" />
-      <updated>1770848936497</updated>
-    </task>
-    <option name="localTasksCounter" value="73" />
+    <option name="localTasksCounter" value="71" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -625,6 +618,8 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
+    <MESSAGE value="ديجانجو 033 &#10;التحول الجذري للخطة التشعيلية الديناميكية الذكية" />
+    <MESSAGE value="ديجانجو 034 &#10;التحول الجذري للخطة التشعيلية الديناميكية الذكية" />
     <MESSAGE value="ديجانجو 035 &#10;التحول الجذري للخطة التشعيلية الديناميكية الذكية" />
     <MESSAGE value="ديجانجو 037 &#10;حل مشكلة القائمة المنسدلة لمواقع الادلة" />
     <MESSAGE value="ديجانجو 038 &#10;حل مشكلة القائمة المنسدلة لمواقع الادلة" />
@@ -648,9 +643,7 @@
     <MESSAGE value="ديجانجو 057 &#10;فصل المراجعة الذاتية عن لجنة متابعة الخطة التشغيلية في كل شي" />
     <MESSAGE value="ديجانجو 058 &#10;فصل المراجعة الذاتية عن لجنة متابعة الخطة التشغيلية في كل شي" />
     <MESSAGE value="060" />
-    <MESSAGE value="061 تفعيل الموقع اون لاين الان" />
-    <MESSAGE value="062 تفعيل الموقع اون لاين الان" />
-    <option name="LAST_COMMIT_MESSAGE" value="062 تفعيل الموقع اون لاين الان" />
+    <option name="LAST_COMMIT_MESSAGE" value="060" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
