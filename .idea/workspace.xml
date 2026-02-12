@@ -9,7 +9,9 @@
   <component name="ChangeListManager">
     <list default="true" id="8ef06134-cb9d-452f-a279-4c98570c3d51" name="Changes" comment="060">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/نصائح_التطوير_والاضافة.md" beforeDir="false" afterPath="$PROJECT_DIR$/نصائح_التطوير_والاضافة.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/settings/base.py" beforeDir="false" afterPath="$PROJECT_DIR$/config/settings/base.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/config/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/diagnostics/views/plan_views.py" beforeDir="false" afterPath="$PROJECT_DIR$/diagnostics/views/plan_views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,8 +41,10 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="PUSH_AUTO_UPDATE" value="true" />
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="RESET_MODE" value="HARD" />
+    <option name="UPDATE_TYPE" value="REBASE" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
   &quot;lastFilter&quot;: {
@@ -209,14 +213,6 @@
       <workItem from="1770747790466" duration="3123000" />
       <workItem from="1770812266734" duration="21624000" />
       <workItem from="1770905316327" duration="915000" />
-    </task>
-    <task id="LOCAL؜-٠٠٠٢٢" summary="025 البدء - خطة المدرسة التشغيلية 2026&#10; ارابيسك&#10; المطور: سفيان مسيف">
-      <option name="closed" value="true" />
-      <created>1769890345626</created>
-      <option name="number" value="٠٠٠٢٢" />
-      <option name="presentableId" value="LOCAL؜-٠٠٠٢٢" />
-      <option name="project" value="LOCAL؜" />
-      <updated>1769890345626</updated>
     </task>
     <task id="LOCAL؜-٠٠٠٢٣" summary="ديجانجو 002">
       <option name="closed" value="true" />
@@ -602,7 +598,15 @@
       <option name="project" value="LOCAL؜" />
       <updated>1770748464635</updated>
     </task>
-    <option name="localTasksCounter" value="71" />
+    <task id="LOCAL؜-٠٠٠٧١" summary="70: Migrate old">
+      <option name="closed" value="true" />
+      <created>1770910330725</created>
+      <option name="number" value="٠٠٠٧١" />
+      <option name="presentableId" value="LOCAL؜-٠٠٠٧١" />
+      <option name="project" value="LOCAL؜" />
+      <updated>1770910330725</updated>
+    </task>
+    <option name="localTasksCounter" value="72" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -620,7 +624,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="ديجانجو 033 &#10;التحول الجذري للخطة التشعيلية الديناميكية الذكية" />
     <MESSAGE value="ديجانجو 034 &#10;التحول الجذري للخطة التشعيلية الديناميكية الذكية" />
     <MESSAGE value="ديجانجو 035 &#10;التحول الجذري للخطة التشعيلية الديناميكية الذكية" />
     <MESSAGE value="ديجانجو 037 &#10;حل مشكلة القائمة المنسدلة لمواقع الادلة" />
@@ -645,7 +648,8 @@
     <MESSAGE value="ديجانجو 057 &#10;فصل المراجعة الذاتية عن لجنة متابعة الخطة التشغيلية في كل شي" />
     <MESSAGE value="ديجانجو 058 &#10;فصل المراجعة الذاتية عن لجنة متابعة الخطة التشغيلية في كل شي" />
     <MESSAGE value="060" />
-    <option name="LAST_COMMIT_MESSAGE" value="060" />
+    <MESSAGE value="70: Migrate old" />
+    <option name="LAST_COMMIT_MESSAGE" value="70: Migrate old" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -659,9 +663,10 @@
     </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/SULTAN_HAGRY$prod.coverage" NAME="prod Coverage Results" MODIFIED="1770908325481" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/config/settings" />
     <SUITE FILE_PATH="coverage/SULTAN_HAGRY$0010_operationalplanitems_digital_seal_and_more.coverage" NAME="0010_operationalplanitems_digital_seal_and_more Coverage Results" MODIFIED="1770654927959" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/shaniya_django/coredata/migrations" />
-    <SUITE FILE_PATH="coverage/SULTAN_HAGRY$dump_file_positions.coverage" NAME="dump_file_positions Coverage Results" MODIFIED="1770360164813" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/shaniya_django" />
     <SUITE FILE_PATH="coverage/SULTAN_HAGRY$update_usernames.coverage" NAME="update_usernames Coverage Results" MODIFIED="1770301345506" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/shaniya_django" />
+    <SUITE FILE_PATH="coverage/SULTAN_HAGRY$dump_file_positions.coverage" NAME="dump_file_positions Coverage Results" MODIFIED="1770360164813" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/shaniya_django" />
     <SUITE FILE_PATH="coverage/SULTAN_HAGRY$refresh_context.coverage" NAME="refresh_context Coverage Results" MODIFIED="1770334249240" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/shaniya_django" />
     <SUITE FILE_PATH="coverage/SULTAN_HAGRY$debug_permissions.coverage" NAME="debug_permissions Coverage Results" MODIFIED="1770331857149" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/shaniya_django" />
     <SUITE FILE_PATH="coverage/SULTAN_HAGRY$fix_user_link.coverage" NAME="fix_user_link Coverage Results" MODIFIED="1770359822223" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/shaniya_django" />

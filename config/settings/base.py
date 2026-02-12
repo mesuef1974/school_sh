@@ -40,9 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     
-    'coredata',
+    # 'coredata', # Deactivated to avoid clashes with the new professional app 'diagnostics'
     'project_memory',
-    'simple_history',
     'diagnostics',
     'rest_framework',
     'django_htmx',

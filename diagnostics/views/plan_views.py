@@ -8,7 +8,7 @@ import json
 from django.contrib.auth.models import Group
 
 from ..models import OperationalPlanItems, Committee, Staff
-from coredata.forms import PlanItemExecutionForm, PlanItemEvaluationForm, EvidenceUploadForm
+from ..forms.plan_forms import PlanItemExecutionForm, PlanItemEvaluationForm, EvidenceUploadForm
 
 # The data loading block has been completely removed.
 
